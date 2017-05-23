@@ -88,8 +88,7 @@
 						<!--Nacimiento-->
 							<div class="input-field col s12">
 								<i class="material-icons prefix">today</i>
-								<input id="fechnac" name="fechnuevo" type="date" class="datepicker" max="2010-01-01"/>
-								<label for="nacimiento" data-error="*Completa correctamente este campo" data-succes="¡Bien!">Fecha de nacimiento</label>
+								<input id="fechnac" name="fechnuevo" type="date"/>
 							</div>
 						<!--Correo-->
 							<div class="input-field col s12">
@@ -104,12 +103,28 @@
 								<label for="cuenta" data-error="*Completa correctamente este campo" data-success="¡Bien!">Nombre de usuario</label>
 							</div>
 						<!--Contraseña-->
-						<div class="input-field col s12">
+							<div class="input-field col s12">
 								<i class="material-icons prefix">vpn_key</i>
 								<input id="contraseñanueva" name="contranueva" type="password" class="validate tooltipped"  required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$" data-position="bottom" data-delay="50" data-tooltip="Mínimo 8 caracteres."/>
 								<label for="contraseña" data-error="*Completa correctamente este campo: Minimo 8 caracteres. Maximo 15. Al menos una letra mayúscula. Al menos una letra minúscula. Al menos un dígito. No espacios en blanco. Al menos 1 caracter especial" data-success="¡Bien!">Contraseña</label>
 							</div>
-
+						<!--Avatar-->
+							<div class="input-field col s12">
+								<i class="material-icons prefix">recent_actors</i>
+								<select class="icons" name="imagen">
+									<option value="" disabled selected>Elige tu avatar</option>
+									<option value="EPN" data-icon="../Resources/Avatar/epn.jpg" class="left circle">EPN</option>
+									<option value="STL" data-icon="../Resources/Avatar/stallin.jpg" class="left circle">STALLIN</option>
+									<option value="TRD" data-icon="../Resources/Avatar/trudeau.jpg" class="left circle">TRUDEAU</option>
+									<option value="PTN" data-icon="../Resources/Avatar/putin.jpg" class="left circle">PUTIN</option>
+									<option value="TRP" data-icon="../Resources/Avatar/trump.jpg" class="left circle">TRUMP</option>
+									<option value="TSA" data-icon="../Resources/Avatar/theresa.jpg" class="left circle">THERESA</option>
+									<option value="HLY" data-icon="../Resources/Avatar/hillary.jpg" class="left circle">HILLARY</option>
+									<option value="HTL" data-icon="../Resources/Avatar/hitler.jpg" class="left circle">HITLER</option>
+								</select>
+								<label>Avatar</label>
+							</div>
+							
 						<div class="modal-footer">
 							<input id="entrar" type="submit" class="waves-effect waves-purple btn-flat" value="Enviar"/>
 						</div>
