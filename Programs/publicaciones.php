@@ -1,10 +1,10 @@
 <?php
-	$hr= $_POST['hr'];
-	$tex=$_POST['tex']; 
 	$conn=mysqli_connect("localhost","root","","final");
+	$tex=mysql_real_escape_string($conn,$_POST['tex']);
+	
 		if($conn)
 		{
-			$query='insert into publicaciones(id_usuario,texto_publicacion,tiempo_publicacion) values("prueba","'.$tex.'","'.hr.'")';		
+			$query=mysqli_query($conn,'INSERT INTO publicaciones(id_usuario,texto_publicacion) VALUES("prueba","'.$tex.'");');		
 		}
-	echo 0;
+	echo $tex."hola";
 ?>
