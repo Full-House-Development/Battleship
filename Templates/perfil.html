@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+   <html>
+     <head>
+       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <link type="text/css" rel="stylesheet" href="../Documents/css/materialize.min.css"  media="screen,projection"/>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
+       <style>
+       #pub
+       {
+         position:relative;
+         top:40px;
+         
+       }
+       #foot
+       {
+         position:relative;
+         top:100px;
+       }
+       span p
+       {
+         position:absolute;
+         left:350px;
+         font-size:15px;
+         display:inline;
+       }
+      /*#pob
+      {
+        height:900px;
+      }*/
+       </style>
+     </head>
+     <body>
+     <nav>
+         <div class="nav-wrapper #e65100 orange darken-4">
+           <a href="#" class="brand-logo center">Battle Ship</a>
+           <ul id="nav-mobile" class="left hide-on-med-and-down"></ul>
+         </div>
+     </nav>
+     <div id="todo">
+       <!-- <ul class="collapsible" data-collapsible="accordion" >
+    <li>
+      <div onclick="collapsible()" class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+  </ul> -->
+      <div class="row">
+        <div class="col s12 l10 offset-l1">
+          <div class="card blue darken-1">
+            <div class="card-content white-text">
+              <div class="row">
+                <div class="col offset-l5">
+                  <img class="circle responsive-img" src="../Resources/Images/73.jpg">
+                </div>
+              </div>
+              <!-- <span class="card-title">Card Title</span>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p><i class="medium material-icons">today</i>
+                  <i class="medium material-icons">email</i> -->
+            </div>
+            <div class="card-action ">
+              <div class="row">
+                <div class="col offset-l2">
+                  <i class="medium material-icons">contacts</i>
+                </div>
+                <div class="col offset-l2">
+                  <i class="medium material-icons">today</i>
+                </div>
+                <div class="col offset-l2">
+                  <i class="medium material-icons">email</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'>
+          <div class='col s12 l6 offset-l3 ' id='pub'>
+              <div class='card orange darken-1 z-depth-5'>
+                  <div class='card-content white-text'>
+                    <span class='card-title'>Usuario<p>4/5/2016 4:52</p></span>
+                    <p>Esta es la publicacion que yo hice a traves de la pagina por que me gusta publicar muchas cosas todos los dias y a cualquier hora</p>
+                  </div>
+                  <ul class='collapsible' data-collapsible='accordion' >
+    <li>
+      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>textsms</i>Comentarios</div>
+      <div class='collapsible-body'><span>Eso esta muy chido man<p>4/5/2016 5:34</p></span></div>
+      </li>
+  </ul>
+                <div class='row'>
+      <form method='POST' action='adentro2.php'>
+        <div class='row'>
+          <div class='input-field col s6'>
+            <input id='input_text' type='text' data-length='30'>
+            <label for='input_text'>Comentar</label>
+          </div>
+        </div>
+      </form>
+        </div>
+            </div>
+        </div>
+      </div>
+      
+</div>
+     	<footer class="page-footer #e65100 orange darken-4" id="foot">
+       <div class="container">
+         <div class="row">
+           <div class="col l6 s12">
+             <h5 class="white-text">Just To Friends®</h5>
+           </div>
+         </div>
+       </div>
+       <div class="footer-copyright #bf360c deep-orange darken-4">
+         <div class="container">
+           © 2017 Copyright Text
+         </div>
+       </div>
+     </footer>
+     <script>
+           var aj="id";
+             $.ajax(
+               {
+                   url:"publi4.php",
+                   type:"POST",
+                   data:
+                   {
+                     usu:aj
+                   },
+                   success:function(dato)
+                   {
+                     $("#todo").append(dato);
+                   }
+               });
+           var com=$("#resol").attr();
+           alert(com);
+             function collapsible()
+             {
+                 $(".collapsible").collapsible();
+             }
+            // $("#com").after("com");
+            // $.ajax(
+            //   {
+            //       url:"publi.php",
+            //       // data:
+            //       // {
+            //       //   mivari:x
+            //       // },
+            //       success:function(dato)
+            //       {
+            //         $("#conpub").html(dato);
+            //       }
+            //   });
+       // var idusuj;
+        // $.ajax(
+        // {
+        //   url:"publi.php",
+        //   // data:
+        //   // {
+        //   //     idusu:idusuj
+        //   // },
+        //   sucess:function(dato)
+        //   {
+        //     $("#conpub").html(dato);
+        //   }
+
+        // });
+     </script>
+     </body>
+   </html> 
