@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `apoyo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `apoyo` (
   `id_apoyo` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` varchar(20) DEFAULT NULL,
+  `id_usuario` varchar(15) DEFAULT NULL,
   `texto_apoyo` varchar(1000) DEFAULT NULL,
   `respuesta_apoyo` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_apoyo`)
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS `comentario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comentario` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` varchar(20) DEFAULT NULL,
+  `id_usuario` varchar(15) DEFAULT NULL,
   `id_publicacion` int(11) DEFAULT NULL,
   `tiempo_comentario` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texto_comentario` varchar(1000) DEFAULT NULL,
@@ -75,8 +75,8 @@ DROP TABLE IF EXISTS `juego_terminado`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `juego_terminado` (
   `id_juego` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario_ganador` varchar(20) DEFAULT NULL,
-  `id_usuario_perdedor` varchar(20) DEFAULT NULL,
+  `id_usuario_ganador` varchar(15) DEFAULT NULL,
+  `id_usuario_perdedor` varchar(15) DEFAULT NULL,
   `puntos_ganador` int(11) DEFAULT NULL,
   `puntos_perdedor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_juego`)
@@ -127,11 +127,11 @@ DROP TABLE IF EXISTS `publicaciones`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `publicaciones` (
   `id_publicaciones` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` varchar(20) DEFAULT NULL,
+  `id_usuario` varchar(15) DEFAULT NULL,
   `texto_publicacion` varchar(1000) DEFAULT NULL,
   `tiempo_publicacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reaccion` varchar(16) DEFAULT NULL,
-  `perfil` varchar(20) DEFAULT NULL,
+  `perfil` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id_publicaciones`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -179,13 +179,14 @@ DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
-  `id_usuario` varchar(20) NOT NULL,
+  `id_usuario` varchar(15) NOT NULL,
   `foto` varchar(10) DEFAULT NULL,
-  `hash_usuario` varchar(256) DEFAULT NULL,
+  `password` varchar(256) DEFAULT NULL,
   `nacimiento_usuario` date DEFAULT NULL,
   `correo_usuario` varchar(100) DEFAULT NULL,
   `nombre_usuario` varchar(100) DEFAULT NULL,
   `apellido_usuario` varchar(100) DEFAULT NULL,
+  `oregano` varchar(34) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -196,7 +197,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('davidalencia','73.jpg','esto no es un hash','1999-05-20','davidalencia@gmail.com','david','valencia');
+INSERT INTO `usuario` VALUES ('davidalencia','73.jpg','esto no es un hash','1999-05-20','davidalencia@gmail.com','david','valencia', "oregano");
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
