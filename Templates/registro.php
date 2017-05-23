@@ -1,12 +1,11 @@
 <?php
-
 	if(isset($_POST["cuentanueva"]) && isset($_POST["contranueva"])&& isset($_POST["nomnuevo"]) && isset($_POST["apellidonuevo"]) && isset($_POST["fechnuevo"]) && isset($_POST["correo"]))
 	{
 		//Conexión a la base de datos
 		$conexion = mysqli_connect("localhost","root","","final");
-		if (mysqli_connect_errno($conexion)) {
+		if (mysqli_connect_errno($conexion))
 			echo "Fallo al conectar a MySQL: " . mysqli_connect_error();
-		}
+
 		// En caso que la conexion sea exitosa, se mete al programa
 		else{
 			$cuenta = mysqli_real_escape_string ($conexion, $_POST["cuentanueva"]);
