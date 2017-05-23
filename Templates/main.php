@@ -1,11 +1,11 @@
 <?php
-/*En este php, se accede a los datos de la base de datos, se comprueba el usuario, asi como la contraseña y redirecciona segun el caso a los diferentes mensajes 
+	/*En este php, se accede a los datos de la base de datos, se comprueba el usuario, asi como la contraseña y redirecciona segun el caso a los diferentes mensajes 
 	de error*/	
 	if (isset($_POST["cuenta"]) && isset($_POST["contra"])){
 		//Conexión a la base de datos
 				
 		
-		$conexion = mysqli_connect("localhost", "root", "", "usuarios");
+		$conexion = mysqli_connect("localhost", "root", "aaronshark22", "usuarios");
 		if (mysqli_connect_errno($conexion)) {
 			echo "Fallo al conectar a MySQL: " . mysqli_connect_error();
 		}
