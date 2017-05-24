@@ -15,21 +15,67 @@
 
       </table>
     <script type="text/javascript">
+    var puntaje=100;
+    var barcos=0;
     function dispara(donde,  x, y) {
       var id='#'+donde+y+x;
       if (donde =='m'){ //mio
-        $(id).empty();
-         $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+        alert("no puedes dispararte a ti mismo");
       }
       else if (donde=='s'){//su
          id='#'+donde+x+y;
         $(id).empty();
          $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
       }
-      els
       return 0;
     }
-    for (var alfa = 0; alfa < 10; alfa++) {
+    //esta funcion de acomoda aun no sirve,  si pone los circulos verdes pero aun no checa que esten juntos
+    function acomoda(donde, x, y){
+       var id='#'+donde+y+x;
+      if (donde =='m'){ //mio
+        if(barcos==0){
+          $(id).empty();
+          $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+          barcos+=1;
+        }
+        else{
+          if($("#"+donde+(y-1)+x).html().indexOf("barco.svg")!=0){
+             $(id).empty();
+            $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+            barcos+=1;
+          }
+          else{
+            if($("#"+donde+(y+1)+x).html().indexOf("barco.svg")!=0){
+             $(id).empty();
+            $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+            barcos+=1;
+            }
+            else{
+              if($("#"+donde+y+(x+1)).html().indexOf("barco.svg")!=0){
+                 $(id).empty();
+                $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+                barcos+=1;
+              }
+              else{
+                if($("#"+donde+y+(x-1)).html().indexOf("barco.svg")!=0){
+                   $(id).empty();
+                  $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+                  barcos+=1;
+                }
+              }
+            }
+          }
+        } 
+      }
+      else if (donde=='s'){//su
+        alert("Antes de tirar tienes que acomodar tus barcos");
+      }
+      return 0;
+    }
+    for (var alfa = 0; alfa < 10; alfa++){
+        if(alfa==0){
+          alert("acomoda tus barcos");
+        }
         renglon =$('<tr></tr>');
         renglon.attr('id', 'm'+alfa);
         $('#miMesa').append(renglon);
@@ -44,7 +90,11 @@
             $('#m'+alfa).append(columna);
             $('#m'+alfa+beta).on('click', function(e){
               id=this.id;
-              dispara(id[0],id[2],id[1] );
+              if(barcos!=17){
+                 acomoda(id[0],id[2],id[1]);
+              }
+              else
+                dispara(id[0],id[2],id[1]);
             });
             columna =$('<td></td>');
             columna.append($('<img srcset="../../Resources/Images/normal.svg"/>'));
