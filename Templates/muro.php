@@ -1,6 +1,8 @@
 <?php
+	//Inicio de sesión
 	SESSION_start();
-
+	
+	//Inicio del maquetado
 		  echo "<!DOCTYPE html>
 				<html>
 					<head>
