@@ -5,7 +5,7 @@
 		//Conexión a la base de datos
 				
 		
-		$conexion = mysqli_connect("localhost", "root", "aaronshark22", "usuarios");
+		$conexion = mysqli_connect("localhost", "root", "", "final");
 		if (mysqli_connect_errno($conexion)) {
 			echo "Fallo al conectar a MySQL: " . mysqli_connect_error();
 		}
