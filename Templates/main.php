@@ -25,15 +25,18 @@
 					echo "alert('¿Primera vez en la página? ¡Registrate!');";  
 					echo "window.location = 'main.html';";
 					echo "</script>";
-			//EL usuario es válido:
+			//El usuario es válido:
 			}
 			else {
 					if ($usuario === hash('sha512', $oregano.$contra))
 					{
 						SESSION_start();
 						$_SESSION["nombre"]=$consulta["nombre_usuario"];
+						$_SESSION["apellido"]=$consulta["apellido_usuario"];
 						$_SESSION["id"]=$consulta["id_usuario"];
-						$_SESSION["nacimiento"]=$
+						$_SESSION["nacimiento"]=$consulta["nacimiento_usuario"];
+						$_SESSION["correo"]=$consulta["correo_usuario"];
+						$_SESSION["foto"]=$consulta["foto"];
 						echo "<script>";
 						echo "alert('Bienvenido De Nuevo!');";  
 						echo "window.location = 'muro.php';";
@@ -41,7 +44,7 @@
 					}
 					echo "<script>";
 					echo "alert('Tu contraseña es incorrecta');";  
-					echo "window.location = 'main.html';";
+					echo "window.location = 'index.html';";
 					echo "</script>";  
 				}
 		}
