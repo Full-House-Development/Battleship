@@ -16,60 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Publicaciones`
---
-
-DROP TABLE IF EXISTS `Publicaciones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Publicaciones` (
-  `id_publicaciones` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) DEFAULT NULL,
-  `texto_publicacion` varchar(1000) DEFAULT NULL,
-  `tiempo_publicacion` datetime DEFAULT NULL,
-  `reaccion` varchar(16) DEFAULT NULL,
-  `perfil` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_publicaciones`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Publicaciones`
---
-
-LOCK TABLES `Publicaciones` WRITE;
-/*!40000 ALTER TABLE `Publicaciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Publicaciones` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Usuario`
---
-
-DROP TABLE IF EXISTS `Usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Usuario` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `hash_usuario` varchar(256) DEFAULT NULL,
-  `nacimiento_usuario` datetime DEFAULT NULL,
-  `correo_usuario` varchar(100) DEFAULT NULL,
-  `nombre_usuario` varchar(100) DEFAULT NULL,
-  `apellido_usuario` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Usuario`
---
-
-LOCK TABLES `Usuario` WRITE;
-/*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `apoyo`
 --
 
@@ -78,11 +24,11 @@ DROP TABLE IF EXISTS `apoyo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `apoyo` (
   `id_apoyo` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) DEFAULT NULL,
+  `id_usuario` varchar(15) DEFAULT NULL,
   `texto_apoyo` varchar(1000) DEFAULT NULL,
   `respuesta_apoyo` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_apoyo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,12 +49,12 @@ DROP TABLE IF EXISTS `comentario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comentario` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) DEFAULT NULL,
+  `id_usuario` varchar(15) DEFAULT NULL,
   `id_publicacion` int(11) DEFAULT NULL,
-  `tiempo_comentario` datetime DEFAULT NULL,
+  `tiempo_comentario` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texto_comentario` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_comentario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,12 +75,12 @@ DROP TABLE IF EXISTS `juego_terminado`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `juego_terminado` (
   `id_juego` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario_ganador` int(11) DEFAULT NULL,
-  `id_usuario_perdedor` int(11) DEFAULT NULL,
+  `id_usuario_ganador` varchar(15) DEFAULT NULL,
+  `id_usuario_perdedor` varchar(15) DEFAULT NULL,
   `puntos_ganador` int(11) DEFAULT NULL,
   `puntos_perdedor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_juego`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +106,7 @@ CREATE TABLE `partida_en_curso` (
   `id_usuario_retador` int(11) DEFAULT NULL,
   `id_usuario_retado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_juego`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,6 +116,34 @@ CREATE TABLE `partida_en_curso` (
 LOCK TABLES `partida_en_curso` WRITE;
 /*!40000 ALTER TABLE `partida_en_curso` DISABLE KEYS */;
 /*!40000 ALTER TABLE `partida_en_curso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `publicaciones`
+--
+
+DROP TABLE IF EXISTS `publicaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `publicaciones` (
+  `id_publicaciones` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` varchar(15) DEFAULT NULL,
+  `texto_publicacion` varchar(1000) DEFAULT NULL,
+  `tiempo_publicacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reaccion` varchar(16) DEFAULT NULL,
+  `perfil` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`id_publicaciones`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `publicaciones`
+--
+
+LOCK TABLES `publicaciones` WRITE;
+/*!40000 ALTER TABLE `publicaciones` DISABLE KEYS */;
+INSERT INTO `publicaciones` VALUES (1,'davidalencia','esto es una publicacion? de ejémplo, con una coma+ enmedió y un punto . en otro punto','2017-05-23 10:53:27','3,0','davidalencia');
+/*!40000 ALTER TABLE `publicaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -185,7 +159,7 @@ CREATE TABLE `reportar` (
   `id_tipo` int(11) DEFAULT NULL,
   `respuesta` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id_reporte`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,6 +169,36 @@ CREATE TABLE `reportar` (
 LOCK TABLES `reportar` WRITE;
 /*!40000 ALTER TABLE `reportar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reportar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `id_usuario` varchar(15) NOT NULL,
+  `foto` varchar(10) DEFAULT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `nacimiento_usuario` date DEFAULT NULL,
+  `correo_usuario` varchar(100) DEFAULT NULL,
+  `nombre_usuario` varchar(100) DEFAULT NULL,
+  `apellido_usuario` varchar(100) DEFAULT NULL,
+  `oregano` varchar(34) DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES ('davidalencia','73.jpg','esto no es un hash','1999-05-20','davidalencia@gmail.com','david','valencia', "oregano");
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -206,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-22 15:16:51
+-- Dump completed on 2017-05-23 11:09:01

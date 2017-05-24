@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-   <html>
+   <html lang="es">
      <head>
+      <meta http-equiv="Content-type" content="text/html"; charset="UTF-8">
        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
        <link type="text/css" rel="stylesheet" href="../Documents/css/materialize.min.css"  media="screen,projection"/>
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -8,29 +9,42 @@
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
        <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
        <style>
-       #pub
-       {
-         position:relative;
-         top:40px;
-         
-       }
-       #foot
-       {
-         position:relative;
-         top:100px;
-       }
-       span p
-       {
-         position:absolute;
-         left:350px;
-         font-size:15px;
-         display:inline;
-       }
-      /*#pob
+      div h1
       {
-        height:900px;
-      }*/
-       </style>
+        font-size:20px;
+        display:inline;
+        color:red;
+      }
+      div span
+      {
+        display:inline;
+      }
+      #pub
+      {
+        position:relative;
+        top:40px;
+        
+      }
+      #foot
+      {
+        position:relative;
+        top:100px;
+      }
+      span p
+      {
+        position:absolute;
+        left:350px;
+        font-size:15px;
+        display:inline;
+      }
+      .usuder
+      {
+        position:absolute;
+        top:200px;
+        right:80px;
+        font-size:20px;
+      }
+      </style>
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      </head>
      <body>
@@ -60,7 +74,7 @@
                     <img class="circle responsive-img" src="../Resources/Images/73.jpg">
                   
                   </div>
-                  <div class="col offset-l5 icon">
+                  <div class="col offset-l4 icon">
                     <i class="small material-icons">report_problem</i>
                   </div>
               </div>
@@ -68,7 +82,7 @@
                 <div class="col offset-l4">
                   <h4 id="mostrar">mostrado<h4>
                 </div>
-                <div class="col offset-l4">
+                <div class="usuder">
                   <p id="mostrar">usuario@64<p>
                 </div>
               </div>
@@ -80,10 +94,10 @@
             <div class="card-action ">
               <div class="row">
                 <div class="col offset-l2 icon">
-                  <i id="nombre" class="medium material-icons lol">contacts</i>
+                  <i id="nacimiento" class="medium material-icons lol">today</i>
                 </div>
                 <div class="col offset-l2 icon">
-                  <i id="nacimiento" class="medium material-icons lol">today</i>
+                  <i id="nombre" class="medium material-icons lol">contacts</i>
                 </div>
                 <div class="col offset-l2 icon">
                   <i id="correo" class="medium material-icons lol">email</i>
@@ -93,34 +107,10 @@
           </div>
         </div>
       </div>
-      <div class='row'>
-          <div class='col s12 l6 offset-l3 ' id='pub'>
-              <div class='card orange darken-1 z-depth-5'>
-                  <div class='card-content white-text'>
-                    <span class='card-title'>Usuario<p>4/5/2016 4:52</p></span>
-                    <p>Esta es la publicacion que yo hice a traves de la pagina por que me gusta publicar muchas cosas todos los dias y a cualquier hora</p>
-                  </div>
-                  <ul class='collapsible' data-collapsible='accordion' >
-    <li>
-      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>textsms</i>Comentarios</div>
-      <div class='collapsible-body'><span>Eso esta muy chido man<p>4/5/2016 5:34</p></span></div>
-      </li>
-  </ul>
-                <div class='row'>
-      <form method='POST' action='adentro2.php'>
-        <div class='row'>
-          <div class='input-field col s6'>
-            <input id='input_text' type='text' data-length='30'>
-            <label for='input_text'>Comentar</label>
-          </div>
-        </div>
-      </form>
-        </div>
-            </div>
-        </div>
+    </div>
+      <div id="todo">
+
       </div>
-      
-</div>
       <footer class="page-footer #e65100 orange darken-4" id="foot">
        <div class="container">
          <div class="row">
@@ -168,18 +158,37 @@
               if(estado=="pri")
               {
                 muestri=$(this).attr("id");
-                $(this).attr("class","medium material-icons loilol");
-                //activar evento desactivado
+                // $(this).attr("class","medium material-icons loilol");
+                $(this).removeClass("lol")
+                $(this).addClass("loilo")
+                //activar evento desactivado removeClass(),addClass();
                 $(this).off();
                 alert(info);
               }
             }
+          var nomb="";
+          var corr="";
+          var nom="nom";
+          $.ajax(
+          {
+            url:"ajaxperfil.php",
+            type:"POST",
+            data:
+            {
+              nombre:nom
+            },
+            success:function(nombre)
+            {
+              nomb=nombre;
+              $(document).writeText(nomb);
+            }
 
+          });
 
            var aj="id";
              $.ajax(
                {
-                   url:"publi4.php",
+                   url:"ajaxperfil.php",
                    type:"POST",
                    data:
                    {
@@ -190,8 +199,8 @@
                      $("#todo").append(dato);
                    }
                });
-           var com=$("#resol").attr();
-           alert(com);
+           // var com=$("#resol").attr();
+           // alert(com);
              function collapsible()
              {
                  $(".collapsible").collapsible();
