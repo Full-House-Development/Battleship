@@ -1,83 +1,99 @@
 <?php
 	//Inicio de sesión
-	SESSION_start();
-	
-	//Inicio del maquetado
-		  echo "<!DOCTYPE html>
-				<html>
-					<head>
-					<!--Etiquetas del tipo de alfabeto-->
-						<meta charset='utf-8'/>
-						<meta http-equiv='X-UA-Compatible' content='IE=edge'/>
-						<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-					<!--Links de materialize y el css/less-->
-						<link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'/>
-						<link type='text/css' rel='stylesheet' href='../Documents/css/materialize.css'  media='screen,projection'/>
-						<link href='../Documents/css/main.css' type='text/css' rel='stylesheet' media='screen,projection'/>
-					<!--Etiquetas referetes al encabezado de la página-->
-						<title>Red Social</title>
-						<!--Opciones de icono-->
-						<link rel='shortcut icon' href='../Sources/icono2.png' type='image/png'/>
-						<script src='../Documents/js/jquery-3.2.1.js'></script>
-					</head>
-					<body>
+	session_start();
+	//
+	if(isset($_SESSION['id']))
+	{
+		echo "<!DOCTYPE html>
+			  <html>
+				<head>
+				  <link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+				  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css'>
+				  <link rel='stylesheet' src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js'>
+				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+				  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+				  <style>
+					  #pub
+					  {
+						position:relative;
+						top:40px;
+						$
+					  }
+					  #foot
+					  {
+						position:relative;
+						top:100px;
+					  }
+					  span p
+					  {
+						position:absolute;
+						left:350px;
+						font-size:15px;
+						display:inline;
+					  }
+				 </style>
+				 <script type='text/javascript' src='../Documents/js/main.js'></script>
+				</head>
+				<body>
 					<nav class='purple' role='navigation'>
-						<div class='nav-wrapper container'>
-							<a class='brand-logo center'>Logo</a>
-							<a href='' class='left'>¡Hola! ".$_SESSION['nombre']."</a>
-							<form action='main.html' method='POST'>
-							<input type='submit' class='right waves-effect waves-purple btn-flat white-text' value='Salir' name='bye'/>
-							</form>
+							<div class='nav-wrapper container'>
+								<a class='brand-logo center'>B A T T L E S H I P</a>
+								<a href='' class='left'>¡Hola! ".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
+								<ul class='right hide-on-med-and-down'>
+									<li><a href='sass.html'><i class='material-icons'>search</i></a></li>
+									<li><a href='badges.html'><i class='material-icons'>view_module</i></a></li>
+									<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
+									<li><a href='mobile.html'><i class='material-icons'>more_vert</i></a></li>
+								</ul>
 							</div>
-						</nav>
-					<section class='withe'>
-						<table id='prueba'>
-						</table>
-					</section>
-						<script type='text/javascript'>
-							$(document).ready(function() {
-								var muro = [];
-								$.ajax({
-									dataType: 'json',
-									url:'usuarios.php',
-									type: 'POST',
-									data: {
-													'muro':'JSON.parse(muro)',
-									},
-									success: function(result) {
-										var x = 0;
-										var y = 0;
-										while(result[x][y])
-										{
-											$('#prueba').append('<tr><td>'+result[x][y]+'</td></tr>');
-											$('#prueba').append('<tr><td>'+result[x+1][y]+'</td><td>'+result[x+2][y]+'</td></tr>');
-											y++;
-										}
-									}
-								})
-							});
-						</script>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-		 <footer class='white page-footer'>
-          <div class='purple footer-copyright'>
-            <div class='container white-text'>
-            © 2017 Copyright Text
-            <a class='white-text right' href='http://www.prepa6.unam.mx'>Preparatoria 6 Antonio Caso</a>
-            </div>
-          </div>
- </footer>
-					</body>";
+					</nav>
+				<div id='todo'>
+				 
+				</div>
+				<!--FOOTER--> 
+					<footer class='page-footer #e65100 orange darken-4' id='foot'>
+					  <div class='container'>
+						<div class='row'>
+						  <div class='col l6 s12'>
+							<h5 class='white-text'>Just To Friends®</h5>
+						  </div>
+						</div>
+					  </div>
+					  <div class='footer-copyright #bf360c deep-orange darken-4'>
+						<div class='container'>
+						  © 2017 Copyright Text
+						</div>	
+					  </div>
+					</footer>
+				<script>
+					  var aj='id';
+						$.ajax(
+						  {
+							  url:'../Programs/pubinicio.php',
+							  type:'POST',
+							  data:
+							  {
+								usu:aj
+							  },
+							  success:function(dato)
+							  {
+								$('#todo').append(dato);
+							  }
+						  });
+						//var com=$('#resol').attr();
+						//alert(com);
+						function collapsible()
+						{
+							$('.collapsible').collapsible();
+						}
+				</script>
+				</body>
+		</html>";
+	}
+	else
+	{
+		header("Location: index.html");
+		exit;
+	}
 ?>
