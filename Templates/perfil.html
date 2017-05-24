@@ -84,7 +84,7 @@
 				</div>
 		  </section>
 	</div>
-      <div class='row'>
+     <!-- <div class='row'>
           <div class='col s12 l6 offset-l3 ' id='pub'>
               <div class='card orange darken-1 z-depth-5'>
                   <div class='card-content white-text'>
@@ -111,7 +111,7 @@
         </div>
       </div>
       
-</div>
+</div>-->
       <footer class="white page-footer" id='foot'>
 	          <div class="footer-copyright teal">
 	            <div class="container white-text">
@@ -126,26 +126,27 @@
 		var tex;
 		var d=new Date();
 		$("#publicar").click(function(){
-					$("#publicaciones").empty();
-					tex=$("textarea").val();
-					if(n==0)	
-						$("#publicaciones").add("<h2>Publicaciones</h2>").appendTo(document.body);
-						console.log(hr,tex);
-						$("#foot").before("<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>"+hr+"</p></span><p>"+tex+"</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'><button class='comentar btn waves-effect waves-light' type='submit' name='action'>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>");
-					
-					
-					$.ajax({
-						url:"../Programs/publicaciones.php",
-						type:"post",
-						data:{
-							tex:$("textarea").val(),
+  					$("#publicaciones").empty();
+ 					var d=new Date();
+ 					hr=d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes();
+  					tex=$("textarea").val();
+  					if(n==0)	
+  						$("#publicaciones").add("<h2>Publicaciones</h2>").appendTo(document.body);
+  						console.log(hr,tex);
+  						$("#foot").before("<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>"+hr+"</p></span><p>"+tex+"</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'><button class='comentar btn waves-effect waves-light' type='submit' name='action'>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>");
+ 					
+ 					
+ 					$.ajax({
+ 						url:"../Programs/publicaciones.php",
+ 						type:"post",
+ 						data:{
+						tex:$("textarea").val(),
 						},
 						success:function(resul){
-							console.log(resul);
-							}
-					});
-				});
-		
+ 						console.log(resul);
+ 					}
+  					});
+ 			});
 					n=1;
 					i++;
 					$(".comentar").click(function(){
