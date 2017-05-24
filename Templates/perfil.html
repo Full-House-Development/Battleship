@@ -123,13 +123,10 @@
      <script>
 		var n=0;
 		var i=0;
-		var hr;
 		var tex;
 		var d=new Date();
 		$("#publicar").click(function(){
 					$("#publicaciones").empty();
-					
-					hr=d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes();
 					tex=$("textarea").val();
 					if(n==0)	
 						$("#publicaciones").add("<h2>Publicaciones</h2>").appendTo(document.body);
@@ -142,7 +139,6 @@
 						type:"post",
 						data:{
 							tex:$("textarea").val(),
-							hr:d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()
 						},
 						success:function(resul){
 							console.log(resul);
