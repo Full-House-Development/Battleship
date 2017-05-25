@@ -30,43 +30,33 @@
       return 0;
     }
     //esta funcion de acomoda aun no sirve,  si pone los circulos verdes pero aun no checa que esten juntos
-    function acomoda(donde, x, y){
+    function barco(id){
+       $(id).empty();
+        $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
+    }
+    function acomoda(donde, x, y,tamanio,orientacion){
+      console.log(donde);
        var id='#'+donde+y+x;
+       var eq=new Array();
+       eq["pequeño"]=2;
+       eq["mediano"]=3;
+       eq["grande"]=4;
+       eq["extra"]=5;
       if (donde =='m'){ //mio
-        if(barcos==0){
-          $(id).empty();
-          $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-          barcos+=1;
-        }
-        else{
-          if($("#"+donde+(y-1)+x).html().indexOf("barco.svg")!=0){
-             $(id).empty();
-            $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-            barcos+=1;
-          }
-          else{
-            if($("#"+donde+(y+1)+x).html().indexOf("barco.svg")!=0){
-             $(id).empty();
-            $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-            barcos+=1;
-            }
-            else{
-              if($("#"+donde+y+(x+1)).html().indexOf("barco.svg")!=0){
-                 $(id).empty();
-                $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-                barcos+=1;
-              }
-              else{
-                if($("#"+donde+y+(x-1)).html().indexOf("barco.svg")!=0){
-                   $(id).empty();
-                  $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-                  barcos+=1;
+            alert(x+" "+y+" "+tamanio+" "+orientacion);
+            barco(id);
+            for(var i=1;i<eq[tamanio];i++){
+                if(orientacion=="vertical"){
+                  y=y-1;
                 }
-              }
+                else{
+                  x=x-1;
+                }
+                console.log('#'+donde+y+x);
+                barco('#'+donde+y+x);
             }
-          }
-        } 
-      }
+            barcos++;
+       }
       else if (donde=='s'){//su
         alert("Antes de tirar tienes que acomodar tus barcos");
       }
@@ -90,8 +80,11 @@
             $('#m'+alfa).append(columna);
             $('#m'+alfa+beta).on('click', function(e){
               id=this.id;
-              if(barcos!=17){
-                 acomoda(id[0],id[2],id[1]);
+              console.log(barcos)
+              if(barcos<5){
+                  tamanio=prompt("Tamaño del barco(pequeño,mediano,grande,extra)");
+                  orientacion=prompt("Horizontal o vertical");
+                  acomoda(id[0],id[2],id[1],tamanio,orientacion);
               }
               else
                 dispara(id[0],id[2],id[1]);
