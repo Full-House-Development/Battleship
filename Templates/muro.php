@@ -1,7 +1,10 @@
 <?php
 	//Inicio de sesión
 	session_start();
-	//
+	
+	//Declaración de variables
+	
+	//Inicio del maquetado
 	if(isset($_SESSION['id']))
 	{
 		echo "<!DOCTYPE html>
@@ -33,23 +36,29 @@
 						display:inline;
 					  }
 				 </style>
-				 <script type='text/javascript' src='../Documents/js/main.js'></script>
 				</head>
 				<body>
 					<nav class='purple' role='navigation'>
-							<div class='nav-wrapper container'>
-								<a class='brand-logo center'>B A T T L E S H I P</a>
-								<a href='' class='left'>¡Hola! ".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
-								<ul class='right hide-on-med-and-down'>
-									<li><a class='dropdown-button' href='#!' data-activates='dropdown2'><i class='material-icons'>search</i></a></li>
-									<li><a href='muro.php'><i class='material-icons'>web</i></a></li>
-									<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
-								</ul>
+						<div class='nav-wrapper container'>
+							<ul class='left hide-on-med-and-down'>
+										<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
+										<li><a href='muro.php'><i class='material-icons'>web</i></a></li>
+							</ul>
+							<a href='' class='left'>¡Hola! ".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
+							<div class='right nav-wrapper container'>
+									<form>
+										<div class='input-field'>
+											<input id='search' type='search'/>
+											<label class='label-icon' for='search'><i class='material-icons'>search</i></label>
+											<i class='material-icons'>close</i>
+										</div>
+									</form>
 							</div>
+						</div>
 					</nav>
-				<div id='todo'>
-				 
-				</div>
+				<div id='publicaciones'>";
+					
+		echo"	</div>
 				<!--FOOTER--> 
 					<footer class='page-footer #e65100 orange darken-4' id='foot'>
 					  <div class='container'>
@@ -66,26 +75,6 @@
 					  </div>
 					</footer>
 				<script>
-					  var aj='id';
-						$.ajax(
-						  {
-							  url:'../Programs/pubinicio.php',
-							  type:'POST',
-							  data:
-							  {
-								usu:aj
-							  },
-							  success:function(dato)
-							  {
-								$('#todo').append(dato);
-							  }
-						  });
-						//var com=$('#resol').attr();
-						//alert(com);
-						function collapsible()
-						{
-							$('.collapsible').collapsible();
-						}
 				</script>
 				</body>
 		</html>";
