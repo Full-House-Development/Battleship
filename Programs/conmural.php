@@ -17,13 +17,13 @@
 	}
 	else
 		$nom="";
-	if($nom!="")
+	/*if($nom!="")
 	{
 		$qnom="SELECT * FROM usuario";
 		$impo=mysqli_query($cone,$qnom);
 		$nomi=mysqli_fetch_assoc($impo);
 		echo $nomi['nombre_usuario'];
-	}
+	}*/
 	if(isset($_POST['usu']))
 	{
 		$usu=$_POST['usu'];
@@ -88,5 +88,6 @@
 		echo $rell;
 	}
 ?>
+
 </body>
 </html>

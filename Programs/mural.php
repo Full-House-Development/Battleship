@@ -48,12 +48,21 @@ echo "<!DOCTYPE html>
         right:80px;
         font-size:20px;
       }
+	  nav
+	  {
+		position:fixed;
+		z-index:10;
+	  }
+	  footer
+	  {
+		position:fixed;
+	  }
       </style>
        <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
      </head>
      <body>
      <nav>
-         <div class='nav-wrapper #e65100 orange darken-4'>
+        <div class='nav-wrapper #e65100 orange darken-4'>
            <a href='#' class='brand-logo center'>Battle Ship</a>
            <ul id='nav-mobile' class='left hide-on-med-and-down'></ul>
 		   <h1>".$nomb."</h1>
@@ -61,34 +70,26 @@ echo "<!DOCTYPE html>
          </div>
      </nav>
      <div id='todo'>
-       <!-- <ul class='collapsible' data-collapsible='accordion' >
-	   
-    <li>
-      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>filter_drama</i>First</div>
-      <div class='collapsible-body'><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-  </ul> -->
             
           </div>
         </div>
       </div>
     </div>
       <div id='todo'>
-
-      </div>
-      <footer class='page-footer #e65100 orange darken-4' id='foot'>
-       <div class='container'>
-         <div class='row'>
-           <div class='col l6 s12'>
-             <h5 class='white-text'>Just To Friends®</h5>
-           </div>
-         </div>
-       </div>
-       <div class='footer-copyright #bf360c deep-orange darken-4'>
-         <div class='container'>
-           © 2017 Copyright Text
-         </div>
-       </div>
+	  </div>
+      <footer class='page-footer #e65100 orange darken-4' id='foot' style='position:fixed;'>
+		  <!--<div class='container'>
+			 <div class='row'>
+			   <div class='col l6 s12'>
+				 <h5 class='white-text'>Just To Friends®</h5>
+			   </div>
+			 </div>
+		   </div>
+		   <div class='footer-copyright #bf360c deep-orange darken-4'>
+			 <div class='container'>
+			   © 2017 Copyright Text
+			 </div>
+		   </div>-->
      </footer>
      <script>
             var muestri='mostrado';
@@ -135,7 +136,7 @@ echo "<!DOCTYPE html>
           var nom='nom';
           $.ajax(
           {
-            url:'../Programs/mural.php',
+            url:'../Programs/conmural.php',
             type:'POST',
             data:
             {
@@ -150,7 +151,7 @@ echo "<!DOCTYPE html>
            var aj='id';
              $.ajax(
                {
-                   url:'../Programs/mural.php',
+                   url:'../Programs/conmural.php',
                    type:'POST',
                    data:
                    {
@@ -158,7 +159,7 @@ echo "<!DOCTYPE html>
                    },
                    success:function(dato)
                    {
-                     $('#todo').append(dato);
+                     $('#foot').before(dato);
                    }
                });
            // var com=$('#resol').attr();

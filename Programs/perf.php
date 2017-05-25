@@ -2,6 +2,7 @@
 	//$usu=$_SESSION['usuario'];
 	$nomb="David Valencia";
 	$usu="davidalencia";
+	//si comentan la parte de publicacion es scrip funciona
 echo "<!DOCTYPE html>
    <html lang='es'>
      <head>
@@ -113,7 +114,7 @@ echo "<!DOCTYPE html>
       </div>
     </div>
 	<div class='row'>
-		  <section>
+			<section>
 				<div class='card-content right-align col l4'>
 						<font style='font-family:'Courier New''><h3>Publicar?</h3></font>
 				</div>
@@ -126,23 +127,18 @@ echo "<!DOCTYPE html>
 		  </section>
 	</div>
 	
-      <div id='todo'>
+    <div id='todo'>
 
       </div>
-      <footer class='page-footer #e65100 orange darken-4' id='foot'>
-       <div class='container'>
-         <div class='row'>
-           <div class='col l6 s12'>
-             <h5 class='white-text'>Just To Friends®</h5>
-           </div>
-         </div>
-       </div>
-       <div class='footer-copyright #bf360c deep-orange darken-4'>
-         <div class='container'>
-           © 2017 Copyright Text
-         </div>
-       </div>
-     </footer>
+     
+      <footer class='white page-footer' id='foot'>
+	          <div class='footer-copyright teal'>
+	            <div class='container white-text'>
+	            © 2017 Copyright Text
+	            <a class='white-text right' href='http://www.prepa6.unam.mx'>Preparatoria 6 Antonio Caso</a>
+	            </div>
+	          </div>
+	 </footer>
      <script>
             var muestri='mostrado';
            $('.lol').on('mouseover', {
@@ -197,7 +193,7 @@ echo "<!DOCTYPE html>
             success:function(nombre)
             {
               nomb=nombre;
-              $(document).writeText(nomb);
+              //$(document).writeText(nomb);
             }
           });
            var aj='id';
@@ -224,36 +220,35 @@ echo "<!DOCTYPE html>
 		var i=0;
 		var tex;
 		var d=new Date();
+		var hr;
 		$('#publicar').click(function(){
-  					$('#publicaciones').empty();
- 					var d=new Date();
- 					hr=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+' '+d.getHours()+':'+d.getMinutes();
-  					tex=$('textarea').val();
-  					if(n==0)	
-  						$('#publicaciones').add('<h2>Publicaciones</h2>').appendTo(document.body);
-  						console.log(hr,tex);
-  						//$('#foot').before('<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>'+hr+'</p></span><p>'+tex+'</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'/><button class='comentar btn waves-effect waves-light' type='submit' name='action'/>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>');
- 					
- 					
- 					$.ajax({
- 						url:'../Programs/publicaciones.php',
- 						type:'post',
- 						data:{
-						tex:$('textarea').val(),
+					$('#publicaciones').empty();
+					tex=$('textarea').val();
+					if(n==0)	
+						$('#publicaciones').add('<h2>Publicaciones</h2>').appendTo(document.body);
+					console.log(tex);    
+					//$('#foot').before('<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>+hr+>/p></span><p>+tex+</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'/><button class='comentar btn waves-effect waves-light' type='submit' name='action'/>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>');
+					
+					
+					$.ajax({
+						url:'../Programs/publicaciones.php',
+						type:'post',
+						data:{
+							tex:$('textarea').val(),
 						},
 						success:function(resul){
- 						console.log(resul);
- 					}
-  					});
- 			});
-					/*n=1;
+							console.log(resul);
+							}
+					});
+				});
+			
+					n=1;
 					i++;
 					$('.comentar').click(function(){
 							var com=this.previousSibling.value;
 							var el=document.createElement('div');
 							l=this.parentNode.insertBefore(el,this.previousSibling);
 							l.innerHTML=('<p>'+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+'a las '+d.getHours()+':'+d.getMinutes()+'<br/>'+com+'</p>');
-
 					});
 					$('span').click(function(){
 							$('#p').append('<li>like</li>');
@@ -263,10 +258,10 @@ echo "<!DOCTYPE html>
 							$('li').click(function(){
 								var rec=this.innerHTML;
 								$('#p').empty();
-								$('#p').append(rec+'<img src='../resources/images/'+rec+'.gif'/>');
+								//$('#p').append(rec+' <img src='../resources/images/'+rec+'.gif'/>');
 							});
-					});*/
-     </script>
-     </body>
-   </html> ";
+					});
+			</script>
+		</body>
+	</html>";
 ?>
