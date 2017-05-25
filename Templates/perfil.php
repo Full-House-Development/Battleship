@@ -1,3 +1,8 @@
+<?php
+  $idusu=(isset($_POST['id_usuario']))?$_POST['id_usuario']:"angy64";
+  if($idusu!="")
+  {
+?>
 <!DOCTYPE html>
    <html lang="es">
      <head>
@@ -9,6 +14,11 @@
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
        <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
        <style>
+      .comentarios
+      {
+        position:relative;
+        bottom:2px;
+      }
       div h1
       {
         font-size:20px;
@@ -55,12 +65,6 @@
          </div>
      </nav>
      <div id="todo">
-       <!-- <ul class="collapsible" data-collapsible="accordion" >
-    <li>
-      <div onclick="collapsible()" class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-    </li>
-  </ul> -->
       <div class="row">
         <div class="col s12 l10 offset-l1">
           <div class="card blue darken-1">
@@ -75,7 +79,7 @@
                   
                   </div>
                   <div class="col offset-l4 icon">
-                    <i class="small material-icons">report_problem</i>
+                    <i class="small material-icons sending">report_problem</i>
                   </div>
               </div>
               <div class="row">
@@ -83,13 +87,9 @@
                   <h4 id="mostrar">mostrado<h4>
                 </div>
                 <div class="usuder">
-                  <p id="mostrar">usuario@64<p>
+                  <p id="mostrarusu"><p>
                 </div>
               </div>
-              <!-- <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p><i class="medium material-icons">today</i>
-                  <i class="medium material-icons">email</i> -->
             </div>
             <div class="card-action ">
               <div class="row">
@@ -108,14 +108,14 @@
         </div>
       </div>
     </div>
-      <div id="todo">
+      <div id="publics">
 
       </div>
       <footer class="page-footer #e65100 orange darken-4" id="foot">
        <div class="container">
          <div class="row">
            <div class="col l6 s12">
-             <h5 class="white-text">Just To Friends®</h5>
+             <h5 class="white-text">BattleShip</h5>
            </div>
          </div>
        </div>
@@ -126,7 +126,84 @@
        </div>
      </footer>
      <script>
+     var usuario='<?php echo $idusu; ?>';
+        $.ajax(
+          {
+            url:"ajaxperfil.php",
+            type:"POST",
+            data:
+            {
+              nombre:usuario
+            },
+            success:function(nombre)
+            {
+              var divnom=nombre.split(",");
+              var longnom=divnom.length;
+              for($a=divnom.length-1;$a>=0;$a--)
+              {
+                nacimiento=console.log(divnom[$a]);
+              }          
+              console.log(nombre);    
+            }
+          });
 
+        var aj="id";
+        $.ajax(
+         {
+             url:"ajaxperfil.php",
+             type:"POST",
+             data:
+             {
+               usu:aj
+             },
+             success:function(dato)
+             {
+               $("#publics").append(dato);
+             }
+         });
+
+        function sending(iden)
+          {
+            if(comentarionum==iden&&comentariocon!="")
+            {
+              alert("se envio el comentario del id= "+iden);
+              $.ajax(
+              {
+                url:"ajaxperfil.php",
+                type:"POST",
+                data:
+                {
+                  id_publi:iden,
+                  tex_com:comentariocon,
+                  id_usu:usuario
+                },
+                success:function(quer)
+                {
+                  alert("se guardo el comentario");
+                  console.log(quer);
+                }
+              });
+            }
+          }         
+    function collapsible()
+             {
+                 $(".collapsible").collapsible();
+             }
+    function buffer(idpub)
+            {
+              comentarionum=idpub;
+              console.log(comentarionum);
+              var ids="#"+idpub;
+              comentariocon=$(ids).val();
+              console.log(comentariocon);
+            }
+    
+     
+     $("#mostrarusu").html(usuario);
+     var comentarionum="";
+     var comentariocon="";
+            
+          
             var muestri="mostrado";
            $(".lol").on("mouseover", {
             est:"on"
@@ -166,72 +243,19 @@
                 alert(info);
               }
             }
-          var nomb="";
-          var corr="";
-          var nom="nom";
-          $.ajax(
-          {
-            url:"ajaxperfil.php",
-            type:"POST",
-            data:
-            {
-              nombre:nom
-            },
-            success:function(nombre)
-            {
-              nomb=nombre;
-              $(document).writeText(nomb);
-            }
+          var nombre="";
+          var correo="";
+          var nacimiento="";
+          
+          // var datos=["nacimiento","correo","nombre","nombre"];
+          
 
-          });
-
-           var aj="id";
-             $.ajax(
-               {
-                   url:"ajaxperfil.php",
-                   type:"POST",
-                   data:
-                   {
-                     usu:aj
-                   },
-                   success:function(dato)
-                   {
-                     $("#todo").append(dato);
-                   }
-               });
-           // var com=$("#resol").attr();
-           // alert(com);
-             function collapsible()
-             {
-                 $(".collapsible").collapsible();
-             }
-            // $("#com").after("com");
-            // $.ajax(
-            //   {
-            //       url:"publi.php",
-            //       // data:
-            //       // {
-            //       //   mivari:x
-            //       // },
-            //       success:function(dato)
-            //       {
-            //         $("#conpub").html(dato);
-            //       }
-            //   });
-       // var idusuj;
-        // $.ajax(
-        // {
-        //   url:"publi.php",
-        //   // data:
-        //   // {
-        //   //     idusu:idusuj
-        //   // },
-        //   sucess:function(dato)
-        //   {
-        //     $("#conpub").html(dato);
-        //   }
-
-        // });
+           
      </script>
      </body>
    </html> 
+<?php
+  }
+  else
+    echo "No se ha accedido mediante un registro";
+?>
