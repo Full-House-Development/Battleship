@@ -1,5 +1,5 @@
 <?php
-  $idusu=(isset($_POST['id_usuario']))?$_POST['id_usuario']:"angy64";
+  $idusu=(isset($_POST['id_usuario']))?$_POST['id_usuario']:"marco6464";
   if($idusu!="")
   {
 ?>
@@ -126,6 +126,9 @@
        </div>
      </footer>
      <script>
+     // var nombrem="";
+     // var correom="";
+     // var fecnam="";
      var usuario='<?php echo $idusu; ?>';
         $.ajax(
           {
@@ -139,14 +142,15 @@
             {
               var divnom=nombre.split(",");
               var longnom=divnom.length;
-              for($a=divnom.length-1;$a>=0;$a--)
-              {
-                nacimiento=console.log(divnom[$a]);
-              }          
-              console.log(nombre);    
+              $("#mostrar").html(divnom[0]);
+              // nombrem=divnom[0];
+              // correom=divnom[1];
+              // fecnam=divnom[2]; 
             }
           });
-
+              // var nombrem=divnom[0];
+              // var correom=divnom[1];
+              // var fecnam=divnom[2]; 
         var aj="id";
         $.ajax(
          {
@@ -181,10 +185,11 @@
                 {
                   alert("se guardo el comentario");
                   console.log(quer);
+                  
                 }
               });
             }
-          }         
+          } 
     function collapsible()
              {
                  $(".collapsible").collapsible();
@@ -203,8 +208,10 @@
      var comentarionum="";
      var comentariocon="";
             
-          
-            var muestri="mostrado";
+          var den=$("#mostrar").html();
+          console.log(den);
+            // var muestri=nombrem;
+            // console.log(muestri);
            $(".lol").on("mouseover", {
             est:"on"
            },mostrar);
