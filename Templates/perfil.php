@@ -69,6 +69,7 @@
         <div class="col s12 l10 offset-l1">
           <div class="card blue darken-1">
             <div class="card-content white-text">
+<!-- Parte de arriba del card perfil donde aparece la foto y los botones de reportar y pedir ayuda -->
               <div class="row">
                   <div class="col  icon">
                     <i class="small material-icons">announcement</i>
@@ -83,16 +84,19 @@
                   </div>
               </div>
               <div class="row">
+<!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
                 <div class="col offset-l4">
                   <h4 id="mostrar">mostrado<h4>
                 </div>
                 <div class="usuder">
+                <!-- Aqui se inserta el id_usuario -->
                   <p id="mostrarusu"><p>
                 </div>
               </div>
             </div>
             <div class="card-action ">
               <div class="row">
+<!-- Botones para mostrar los datos solicitados de nombre, correo y fecha de nacimiento -->
                 <div class="col offset-l2 icon">
                   <i id="nacimiento" class="medium material-icons lol">today</i>
                 </div>
@@ -108,9 +112,11 @@
         </div>
       </div>
     </div>
+<!-- Aqui se incluye todo lo sacado de ajaxperfil.php -->
       <div id="publics">
 
       </div>
+<!-- Implementacion del footer de la página -->
       <footer class="page-footer #e65100 orange darken-4" id="foot">
        <div class="container">
          <div class="row">
@@ -129,6 +135,7 @@
      // var nombrem="";
      // var correom="";
      // var fecnam="";
+// Ajax que saca la informacion del usuario:de nombre, correo y fecha de nacimiento
      var usuario='<?php echo $idusu; ?>';
         $.ajax(
           {
@@ -151,6 +158,7 @@
               // var nombrem=divnom[0];
               // var correom=divnom[1];
               // var fecnam=divnom[2]; 
+// Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
         var aj="id";
         $.ajax(
          {
@@ -165,7 +173,7 @@
                $("#publics").append(dato);
              }
          });
-
+// Ajax que envía la informacion propia de un comentario para guardarla en la base de datos
         function sending(iden)
           {
             if(comentarionum==iden&&comentariocon!="")
@@ -190,6 +198,7 @@
               });
             }
           } 
+// Declaracion del efecto collapsible necesaria para que se pueda ejecutar
     function collapsible()
              {
                  $(".collapsible").collapsible();
@@ -203,7 +212,7 @@
               console.log(comentariocon);
             }
     
-     
+// Comienza la animacion de los ícones de nombre, correo y fecha de nacimiento por eventos js
      $("#mostrarusu").html(usuario);
      var comentarionum="";
      var comentariocon="";
@@ -221,6 +230,7 @@
            $(".lol").on("click", {
             est:"pri"
            },mostrar);
+    // Cambia el contenido en div #mostrar segun el ícono activado por el evento
            function mostrar( event ) 
             {
               // var tipo=event.data.tipo;
