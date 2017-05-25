@@ -7,7 +7,6 @@
     <title>BattleShip</title>
   </head>
   <body>
-
       <table id="suMesa" style="position: absolute; top: 8px; padding-left: 40em;">
 
       </table>
@@ -17,54 +16,81 @@
     <script type="text/javascript">
     var puntaje=100;
     var barcos=0;
+    var aviso=true;
+    var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
+    //funcion para disparar a tu oponente 
     function dispara(donde,  x, y) {
       var id='#'+donde+y+x;
       if (donde =='m'){ //mio
         alert("no puedes dispararte a ti mismo");
       }
       else if (donde=='s'){//su
+        if(barcos>4){
          id='#'+donde+x+y;
-        $(id).empty();
+          $(id).empty();
          $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+       }
+       else
+           alert("Antes de disparar termina de acomodar tus barcos");
       }
       return 0;
     }
-    //esta funcion de acomoda aun no sirve,  si pone los circulos verdes pero aun no checa que esten juntos
+    //pone los círculos verdes de los barcos
     function barco(id){
        $(id).empty();
         $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
     }
-    function acomoda(donde, x, y,tamanio,orientacion){
-      console.log(donde);
+    function acomoda(donde, x, y,orientacion){
        var id='#'+donde+y+x;
-       var eq=new Array();
-       eq["pequeño"]=2;
-       eq["mediano"]=3;
-       eq["grande"]=4;
+       var eq=[2,3,3,4,5];
+       var n=0;
        eq["extra"]=5;
       if (donde =='m'){ //mio
-            alert(x+" "+y+" "+tamanio+" "+orientacion);
-            barco(id);
-            for(var i=1;i<eq[tamanio];i++){
-                if(orientacion=="vertical"){
-                  y=y-1;
+          //verifica que el usuario escriba vertical y horizantal 
+            if(orientacion=="vertical" || orientacion=="horizontal"){
+              //verifica que el barco no salga del tablero d ejuego 
+              if(orientacion=="vertical" && y-eq[barcos]>=-1 || orientacion=="horizontal" && x-eq[barcos]>=-1){
+                //verifica que las casillas no esten ocupadas por otro barco aun no funicona bien 
+                for(var m=0;m<eq[barcos];m++){
+                    if($("#"+donde+(y-1)+x).html().indexOf("barco.svg")!=-1 && orientacion=="vertical")
+                        n++;
+                    if($("#"+donde+y+(x-1)).html().indexOf("barco.svg")!=-1 && orientacion=="horizontal")
+                        n++;
                 }
-                else{
-                  x=x-1;
+                console.log(n);
+                if(n==0){
+                  barco(id);
+                  //aparecen los barcos
+                  for(var i=1;i<eq[barcos];i++){
+                      if(orientacion=="vertical"){
+                        y=y-1;
+                      }
+                      else{
+                        x=x-1;
+                      }
+                      barco('#'+donde+y+x);
+                  }
+                  barcos++;
                 }
-                console.log('#'+donde+y+x);
-                barco('#'+donde+y+x);
+                else
+                  alert("Algunas casillas ya estan ocupadas por otro barco");
+              }
+              else
+                alert("El barco no cabe ahí");
             }
-            barcos++;
+            else 
+              alert("datos invalidos");
        }
       else if (donde=='s'){//su
         alert("Antes de tirar tienes que acomodar tus barcos");
       }
       return 0;
     }
+    //se generan las casillas azules
     for (var alfa = 0; alfa < 10; alfa++){
         if(alfa==0){
           alert("acomoda tus barcos");
+          aviso=confirm("El orden para acomodar los barcos es pequeño,mediano,mediano,grande,extra)");
         }
         renglon =$('<tr></tr>');
         renglon.attr('id', 'm'+alfa);
@@ -80,11 +106,16 @@
             $('#m'+alfa).append(columna);
             $('#m'+alfa+beta).on('click', function(e){
               id=this.id;
-              console.log(barcos)
               if(barcos<5){
-                  tamanio=prompt("Tamaño del barco(pequeño,mediano,grande,extra)");
-                  orientacion=prompt("Horizontal o vertical");
-                  acomoda(id[0],id[2],id[1],tamanio,orientacion);
+                //parte donde se acomodan los barcos
+                if(aviso==true){
+                    alert("El tamaño del barco a acomodar es:"+medida[barcos]);
+                    orientacion=prompt("horizontal o vertical");
+                    acomoda(id[0],id[2],id[1],orientacion);
+                }
+                else{
+                   aviso=confirm("Tienes que aceptar, para jugar, te divertirás, acepta por favor. El orden para acomodar los barcos es pequeño,mediano,mediano,grande,extra)");
+                }
               }
               else
                 dispara(id[0],id[2],id[1]);
@@ -101,6 +132,5 @@
         }
     }
     </script>
-
 </body>
 </html>
