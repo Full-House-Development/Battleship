@@ -41,10 +41,9 @@
 								<a class='brand-logo center'>B A T T L E S H I P</a>
 								<a href='' class='left'>¡Hola! ".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
 								<ul class='right hide-on-med-and-down'>
-									<li><a href='sass.html'><i class='material-icons'>search</i></a></li>
-									<li><a href='badges.html'><i class='material-icons'>view_module</i></a></li>
+									<li><a class='dropdown-button' href='#!' data-activates='dropdown2'><i class='material-icons'>search</i></a></li>
+									<li><a href='muro.php'><i class='material-icons'>web</i></a></li>
 									<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
-									<li><a href='mobile.html'><i class='material-icons'>more_vert</i></a></li>
 								</ul>
 							</div>
 					</nav>

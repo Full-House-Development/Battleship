@@ -38,7 +38,7 @@
 						$_SESSION["correo"]=$consulta["correo_usuario"];
 						$_SESSION["foto"]=$consulta["foto"];
 						echo "<script>";
-						echo "alert('Bienvenido De Nuevo!');";  
+						echo "alert('¡Bienvenido De Nuevo!');";  
 						echo "window.location = 'muro.php';";
 						echo "</script>"; 
 					}
