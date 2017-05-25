@@ -9,7 +9,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link type="text/css" rel="stylesheet" href="../../Documents/css/materialize.css"  media="screen,projection"/>
     <link href="../../Documents/css/main.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="lib/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="../../Documents/lib/sweetalert.css">
   <!--Etiquetas referetes al encabezado de la página-->
     <title>Juego</title>
   <!--Opciones de icono-->
@@ -18,13 +18,14 @@
     <script type="text/javascript" src="../../Documents/js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="../../Documents/js/materialize.js"></script>
     <script type="text/javascript" src="../../Documents/js/main.js"></script>
-    <script src="lib/sweetalert.min.js"></script>
+    <script src="../../Documents/lib/sweetalert.min.js"></script>
   </head>
   <body>
       <!--Encabezado-->
       <nav>
         <div class="nav-wrapper cyan darken-1">
             <a href="#!" class="brand-logo center">B A T T L E S H I P</a>
+            <p id="ptj">Puntaje:</p>
         </div>
       </nav>
       <!--SIndica que tablero es d equien-->
@@ -37,6 +38,7 @@
           <div class="col l6">
             <div class="card N/A transparent center-align">
               <span class="card-title">Tu juego</span>
+
              </div>
           </div>
       </div>
@@ -55,14 +57,18 @@
     <script type="text/javascript">
     var puntaje=100;
     var barcos=0;
-    var aviso=true;
+    var tablero,valor;
     var orientacion;
+    var contador=1;
     var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
+    $("#ptj").html("Puntaje:"+puntaje);
     //funcion para disparar a tu oponente 
     function dispara(donde,  x, y) {
       var id='#'+donde+y+x;
       if (donde =='m'){ //mio
-        swal("no puedes dispararte a ti mismo");
+                 id='#'+donde+x+y;
+          $(id).empty();
+         $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
       }
       else if (donde=='s'){//su
         //colorea la casilla en rojo 
@@ -70,6 +76,18 @@
          id='#'+donde+x+y;
           $(id).empty();
          $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+         $.ajax({
+                      url:"../../Programs/tiro.php",
+                      type:"post",
+                      data:{
+                        id_juego: 1,
+                        tiro:id,
+                        contador:contador
+                      },
+                      success:function(resul){
+                        console.log(resul);
+                        }
+                    });
        }
        else
           swal("Antes de disparar termina de acomodar tus barcos");
@@ -82,15 +100,37 @@
        $(id).empty();
         $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
     }
+     function mapa (){
+      for(var barrery=0;barrery<10;barrery++){
+                    for(var barrerx=0;barrerx<10;barrerx++){
+                        valor=$("#m"+barrery+barrerx).html().indexOf("barco.svg");
+                        
+                        if(valor!=-1){
+                          if(barrerx<9)
+                            tablero=tablero+"2,";
+                          else
+                            tablero=tablero+"2";
+                        }
+                        else{
+                           if(barrerx<9)
+                            tablero=tablero+"1,";
+                          else
+                            tablero=tablero+"1";
+                        }
+                    }
+                    tablero=tablero+":";
+                  }
+                  barcos++;
+    }
     function acomoda(donde, x, y,orientacion){
        var id='#'+donde+y+x;
        var eq=[2,3,3,4,5];
        var n=0;
        eq["extra"]=5;
       if (donde =='m'){ //mio
-              //verifica que el barco no salga del tablero d ejuego 
+              //verifica que el barco no salga del tablero de juego 
               if(orientacion=="vertical" && y-eq[barcos]>=-1 || orientacion=="horizontal" && x-eq[barcos]>=-1){
-                //verifica que las casillas no esten ocupadas por otro barco aun no funicona bien 
+                //verifica que las casillas no esten ocupadas por otro barco
                 for(var m=0;m<eq[barcos];m++){
                     if(orientacion=="vertical"){
                         cot=$("#"+donde+(y-m)+x).html().indexOf("barco.svg");
@@ -103,7 +143,6 @@
                             n++;
                     }
                 }
-                console.log(n);
                 if(n==0){
                   barco(id);
                   //aparecen los barcos
@@ -117,6 +156,21 @@
                       barco('#'+donde+y+x);
                   }
                   barcos++;
+                  if(barcos==5){
+                    mapa();
+                    $.ajax({
+                      url:"../../Programs/meteCoordenadas.php",
+                      type:"post",
+                      data:{
+                        coordenadas:tablero,
+                        id_juego: 1,
+                        unoODos: "uno"
+                      },
+                      success:function(resul){
+                        console.log(resul);
+                        }
+                    });
+                  }
                 }
                 else
                   swal("Algunas casillas ya estan ocupadas por otro barco");
@@ -129,6 +183,7 @@
       }
       return 0;
     }
+
     //se generan las casillas azules
     for (var alfa = 0; alfa < 10; alfa++){
         if(alfa==0)
@@ -173,8 +228,10 @@
                     }
                   });
               }
-              else
-                dispara(id[0],id[2],id[1]);
+              else{
+                //hace la accion de disparar
+                alert("ya acomodaste tus basrcos");
+              }
             });
             columna =$('<td></td>');
             columna.append($('<img srcset="../../Resources/Images/normal.svg"/>'));
@@ -187,6 +244,21 @@
             });
         }
     }
+    var revisaDisparo window.setInterval(function () {
+            $.ajax({
+                      url:"../../Programs/meDisparan.php",
+                      type:"post",
+                      data:{
+                        id_juego: 1
+                      },
+                      success:function(resul){
+                            if(resul[0]%2!=0)
+                                dispara("m",resul[2],resul[3]);
+                            console.log(resul);
+                        }
+                    });
+      
+    }, 1000);
     </script>
 </body>
 </html>
