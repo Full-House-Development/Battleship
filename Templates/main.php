@@ -40,7 +40,12 @@
 						$_SESSION["foto"]=$consulta["foto"];
 						echo "<script>";
 						echo "alert('¡Bienvenido De Nuevo!');";  
-						echo "window.location = 'muro.php';";
+						echo "window.location = 'perfil.php';";
+						//^^aqui se debe de cambiar el perfil que se quiera ver^^^^
+						// si se quiere ver el perfil del usuario redireccionar a perfil.php
+						// si quiere ver el perfil de otro usuario redireccionar a otroperfil.php con los datos
+						//que pide la pagina otroperfil.php
+
 						echo "</script>"; 
 					}
 					echo "<script>";

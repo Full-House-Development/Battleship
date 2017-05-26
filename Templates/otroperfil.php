@@ -1,7 +1,8 @@
 <?php
+//este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
-  $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";
-  $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";
+  $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
+  $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";//del perfil a consultar
   if($idusu!="")
   {
 ?>
@@ -173,7 +174,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
           tex=$("textarea").val();
             $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
           $.ajax({
-            url:"ajaxperfil.php",
+            url:"otroajaxperfil.php",
             type:"post",
             data:{
               texto:tex
@@ -197,7 +198,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               ubicarcollapsible.append("<div class='collapsible-body'><h1>"+nombre+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
               $.ajax(
               {
-                url:"ajaxperfil.php",
+                url:"otroajaxperfil.php",
                 type:"POST",
                 data:
                 {
@@ -220,7 +221,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
         var aj="id";
         $.ajax(
          {
-             url:"ajaxperfil.php",
+             url:"otroajaxperfil.php",
              type:"POST",
              data:
              {
