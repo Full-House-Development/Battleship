@@ -4,7 +4,8 @@
 	
 	//Coneccion para publicaciones de perfil de usuario
 	$usu = $_POST['usu'];
-	$cone = mysqli_connect("localhost","root","","final");
+	//include('conection.php');
+	$cone = mysqli_connect("132.248.96.53","battleship","sugardadies","final");
 	mysqli_set_charset($cone,"utf8");
 	$que="SELECT usuario.id_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE publicaciones.id_usuario='".$usu."'";
 	$impor= mysqli_query($cone,$que);

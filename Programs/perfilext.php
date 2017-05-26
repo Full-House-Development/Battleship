@@ -131,6 +131,9 @@
 						<div class='card-content right-align col l3'>
 							<button id='retar' class='btn-large waves-effect waves-light'>Retar</button>
 						</div>
+						<div class='card-content left-align col l3'>
+							<button id='reportar' class='btn-large waves-effect waves-light'>Reportar</button>
+						</div>
 					  </div>
 					</div>
 				  </div>
@@ -151,6 +154,7 @@
 						</div>
 				  </section>
 			</div>
+			<button id='ayuda'/>
 			
 			  <div id='todo'>
 			  </div>
@@ -163,8 +167,26 @@
 						</div>
 					  </div>
 			 </footer>
-			 
 			 <script>
+				$('#ayuda').click(function (){
+					var ayuda=prompt('Escribe en el siguiente recuadro tus preguntas y trataremos de responderte a la brevedad');
+					$.ajax(
+					{
+						url:'../Programs/conayuda.php',
+						type:'POST',
+						data:
+						{
+						  aiuda:ayuda
+						},
+						success:function(res)
+						{
+						  alert(res);
+						}
+					});
+					
+				});					
+					
+					
 					var muestri='".$nombre.' '.$apellido."';
 					   $('.lol').on('mouseover', {
 						est:'on'
@@ -289,6 +311,27 @@
 								 alert(res);
 							   }
 						   });
+						  });
+						  var reta='$id';
+						$('#reportar').click(function()
+						{
+							var hola=confirm('¿Estás seguro de que quieres reportar a esta persona?');
+							if(hola==true)
+							{
+								$.ajax(
+							   {
+								   url:'../Programs/conreporte.php',
+								   type:'POST',
+								   data:
+								   {
+									 reportar:reta
+								   },
+								   success:function(res)
+								   {
+									 alert(res);
+								   }
+							   });
+							}
 						  });
 					</script>
 				</body>
