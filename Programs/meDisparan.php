@@ -1,8 +1,9 @@
 <?php
+    include "conexion.php";
 		//Conexión a la base de datos
     if(isset($_POST["id_juego"]))
   	{
-      $conexion = mysqli_connect("localhost","root","","final");
+      $conexion = conectar();
       $id_juego=mysqli_real_escape_string ($conexion, $_POST["id_juego"]);
       $tiro=mysqli_real_escape_string ($conexion, $_POST["tiro"]);
 

@@ -1,5 +1,6 @@
 <?php
-	$conn=mysqli_connect("localhost","root","","final");
+	include "conexion.php";
+	$conn=conectar();
 	$tablero=mysqli_real_escape_string($conn,$_POST['tablero']);
 		if($conn)
 		{
