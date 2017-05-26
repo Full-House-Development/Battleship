@@ -12,7 +12,7 @@
 		}
 		// En caso que la conexion sea exitosa, se mete al programa
 		else{
-			$cuenta=$_POST["cuenta"];
+			$cuenta = $_POST["cuenta"];
 			$resultado = mysqli_query(conection(), "SELECT * FROM usuario WHERE id_usuario='".$cuenta."';");
 			$consulta= mysqli_fetch_assoc($resultado);
 			$usuario=$consulta["password"];
@@ -24,9 +24,38 @@
 			{
 					echo "<script>";
 					echo "alert('¿Primera vez en la página? ¡Registrate!');";  
-					echo "window.location = 'main.html';";
+					echo "window.location = 'index.html';";
 					echo "</script>";
 			//El usuario es válido:
+			}
+			$admin = substr($cuenta,0,1);
+			if($admin == '*')
+			{
+					if ($usuario === hash('sha512', $oregano.$contra))
+					{
+						SESSION_start();
+						$_SESSION["nombre"]=$consulta["nombre_usuario"];
+						$_SESSION["apellido"]=$consulta["apellido_usuario"];
+						$_SESSION["id"]=$consulta["id_usuario"];
+						$_SESSION["nacimiento"]=$consulta["nacimiento_usuario"];
+						$_SESSION["correo"]=$consulta["correo_usuario"];
+						$_SESSION["foto"]=$consulta["foto"];
+						echo "<script>";
+						echo "alert('¿Administrador?');";  
+						echo "var adm = prompt('Contraseña:');";
+						echo "if(adm == 'sweetdaddies')
+								{
+									alert('¡Bienvenido Administrador!');  
+									window.location = 'administrador.php'; 
+								}
+							  else
+							  {
+									alert('¡No eres admin!');  
+									window.location = 'index.html'; 
+							  }";
+						echo "</script>";
+					}
+					
 			}
 			else {
 					if ($usuario === hash('sha512', $oregano.$contra))
@@ -41,11 +70,6 @@
 						echo "<script>";
 						echo "alert('¡Bienvenido De Nuevo!');";  
 						echo "window.location = 'perfil.php';";
-						//^^aqui se debe de cambiar el perfil que se quiera ver^^^^
-						// si se quiere ver el perfil del usuario redireccionar a perfil.php
-						// si quiere ver el perfil de otro usuario redireccionar a otroperfil.php con los datos
-						//que pide la pagina otroperfil.php
-
 						echo "</script>"; 
 					}
 					echo "<script>";
