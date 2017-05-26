@@ -1,11 +1,13 @@
 <?php
+	//Conexión a la base de datos
 	include("conection.php");
+	
 	//Inicio de sesión
 	session_start();
 	
 	//Declaración de variables
 	$usuario = $_SESSION['id'];
-	$conexion = mysqli_connect("localhost","root","","final");
+	$conexion = conection();
 	mysqli_set_charset($conexion,"utf8");
 	
 	//Inicio del maquetado
@@ -20,6 +22,7 @@
 				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
 				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
 				  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+				  <meta charset='UTF-8'/>
 				  <style>
 					  #pub
 					  {
