@@ -1,7 +1,7 @@
 -- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: localhost
--- ------------------------------------------------------
+-- -----------------------------------------------------
 -- Server version	10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
