@@ -57,7 +57,7 @@
     <script type="text/javascript">
     //!--------esta variable debe ser cambiada
     var quien ="retador";//creo que seria mejor con un post o sessions
-    var id_juego= 2;
+    var id_juego= 5;
     var puntaje=100;
     var barcos=0;
     var tablero,valor;
@@ -66,19 +66,33 @@
     var tiro=1;
     var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
     var tuya= [];
+    var morados=0;
     var tabla=[]
       for (var i =0; i<10; i++) {
         tabla[i]=[];
       }
     //funcion para disparar a tu oponente
     function dispara(donde,  x, y) {
-      console.log(id +"dispara");
+
       var id='#'+donde+y+x;
-      if (donde =='m'){ //mio
+            console.log(id +"dispara");
+      if(morados>=17){
+          $.ajax({
+                      url:"../../Programs/tiro.php",
+                      type:"post",
+                      data:{
+                        id_juego: id_juego,
+                        tiro:id,
+                        contador:'*'
+                      },
+                      success:function(resul){  }
+                    });
+      }
+      else if (donde =='m'){ //mio
           id='#'+donde+y+x;
           if(tabla[y][x]==2){
                 $(id).empty();
-                $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));      
+                $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
           }
           else{
             $(id).empty();
@@ -91,7 +105,8 @@
           id='#'+donde+x+y;
           if(tuya[x][y]==2){
                 $(id).empty();
-                $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));      
+                $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
+                morados++;
           }
           else{
             $(id).empty();
@@ -114,6 +129,48 @@
       }
       return 0;
     }
+//sacaCoordenadas
+  function sacaCoor() {
+      if(quien=="retador")
+        $.ajax({
+          url:"../../Programs/sacaCoordenadas.php",
+          type:"post",
+          data:{
+            id_juego: id_juego,
+            unoODos: "dos"
+          },
+          success:function(resul){
+            tuya=resul.split("d");
+            tuya=tuya[2];
+            tuya=tuya.split(":");
+            for (var alfa = 0; alfa < 10; alfa++) {
+              tuya[alfa]=tuya[alfa].split(",");
+            }
+
+            }
+        });
+      else
+      $.ajax({
+        url:"../../Programs/sacaCoordenadas.php",
+        type:"post",
+        data:{
+          id_juego: id_juego,
+          unoODos: "uno"
+        },
+        success:function(resul){
+          tuya=resul.split("d");
+          tuya=tuya[2];
+          tuya=tuya.split(":");
+          for (var alfa = 0; alfa < 10; alfa++) {
+            tuya[alfa]=tuya[alfa].split(",");
+          }
+
+          }
+      });
+
+
+  }
+
     //pone los círculos verdes de los barcos
     function barco(id){
        $(id).empty();
@@ -150,6 +207,9 @@
                             id_juego: id_juego
                           },
                           success:function(resul){
+                            if(resul[0]=='*' && morados<17){
+                              swal("Has perdido");
+                            }
                                 if(resul[0]%2!=0&&quien=="retador"){
                                 dispara("m",resul[4],resul[3]);
                                 contador=resul[0];
@@ -194,7 +254,7 @@
                 }
                 if(n==0){
                   barco(id);
-                  tabla[y][x];
+                  tabla[y][x]=2;
                   //aparecen los barcos
                   for(var i=1;i<eq[barcos];i++){
                       if(orientacion=="vertical"){
@@ -209,6 +269,7 @@
                   barcos++;
                   if(barcos==5){
                     mapa();
+                    sacaCoor();
                     if(quien=="retador")
                       $.ajax({
                         url:"../../Programs/meteCoordenadas.php",
@@ -257,7 +318,6 @@
         renglon =$('<tr></tr>');
         renglon.attr('id', 'm'+alfa);
         $('#miMesa').append(renglon);
-        tabla[alfa][beta]=1;
         renglon =$('<tr></tr>');
         renglon.attr('id', 's'+alfa);
         $('#suMesa').append(renglon);
@@ -265,6 +325,7 @@
             columna =$('<td></td>');
             columna.append($('<img srcset="../../Resources/Images/normal.svg"/>'));
             columna.attr('id', 'm'+alfa+beta);
+             tabla[alfa][beta]=1;
             columna.attr('class', 'miMesa');
             $('#m'+alfa).append(columna);
             $('#m'+alfa+beta).on('click', function(e){
@@ -309,35 +370,19 @@
             $('#s'+alfa).append(columna);
             $('#s'+alfa+beta).on('click', function(e){
               id=this.id;
-                if(tiro==1){
+                if(morados<17){
                   dispara(id[0],id[1],id[2]);
                 }
                 else{
-                  swal("Es turno de la computadora");
+                  swal("Has ganado");
                 }
             });
         }
     }
 
     revisaDisparo();
-    
-    $.ajax({
-      url:"../../Programs/sacaCoordenadas.php",
-      type:"post",
-      data:{
-        id_juego: id_juego,
-        unoODos: "dos"
-      },
-      success:function(resul){
-        tuya=resul.split("d");
-        tuya=tuya[2];
-        tuya=tuya.split(":");
-        for (var alfa = 0; alfa < 10; alfa++) {
-          tuya[alfa]=tuya[alfa].split(",");
-        }
-        console.log(tuya);
-        }
-    });
+
+    console.log(tuya);
     </script>
 </body>
 </html>
