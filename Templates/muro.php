@@ -1,4 +1,5 @@
 <?php
+	include("conection.php");
 	//Inicio de sesión
 	session_start();
 	

@@ -1,5 +1,5 @@
 <?php
-  $idusu=(isset($_POST['id_usuario']))?$_POST['id_usuario']:"marco6464";
+  $idusu=(isset($_POST['id_usuario']))?$_POST['id_usuario']:"BolárdenasMelón";
   if($idusu!="")
   {
 ?>
