@@ -64,6 +64,8 @@
     var tiro=1;
     var contador=1;
     var contadorCompu=0;
+    var ty=0;
+    var cm=0;
     var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
     $("#ptj").html("Puntaje:"+puntaje);
     //funcion para disparar a tu oponente 
@@ -82,18 +84,21 @@
               if(cot!=-1){
                 swal("Ya tiraste ahí, tira de nuevo");
                 puntaje=puntaje-10;
+                $("#ptj").html("Puntaje:"+puntaje);
               }
               else{
                 tiro=1;
                 $(id).empty();
                 $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
-                puntaje=puntaje-10;
+                ty++;
               }
           }
           else{
             $(id).empty();
             $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
-             tiro=2;
+            puntaje=puntaje-10;
+            $("#ptj").html("Puntaje:"+puntaje);
+            tiro=2;
           }
        }  
       }
@@ -102,9 +107,16 @@
     function disparaCompu(donde,  x, y){
       var id='#'+donde+y+x;
       if (donde =='m'){ //mio
-          if(compu[y][x]==2){
+          if(tuya[y][x]==2){
                 $(id).empty();
                 $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
+                cm++;
+                /*if(tuya[y-1][x]==2){
+                    id='#'+donde+(y-1)+x;
+                   $(id).empty();
+                   $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
+                }*/
+                
           }
           else{
             $(id).empty();
@@ -170,7 +182,7 @@
                         aleatorioDos=aleatorioDos-1;
                       }
                       barco(('#s'+aleatorioUno+aleatorioDos));
-                      compu[aleatorioDos][aleatorioUno]=2;
+                      compu[aleatorioUno][aleatorioDos]=2;
                   }
                   contadorCompu++;
                   barcos++;
@@ -247,17 +259,25 @@
             compu[alfa][beta]=1;
             $('#s'+alfa).append(columna);
             $('#s'+alfa+beta).on('click', function(e){
-              id=this.id;
-              if(tiro==1){
-                disparaYo(id[0],id[1],id[2]);
-                console.log(id);
-              }
-              else{
-                swal("Es turno de la computadora");
-                var n1=Math.round(Math.random()*9);
-                var n2=Math.round(Math.random()*9);
-                 disparaCompu("m",n1,n2);
-              }
+                if(ty<15 && cm<17){
+                  id=this.id;
+                  if(tiro==1){
+                    disparaYo(id[0],id[1],id[2]);
+                    console.log(id);
+                  }
+                  else{
+                    swal("Es turno de la computadora");
+                    var n1=Math.round(Math.random()*9);
+                    var n2=Math.round(Math.random()*9);
+                     disparaCompu("m",n1,n2);
+                  }
+                }
+                else{
+                  if(ty==17)
+                    swal("Has ganado!!");
+                  else
+                    swal("La compu te ganó");
+                }
             });
         }
     }
