@@ -2,6 +2,7 @@
 	include("conection.php");
 	session_start();
 	$usuario = $_SESSION['id'];
+	// $usuper=$_POST['usuper'];//se manda el id del usuario que se desee conocer
 //guardar la publicacion hecha por el usuario
 	$tex=(isset($_POST['texto']))?$_POST['texto']:"";
 	if($tex!="")
@@ -60,6 +61,13 @@
 			                <span class='card-title'>".$fila['nombre_usuario']."<p>".$fila['tiempo_publicacion']."</p></span>
 			                <p>".$fila['texto_publicacion']."</p>
 	              		</div>
+
+		              			<a class='col l6 waves-effect waves-light red darken-1 btn' onclick='like(".$fila['id_publicaciones'].")'><i class='material-icons left'>thumb_down</i>ME DISGUSTA</a>
+		              	
+		              		
+		              			<a class='col l6 waves-effect waves-light green darken-1 btn' onclick='dislike(".$fila['id_publicaciones'].")'><i class='material-icons right'>thumb_up</i>ME GUSTA</a>
+		              	
+
 	                 	<ul class='collapsible' data-collapsible='accordion' >
 	    					<li id='numerocomentario".$fila['id_publicaciones']."'>
 	      						<div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios
@@ -99,6 +107,9 @@
           					<div class='col offset-l1 comentarios white-text'>
           						<i onclick=sending('".$fila['id_publicaciones']."') class='material-icons small'>textsms</i>
           					</div>
+          					
+          						<a class='waves-effect waves-light red btn'><i class='material-icons right'>games</i>---->RETAR<----</a> 
+          					
         				</div>
        				</div>
             	</div>
