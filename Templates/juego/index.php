@@ -422,10 +422,6 @@ $id_juego= $_POST["id_juego"]);
               },
               success:function(resul){
                     quien=resul;
-<<<<<<< HEAD
-=======
-
->>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
                 }
             });
       revisaDisparo();

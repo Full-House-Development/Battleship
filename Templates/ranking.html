@@ -18,11 +18,30 @@
 	</head>
 	<!--Inicio del maquetado-->
 	<body>
-		<nav>
-			<div class="nav-wrapper cyan darken-1">
-				<a href="#!" class="brand-logo center">Ranking</a>
-			 </div>
-		</nav>
+		<nav class='cyan darken-1' role='navigation'>
+            <div class='nav-wrapper container'>
+              <ul class='left hide-on-med-and-down'>
+                    <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
+                    <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
+                    <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
+                    <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
+              </ul>
+              <a href='#!' class='brand-logo center'>Ranking</a>
+              <div class='right nav-wrapper'>
+                  <form method='POST' action='../Templates/otroperfil.php'>
+                    <div class='input-field'>
+                      <input type='search' name='perfext'/>
+                    </div>
+                  </form>
+              </div>
+            </div>
+        </nav>
+		<div id="uso" class="modal">
+			<div class="modal-content center-align">
+				<h4>Ranking<h4>
+				<p>Has click en la foto de perfil del carrusel de la persona que deseas ver el Ranking.</p>
+			</div>
+		</div>
 		<div class="carousel">
 			<a class="carousel-item" href="#one!">
 				<div class="row">

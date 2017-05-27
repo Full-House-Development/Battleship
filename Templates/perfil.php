@@ -1,7 +1,7 @@
 <?php
-//este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
-  $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
+  $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";
+  $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";
   if($idusu!="")
   {
 ?>
@@ -15,42 +15,7 @@ session_start();
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
        <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
-       <style>
-      .comentarios
-      {
-        position:relative;
-        bottom:2px;
-      }
-      div h1
-      {
-        font-size:20px;
-        display:inline;
-        color:red;
-      }
-      div span
-      {
-        display:inline;
-      }
-      #foot
-      {
-        position:relative;
-        top:100px;
-      }
-      span p
-      {
-        position:absolute;
-        left:350px;
-        font-size:15px;
-        display:inline;
-      }
-      .usuder
-      {
-        position:relative;
-        bottom:300px;
-        left:400px;
-        font-size:40px;
-      }
-      </style>
+       <link type="text/css" rel="stylesheet" href="../Styles/estilado.css"/>
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      </head>
      <body>
@@ -59,7 +24,6 @@ session_start();
               <ul class='left hide-on-med-and-down'>
                     <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
                     <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
-                    <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
                     <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
                     <li><a href='ranking.html'><i class='material-icons'>assessment</i></a></li>
               </ul>
@@ -73,21 +37,67 @@ session_start();
               </div>
             </div>
         </nav>
-     
-    <div id="publicacion"class='row'>
-          <section>
-            <div class='container'>
-              <div class='card-content right-align col l3'>
-                <font style='font-family:'Courier New''><h3>¿Publicar?</h3></font>
+     <div id="todo">
+      <div class="row">
+        <div class="col s12 l8 offset-l2">
+          <div class="card light-blue darken-1">
+            <div class="card-content white-text">
+<!-- Parte de arriba del card perfil donde aparece la foto y los botones de reportar y pedir ayuda -->
+              <div class="row">
+                <?php
+                  echo "<div class='col offset-l2'>
+                  <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>
+                  </div>";
+                ?>
+                  <div class="col offset-l3 icon">
+                    <a class="btn-floating btn-large waves-effect waves-light red" id='reportar'><i class="material-icons">report_problem</i></a>
+                  </div>
               </div>
-              <div class='card-content center-align col l6'>
-                <textarea cols='50' rows='5' placeholder='¿Qué hay de nuevo?' class='materialize-textarea'></textarea>
-              </div>
-              <div class='card-content left-align col l3'>
-                <button id='publicar' class='btn-large waves-effect waves-light'>Publicar</button>
+              <div class="container">
+                <div class="row">
+<!-- Botones para mostrar los datos solicitados de nombre, correo y fecha de nacimiento -->
+                  <div class='center-align'>
+                    <div class="col offset-l1 offset-s1 icon">
+                      <i id="nacimiento" class="medium material-icons lol">today</i>
+                    </div>
+                  <div class="col offset-l2 offset-s1 icon">
+                    <i id="nombre" class="medium material-icons lol">contacts</i>
+                  </div>
+                  <div class="col offset-l2 offset-s1 icon">
+                    <i id="correo" class="medium material-icons lol">email</i>
+                  </div>
+                </div>
               </div>
             </div>
-          </section>
+            <div class="row container">
+<!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
+              <div class="center-align">
+                <h4 id="mostrar">mostrado</h4>
+              </div>
+              <div class="usuder">
+                <!-- Aqui se inserta el id_usuario -->
+                <p id="mostrarusu"><p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="publicacion"class='row'>
+    <section>
+      <div class='container'>
+        <div class='card-content right-align col l3'>
+          <font style='font-family:'Courier New''><h3>¿Publicar?</h3></font>
+        </div>
+        <div class='card-content center-align col l6'>
+          <textarea cols='50' rows='5' placeholder='¿Qué hay de nuevo?' class='materialize-textarea'></textarea>
+        </div>
+        <div class='card-content left-align col l3'>
+          <button id='publicar' class='btn-large waves-effect waves-light'>Publicar</button>
+        </div>
+      </div>
+    </section>
       </div>
 <!-- Aqui se incluye todo lo sacado de ajaxperfil.php -->
       <div id="publics">
@@ -112,7 +122,29 @@ session_start();
      // var nombrem="";
      // var correom="";
      // var fecnam="";
-//enviar lo que esta en el cuadro de busqueda y buscarlo     
+//reportar una publicacion
+     $('#reportar').click(function()
+            {
+              var hola=confirm('¿Estás seguro de que quieres reportar a esta persona?');
+              if(hola==true)
+              {
+                $.ajax(
+                 {
+                   url:'conreporte.php',
+                   type:'POST',
+                   data:
+                   {
+                   reportar:reta
+                   },
+                   success:function(res)
+                   {
+                   alert(res);
+                   }
+                 });
+              }
+              });
+    //enviar lo que esta en el cuadro de busqueda y buscarlo     
+
      $('#enviar').click(function (){
         var bus=$('#buscar').val();
          $.ajax(
@@ -121,7 +153,7 @@ session_start();
              type:'POST',
              data:
              {
-             busca:bus
+                busca:bus
              },
              success:function(busqueda)
              {
@@ -138,23 +170,23 @@ session_start();
 var n=0;
 var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
      var usuario='<?php echo $idusu; ?>';
-     var perfil='<?php echo $nomusu; ?>';
+     var nombre='<?php echo $nomusu; ?>';
+     var naci="<?php echo $_SESSION['nacimiento']; ?>";
+     var correo="<?php echo $_SESSION['correo']; ?>";
       $("#publicar").click(function(){
           var tex=$("textarea").val();
-            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+perfil+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
+            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
           $.ajax({
-            url:"ajaxmuro.php",
+            url:"ajaxperfil.php",
             type:"post",
             data:{
-              texto:tex,
-              perfex:perfil
+              texto:tex
             },
             success:function(resul){
              
               }
           });
           $("textarea").val("");
-          $tex="";
     });
 // Ajax que envía la informacion propia de un comentario para guardarla en la base de datos
         function sending(idtexto)
@@ -168,13 +200,13 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               ubicarcollapsible.append("<div class='collapsible-body'><h1>"+nombre+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
               $.ajax(
               {
-                url:"ajaxmuro.php",
+                url:"ajaxperfil.php",
                 type:"POST",
                 data:
                 {
                   id_publi:idtexto,
                   tex_com:comentariocon,
-                  id_usu:perfil
+                  id_usu:usuario
                 },
                 success:function(quer)
                 {
@@ -184,19 +216,17 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               $(idcomentario).val("");
               $(numerocomentario).attr("class","");
               $(".collapsible").collapsible();
-              comentariocon="";
             }
           } 
 // Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
         var aj="id";
         $.ajax(
          {
-             url:"ajaxmuro.php",
+             url:"ajaxperfil.php",
              type:"POST",
              data:
              {
-               usu:aj,
-               perfext:perfil
+               usu:aj
              },
              success:function(dato)
              {
@@ -223,10 +253,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
      var comentarionum="";
      var comentariocon="";
             
-          var den=$("#mostrar").html();
-          console.log(den);
-            // var muestri=nombrem;
-            // console.log(muestri);
+          $("#mostrar").html(nombre);
            $(".lol").on("mouseover", {
             est:"on"
            },mostrar);
@@ -237,35 +264,34 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
             est:"pri"
            },mostrar);
     // Cambia el contenido en div #mostrar segun el ícono activado por el evento
+           muestri=nombre;
            function mostrar( event ) 
             {
-              // var tipo=event.data.tipo;
+              
               var estado=event.data.est;
               var info=$(this).attr("id");
-              // if(info=="nombre")
-              // {
                 if(estado=="on")
                 {
-
-                  $("#mostrar").html(info);
+                  if(info=="nacimiento")
+                    $("#mostrar").html(naci);
+                  if(info=="correo")
+                    $("#mostrar").html(correo);
+                  if(info=="nombre")
+                    $("#mostrar").html(nombre);
                 }
                 if(estado=="off")
                 {
                   $("#mostrar").html(muestri);
                 }
-              // }
               if(estado=="pri")
               {
-                muestri=$(this).attr("id");
-                // $(this).attr("class","medium material-icons loilol");
-                $(this).removeClass("lol")
-                $(this).addClass("loilo")
-                //activar evento desactivado removeClass(),addClass();
-                $(this).off();
-
+                if(info=="nacimiento")
+                  muestri=naci;
+                if(info=="correo")
+                  muestri=correo;
               }
-            }      
-     </script>
+            }
+        </script>
      </body>
    </html> 
 <?php
