@@ -16,42 +16,7 @@ session_start();
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
        <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
-       <style>
-      .comentarios
-      {
-        position:relative;
-        bottom:2px;
-      }
-      div h1
-      {
-        font-size:20px;
-        display:inline;
-        color:red;
-      }
-      div span
-      {
-        display:inline;
-      }
-      #foot
-      {
-        position:relative;
-        top:100px;
-      }
-      span p
-      {
-        position:absolute;
-        left:350px;
-        font-size:15px;
-        display:inline;
-      }
-      .usuder
-      {
-        position:relative;
-        bottom:300px;
-        left:400px;
-        font-size:40px;
-      }
-      </style>
+       <link type="text/css" rel="stylesheet" href="../Styles/estilado.css"/>
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      </head>
      <body>

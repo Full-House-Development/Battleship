@@ -16,42 +16,7 @@ session_start();
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
        <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
-       <style>
-      .comentarios
-      {
-        position:relative;
-        bottom:2px;
-      }
-      div h1
-      {
-        font-size:20px;
-        display:inline;
-        color:red;
-      }
-      div span
-      {
-        display:inline;
-      }
-      #foot
-      {
-        position:relative;
-        top:100px;
-      }
-      span p
-      {
-        position:absolute;
-        left:350px;
-        font-size:15px;
-        display:inline;
-      }
-      .usuder
-      {
-        position:relative;
-        bottom:300px;
-        left:400px;
-        font-size:40px;
-      }
-      </style>
+       <link type="text/css" rel="stylesheet" href="../Styles/estilado.css"/>
        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      </head>
      <body>
@@ -113,7 +78,7 @@ session_start();
               <div class="row container">
 <!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
                 <div class="center-align">
-                  <h4 id="mostrar">mostrado</h4>
+                  <h4 id="mostrar"></h4>
                 </div>
                 <div class="usuder">
                 <!-- Aqui se inserta el id_usuario -->
@@ -191,6 +156,7 @@ var n=0;
 var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
      var usuario='<?php echo $idusu; ?>';
      var nombre='<?php echo $nomusu; ?>';
+     $("#mostrar").html(nombre);
       $("#publicar").click(function(){
           var tex=$("textarea").val();
             $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
@@ -199,7 +165,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
             type:"post",
             data:{
               texto:tex,
-              perfex:perfil
+              perfext:nombre
             },
             success:function(resul){
              
@@ -226,7 +192,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
                 {
                   id_publi:idtexto,
                   tex_com:comentariocon,
-                  id_usu:perfil
+                  id_usu:nombre
                 },
                 success:function(quer)
                 {
@@ -248,7 +214,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
              data:
              {
                usu:aj,
-               perfext:perfil
+               perfext:nombre
              },
              success:function(dato)
              {
@@ -271,7 +237,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
             }
     
 // Comienza la animacion de los ícones de nombre, correo y fecha de nacimiento por eventos js
-     $("#mostrarusu").html(usuario);
+     $("#mostrarusu").html(nombre);
      var comentarionum="";
      var comentariocon="";
             
@@ -303,19 +269,9 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
                 }
                 if(estado=="off")
                 {
-                  $("#mostrar").html(muestri);
+                  $("#mostrar").html(nombre);
                 }
               // }
-              if(estado=="pri")
-              {
-                muestri=$(this).attr("id");
-                // $(this).attr("class","medium material-icons loilol");
-                $(this).removeClass("lol")
-                $(this).addClass("loilo")
-                //activar evento desactivado removeClass(),addClass();
-                $(this).off();
-
-              }
             }      
      </script>
      </body>
