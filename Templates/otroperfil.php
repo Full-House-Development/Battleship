@@ -2,6 +2,7 @@
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
+  $nomusu=(isset($_POST['perfext']))?$_POST['perfext']:"";//del perfil a consultar
   if($idusu!="")
   {
 ?>
@@ -73,7 +74,58 @@ session_start();
               </div>
             </div>
         </nav>
-     
+     <div id="todo">
+      <div class="row">
+        <div class="col s12 l8 offset-l2">
+          <div class="card light-blue darken-1">
+            <div class="card-content white-text">
+<!-- Parte de arriba del card perfil donde aparece la foto y los botones de reportar y pedir ayuda -->
+              <div class="row">
+
+                  <div class="col  icon">
+                    <i class="small material-icons">announcement</i>
+                  </div>
+                <?php
+                  echo "<div class='col offset-l2'>
+                <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
+                  ?>
+                  </div>
+                  <div class="col offset-l3 icon">
+                    <i class="small material-icons sending">info_outline</i>
+                  </div>
+              </div>
+              <div class="container">
+              <div class="row">
+<!-- Botones para mostrar los datos solicitados de nombre, correo y fecha de nacimiento -->
+              <div class='center-align'>
+                <div class="col offset-l1 offset-s1 icon">
+                  <i id="nacimiento" class="medium material-icons lol">today</i>
+                </div>
+                <div class="col offset-l2 offset-s1 icon">
+                  <i id="nombre" class="medium material-icons lol">contacts</i>
+                </div>
+                <div class="col offset-l2 offset-s1 icon">
+                  <i id="correo" class="medium material-icons lol">email</i>
+                </div>
+              </div>
+              </div>
+            </div>
+              <div class="row container">
+<!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
+                <div class="center-align">
+                  <h4 id="mostrar">mostrado</h4>
+                </div>
+                <div class="usuder">
+                <!-- Aqui se inserta el id_usuario -->
+                  <p id="mostrarusu"><p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="publicacion"class='row'>
           <section>
             <div class='container'>
@@ -140,10 +192,10 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
      var usuario='<?php echo $idusu; ?>';
      var perfil='<?php echo $nomusu; ?>';
       $("#publicar").click(function(){
-          var tex=$("textarea").val();
+          tex=$("textarea").val();
             $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+perfil+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
           $.ajax({
-            url:"ajaxmuro.php",
+            url:"otroajaxperfil.php",
             type:"post",
             data:{
               texto:tex,
@@ -168,7 +220,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               ubicarcollapsible.append("<div class='collapsible-body'><h1>"+nombre+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
               $.ajax(
               {
-                url:"ajaxmuro.php",
+                url:"otroajaxperfil.php",
                 type:"POST",
                 data:
                 {
@@ -191,7 +243,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
         var aj="id";
         $.ajax(
          {
-             url:"ajaxmuro.php",
+             url:"otroajaxperfil.php",
              type:"POST",
              data:
              {
