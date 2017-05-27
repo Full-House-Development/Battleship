@@ -1,3 +1,10 @@
+<?php
+$id_retador= $_POST["id_jugador"]);
+$id_retado= $_POST["retador"]);
+$id_juego= $_POST["id_juego"]);
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -56,8 +63,8 @@
       </div>
     <script type="text/javascript">
     //!--------esta variable debe ser cambiada
-    var quien ="retador";//creo que seria mejor con un post o sessions
-    var id_juego= 5;
+    var quien ="retado";//creo que seria mejor con un post o sessions
+    var id_juego=<?php echo $id_juego; ?>;
     var puntaje=100;
     var barcos=0;
     var tablero,valor;
@@ -65,17 +72,16 @@
     var contador=1;
     var tiro=1;
     var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
-    var tuya= [];
+    var tuya= "";
     var morados=0;
-    var tabla=[]
+    var tabla=[];
       for (var i =0; i<10; i++) {
         tabla[i]=[];
       }
     //funcion para disparar a tu oponente
     function dispara(donde,  x, y) {
-
       var id='#'+donde+y+x;
-            console.log(id +"dispara");
+            console.log("id en funcion dispara es: "+id);
       if(morados>=17){
           $.ajax({
                       url:"../../Programs/tiro.php",
@@ -125,7 +131,6 @@
       }
        else
           swal("Antes de disparar termina de acomodar tus barcos");
-
       }
       return 0;
     }
@@ -140,13 +145,13 @@
             unoODos: "dos"
           },
           success:function(resul){
+            console.log("resul de sacaCoor: "+resul);
             tuya=resul.split("d");
             tuya=tuya[2];
             tuya=tuya.split(":");
             for (var alfa = 0; alfa < 10; alfa++) {
               tuya[alfa]=tuya[alfa].split(",");
             }
-
             }
         });
       else
@@ -164,13 +169,10 @@
           for (var alfa = 0; alfa < 10; alfa++) {
             tuya[alfa]=tuya[alfa].split(",");
           }
-
           }
       });
-
-
+      return tuya;
   }
-
     //pone los círculos verdes de los barcos
     function barco(id){
        $(id).empty();
@@ -180,7 +182,6 @@
       for(var barrery=0;barrery<10;barrery++){
                     for(var barrerx=0;barrerx<10;barrerx++){
                         valor=$("#m"+barrery+barrerx).html().indexOf("barco.svg");
-
                         if(valor!=-1){
                           if(barrerx<9)
                             tablero=tablero+"2,";
@@ -223,12 +224,10 @@
                                       contador=resul[0];
                                       contador++;
                                 }
-                            console.log(resul);
-
+                            console.log("resul de revisaDisparo: "+resul);
                             }
                         });
           //      $("#ptj").html("Puntaje:"+puntaje--);
-
               }, 1000);
           }
     function acomoda(donde, x, y,orientacion){
@@ -269,7 +268,6 @@
                   barcos++;
                   if(barcos==5){
                     mapa();
-                    sacaCoor();
                     if(quien=="retador")
                       $.ajax({
                         url:"../../Programs/meteCoordenadas.php",
@@ -307,10 +305,8 @@
       else if (donde=='s'){//su
         swal("Antes de tirar tienes que acomodar tus barcos");
       }
-
       return 0;
     }
-
     //se generan las casillas azules
     for (var alfa = 0; alfa < 10; alfa++){
         if(alfa==0)
@@ -348,14 +344,11 @@
                        swal("Horizontal", "success");
                        orientacion="horizontal";
                         acomoda(id[0],id[2],id[1],orientacion);
-
                     } else {
                       swal("Vertical", "success");
                        orientacion="vertical";
                       acomoda(id[0],id[2],id[1],orientacion);
                     }
-
-
                   });
               }
               else{
@@ -375,14 +368,51 @@
                 }
                 else{
                   swal("Has ganado");
+                  if(quien=="retador")
+                      $.ajax({
+                        url:"../../Programs/autoPublicacion.php",
+                        type:"post",
+                        data:{
+                          unoODos: "uno"
+                        },
+                        success:function(resul){
+                          console.log("publicacion hecha");
+                          console.log(resul);
+                          }
+                      });
+                    else
+                      $.ajax({
+                        url:"../../Programs/autoPublicacion.php",
+                        type:"post",
+                        data:{
+                          unoODos: "dos"
+                        },
+                        success:function(resul){
+                          console.log("publicacion hecha");
+                          console.log(resul);
+                          }
+                      });
                 }
             });
         }
     }
-
-    revisaDisparo();
-
-    console.log(tuya);
+    var sacala =setInterval(function(){
+        console.log("tuya: "+   sacaCoor());
+        if((typeof tuya!== "undefined")&&tuya!="")
+          clearInterval(sacala);
+      }, 3000);
+    $.ajax({
+              url:"../Programs/revisaQuien.php",
+              type:"post",
+              data:{
+                id_juego: id_juego,
+                retador: <?php echo $id_retador; ?>
+              },
+              success:function(resul){
+                    quien=resul;
+                }
+            });
+      revisaDisparo();
     </script>
 </body>
 </html>
