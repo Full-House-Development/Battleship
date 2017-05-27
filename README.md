@@ -21,6 +21,6 @@ Requerimientos del sistema:
 Instalación del sistema:
 ---------------------
  
--Iniciar Apache desde MySQL.
--Clonar el repositorio a la carpeta: (WINDOWS) /xampp/htdocs (LINUX) /opt/lampp/htdocs.
--Ruta de archivo para el inicio de sesión: localhost/Battleship/index.html. Iniciarlo desde el navegador de su preferencia.
+  + Iniciar Apache desde MySQL.
+  + Clonar el repositorio a la carpeta: (WINDOWS) /xampp/htdocs (LINUX) /opt/lampp/htdocs.
+  + Ruta de archivo para el inicio de sesión: localhost/Battleship/index.html. Iniciarlo desde el navegador de su preferencia.
