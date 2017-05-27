@@ -24,3 +24,7 @@ Instalación del sistema:
   + Iniciar Apache desde MySQL.
   + Clonar el repositorio a la carpeta: (WINDOWS) /xampp/htdocs (LINUX) /opt/lampp/htdocs.
   + Ruta de archivo para el inicio de sesión: localhost/Battleship/index.html. Iniciarlo desde el navegador de su preferencia.
+
+
+Para acceder a los controles de administrador en iniciar sesión es necesario escribir:-->   *aarongn22    <--- 
+y en contraseña: ---->   $adminAEGN22   <-----      y cuando pida una segunda contraseña ingresar: --->   sweetdaddies    <----
