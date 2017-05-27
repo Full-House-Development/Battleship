@@ -1,7 +1,7 @@
 <?php
 	include("conection.php");
 	session_start();
-	$usuario = $_POST['perfext'];
+	$usuario = $_SESSION['id'];
 	// $usuper=$_POST['usuper'];//se manda el id del usuario que se desee conocer
 //guardar la publicacion hecha por el usuario
 	$tex=(isset($_POST['texto']))?$_POST['texto']:"";
@@ -47,7 +47,7 @@
 	$usu=(isset($_POST['usu']))?$_POST['usu']:"";
 	if($usu!="")
 	{
-		$que="SELECT usuario.nombre_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario='".$usuario."' ORDER BY publicaciones.tiempo_publicacion DESC";
+		$que="SELECT usuario.nombre_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario!='".$usuario."' ORDER BY publicaciones.tiempo_publicacion DESC";
 		$impor=mysqli_query(conection(),$que);
 		$fila=mysqli_fetch_assoc($impor);
 		$rell="";
