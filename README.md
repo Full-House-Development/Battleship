@@ -56,4 +56,6 @@ Instalación del sistema:
 
 Para acceder a los controles de administrador en iniciar sesión es necesario escribir:-->   *aarongn22    <--- 
 y en contraseña: ---->   $adminAEGN22   <-----      y cuando pida una segunda contraseña ingresar: --->   sweetdaddies    <----
+
+Y para hacer una busqueda de usuario favor de clickear a la derecha de Battleship donde hay un recuadro que se activa con un click donde se ingresa el id del usuario a buscar para acceder a su perfil
 >>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
