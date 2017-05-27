@@ -187,6 +187,7 @@ CREATE TABLE `usuario` (
   `nombre_usuario` varchar(100) DEFAULT NULL,
   `apellido_usuario` varchar(100) DEFAULT NULL,
   `oregano` varchar(34) DEFAULT NULL,
+  `busqueda` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -197,7 +198,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('davidalencia','73.jpg','esto no es un hash','1999-05-20','davidalencia@gmail.com','david','valencia', "oregano");
+INSERT INTO `usuario` VALUES ('aarongn22','putin','9ecab26ecb66eb8cb4ee0708df3400bbaa3dc21c89811832650985efde558fad664eeaa05128ff339313f12d3e70be37c05e503e03f1dcd5c5d639f97a5dfce0','2000-01-22','aaron_shark_gn@outlook.es','AarÃ³n','GaytÃ¡n','05a6ab158d340e3fe97321bc0bacf78f','AaronGaytan'),('fer7sg','trudeau','06fb00a2c77085892d09237a06090128bf4f1534ea1b1eb2c925571143fc49716637f7644261c8f2eb981e795bb4ff0ed21401ecb3a159073381869269b2cdbd','2000-07-25','fer_sanchez_25_07@hotmail.com','Fernanda','SÃ¡nchez','8cfeda11e442ae6b37e7be556d4ac914','FernandaSanchez');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -210,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-23 11:09:01
+-- Dump completed on 2017-05-24 15:50:41

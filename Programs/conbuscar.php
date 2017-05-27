@@ -5,6 +5,7 @@
 	$rell="";
 	if($coneccion)
 		{
+<<<<<<< HEAD
 			$query='SELECT * FROM usuario WHERE id_usuario LIKE "%'.$busca.'%";';
 			$res=mysqli_query($coneccion,$query);
 			$fila=mysqli_fetch_assoc($res);
@@ -15,4 +16,14 @@
 		echo "no se encontraron resultados";
 	else 
 		echo $fila['id_usuario']."+".$fila['foto']."+".$fila['nacimiento_usuario']."+".$fila['correo_usuario']."+".$fila['nombre_usuario']."+".$fila['apellido_usuario'];
+=======
+			$query='SELECT * FROM usuario WHERE nombre_usuario LIKE "%'.$busca.'%";';
+			$res=mysqli_query($coneccion,$query);
+			$fila=mysqli_fetch_assoc($res);
+		}
+	if($fila['nombre_usuario']=="")
+		echo "no sé encontraron resultados";
+	else 
+		echo $fila['nombre_usuario'];
+>>>>>>> master
 ?>   

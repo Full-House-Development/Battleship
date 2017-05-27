@@ -10,14 +10,15 @@
 		<link type="text/css" rel="stylesheet" href="../Documents/css/materialize.css"  media="screen,projection"/>
 		<link href="../Documents/css/main.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 		<!--Etiquetas referetes al encabezado de la página-->
-		<title>Red Social</title>
+		<title>Perfil</title>
 		<!--Opciones de icono-->
 		<link rel="shortcut icon" href="../Sources/icono2.png" type="image/png"/>
 		<!--Scrips que se necesitaran-->
 		<script type="text/javascript" src="../Documents/js/jquery-3.2.1.js"></script>
 		<script type="text/javascript" src="../Documents/js/materialize.js"></script>
 		<script type="text/javascript" src="../Documents/js/main.js"></script>
-       <style>
+		<!--Estilado de la pigina-->
+	   <style>
        #pub
        {
          position:relative;
@@ -44,27 +45,43 @@
 			<a href="#!" class="brand-logo center">B A T T L E S H I P</a>
 		</div>
      </nav>
-     <div id="todo">
+          <div id="todo">
       <div class="row">
         <div class="col s12 l10 offset-l1">
           <div class="card blue darken-1">
             <div class="card-content white-text">
               <div class="row">
-                <div class="col offset-l5">
-                  <img class="circle responsive-img" src="../Resources/Images/73.jpg">
+                  <div class="col  icon">
+                    <i class="small material-icons">announcement</i>
+                  </div>
+                
+                  <div class="col offset-l4">
+                    <img class="circle responsive-img" src="../Resources/Images/73.jpg">
+                  
+                  </div>
+                  <div class="col offset-l5 icon">
+                    <i class="small material-icons">report_problem</i>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col offset-l4">
+                  <h4 id="mostrar">mostrado<h4>
+                </div>
+                <div class="col offset-l4">
+                  <p id="mostrar">usuario@64<p>
                 </div>
               </div>
             </div>
             <div class="card-action ">
               <div class="row">
-                <div class="col offset-l2">
-                  <i class="medium material-icons">contacts</i>
+                <div class="col offset-l2 icon">
+                  <i id="nombre" class="medium material-icons lol">contacts</i>
                 </div>
-                <div class="col offset-l2">
-                  <i class="medium material-icons">today</i>
+                <div class="col offset-l2 icon">
+                  <i id="nacimiento" class="medium material-icons lol">today</i>
                 </div>
-                <div class="col offset-l2">
-                  <i class="medium material-icons">email</i>
+                <div class="col offset-l2 icon">
+                  <i id="correo" class="medium material-icons lol">email</i>
                 </div>
               </div>
             </div>
@@ -130,10 +147,15 @@
 					tex=$("textarea").val();
 					if(n==0)	
 						$("#publicaciones").add("<h2>Publicaciones</h2>").appendTo(document.body);
+<<<<<<< HEAD
 						console.log(tex);
 						$('#foot').before('<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>'+hr+'</p></span><p>'+tex+'</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'/><button class='comentar btn waves-effect waves-light' type='submit' name='action'/>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>');
 					
 					
+=======
+						console.log(hr,tex);
+						$("#foot").before("<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>"+hr+"</p></span><p>"+tex+"</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'><button class='comentar btn waves-effect waves-light' type='submit' name='action'>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>");
+>>>>>>> master
 					$.ajax({
 						url:"../Programs/publicaciones.php",
 						type:"post",
@@ -144,6 +166,7 @@
 							console.log(resul);
 							}
 					});
+<<<<<<< HEAD
 				});
 			function collapsible()
              {
@@ -168,6 +191,86 @@
 								$("#p").append(rec+" <img src='../resources/images/"+rec+".gif'/>");
 							});
 					});
+=======
+		});
+		
+		n=1;
+		i++;
+		$(".comentar").click(function(){
+			var com=this.previousSibling.value;
+			var el=document.createElement("div");
+			l=this.parentNode.insertBefore(el,this.previousSibling);
+			l.innerHTML=("<p>"+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+"a las "+d.getHours()+":"+d.getMinutes()+"<br/>"+com+"</p>");
+		});
+		$("span").click(function(){
+			$("#p").append("<li>like</li>");
+			$("#p").append("<li>love</li>");
+			$("#p").append("<li>risa</li>");
+			$("#p").append("<li>enojo</li>");
+			$("li").click(function(){
+				var rec=this.innerHTML;
+				$("#p").empty();
+				$("#p").append(rec+" <img src='../resources/images/"+rec+".gif'/>");
+			});
+		});
+		var muestri="mostrado";
+           $(".lol").on("mouseover", {
+            est:"on"
+           },mostrar);
+           $(".lol").on("mouseout", {
+            est:"off"
+           },mostrar);
+           $(".lol").on("click", {
+            est:"pri"
+           },mostrar);
+           function mostrar( event ) 
+            {
+              // var tipo=event.data.tipo;
+              var estado=event.data.est;
+              var info=$(this).attr("id");
+              // if(info=="nombre")
+              // {
+                if(estado=="on")
+                {
+                  
+                  // alert(info);
+                  $("#mostrar").html(info);
+                }
+                if(estado=="off")
+                {
+                  $("#mostrar").html(muestri);
+                }
+              // }
+              if(estado=="pri")
+              {
+                muestri=$(this).attr("id");
+                $(this).attr("class","medium material-icons loilol");
+                //activar evento desactivado
+                $(this).off();
+                alert(info);
+              }
+            }
+           var aj="id";
+             $.ajax(
+               {
+                   url:"publi4.php",
+                   type:"POST",
+                   data:
+                   {
+                     usu:aj
+                   },
+                   success:function(dato)
+                   {
+                     $("#todo").append(dato);
+                   }
+               });
+           var com=$("#resol").attr();
+           alert(com);
+             function collapsible()
+             {
+                 $(".collapsible").collapsible();
+             }			
+>>>>>>> master
      </script>
      </body>
    </html> 

@@ -313,6 +313,7 @@
 						   });
 						  });
 						  var reta='$id';
+						 //ESTO ES REPORTAR
 						$('#reportar').click(function()
 						{
 							var hola=confirm('¿Estás seguro de que quieres reportar a esta persona?');
