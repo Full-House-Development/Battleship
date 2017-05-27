@@ -56,8 +56,8 @@
       </div>
     <script type="text/javascript">
     //!--------esta variable debe ser cambiada
-    var quien ="retador";//creo que seria mejor con un post o sessions
-    var id_juego= 5;
+    var quien ="retado";//creo que seria mejor con un post o sessions
+    var id_juego= 7;
     var puntaje=100;
     var barcos=0;
     var tablero,valor;
@@ -65,9 +65,9 @@
     var contador=1;
     var tiro=1;
     var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
-    var tuya= [];
+    var tuya= "";
     var morados=0;
-    var tabla=[]
+    var tabla=[];
       for (var i =0; i<10; i++) {
         tabla[i]=[];
       }
@@ -75,7 +75,7 @@
     function dispara(donde,  x, y) {
 
       var id='#'+donde+y+x;
-            console.log(id +"dispara");
+            console.log("id en funcion dispara es: "+id);
       if(morados>=17){
           $.ajax({
                       url:"../../Programs/tiro.php",
@@ -140,6 +140,7 @@
             unoODos: "dos"
           },
           success:function(resul){
+            console.log("resul de sacaCoor: "+resul);
             tuya=resul.split("d");
             tuya=tuya[2];
             tuya=tuya.split(":");
@@ -168,6 +169,7 @@
           }
       });
 
+      return tuya;
 
   }
 
@@ -207,7 +209,9 @@
                             id_juego: id_juego
                           },
                           success:function(resul){
+
                             if(resul[0]=='*' && morados<17){
+
                               swal("Has perdido");
                             }
                                 if(resul[0]%2!=0&&quien=="retador"){
@@ -223,7 +227,7 @@
                                       contador=resul[0];
                                       contador++;
                                 }
-                            console.log(resul);
+                            console.log("resul de revisaDisparo: "+resul);
 
                             }
                         });
@@ -269,7 +273,6 @@
                   barcos++;
                   if(barcos==5){
                     mapa();
-                    sacaCoor();
                     if(quien=="retador")
                       $.ajax({
                         url:"../../Programs/meteCoordenadas.php",
@@ -379,10 +382,13 @@
             });
         }
     }
-
+    var sacala =setInterval(function(){
+        console.log("tuya: "+   sacaCoor());
+        if((typeof tuya!== "undefined")&&tuya!="")
+          clearInterval(sacala);
+      }, 3000);
     revisaDisparo();
 
-    console.log(tuya);
     </script>
 </body>
 </html>
