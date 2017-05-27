@@ -2,7 +2,7 @@
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
-  $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";//del perfil a consultar
+  $nomusu=(isset($_POST['perfext']))?$_POST['perfext']:"";//del perfil a consultar
   if($idusu!="")
   {
 ?>
@@ -60,15 +60,15 @@ session_start();
               <ul class='left hide-on-med-and-down'>
                     <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
                     <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
-                    <li><a href='perf.php'><i class='material-icons'>person_pin</i></a></li>
+                    <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
+                    <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
+                    <li><a href='ranking.html'><i class='material-icons'>assessment</i></a></li>
               </ul>
               <a href='#!' class='brand-logo center'>B A T T L E S H I P</a>
               <div class='right nav-wrapper'>
-                  <form>
+                  <form method='POST' action='../Templates/otroperfil.php'>
                     <div class='input-field'>
-                      <input id='search' type='search'/>
-                      <label class='label-icon' for='search'><i class='material-icons'>search</i></label>
-                      <i class='material-icons'>close</i>
+                      <input type='search' name='perfext'/>
                     </div>
                   </form>
               </div>
@@ -90,8 +90,8 @@ session_start();
                 <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
                   ?>
                   </div>
-                  <div class="col offset-l2 icon">
-                    <i class="small material-icons sending">report_problem</i>
+                  <div class="col offset-l3 icon">
+                    <i class="small material-icons sending">info_outline</i>
                   </div>
               </div>
               <div class="container">
@@ -164,33 +164,55 @@ session_start();
      // var nombrem="";
      // var correom="";
      // var fecnam="";
+//enviar lo que esta en el cuadro de busqueda y buscarlo     
+     $('#enviar').click(function (){
+        var bus=$('#buscar').val();
+         $.ajax(
+           {
+             url:'../Programs/conbuscar.php',
+             type:'POST',
+             data:
+             {
+             busca:bus
+             },
+             success:function(busqueda)
+             {
+             if(busqueda!='no se encontraron resultados')
+             {
+              $('#perfext').attr('value',busqueda);
+              $( '#rel').trigger('click');
+             }
+             }    
+           });
+      });
 // Ajax que guarda las publicaciones y las genera instantáneamente
 //var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
 var n=0;
 var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
      var usuario='<?php echo $idusu; ?>';
-     var nombre='<?php echo $nomusu; ?>';
+     var perfil='<?php echo $nomusu; ?>';
       $("#publicar").click(function(){
           tex=$("textarea").val();
-            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
+            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+perfil+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
           $.ajax({
             url:"otroajaxperfil.php",
             type:"post",
             data:{
-              texto:tex
+              texto:tex,
+              perfex:perfil
             },
             success:function(resul){
              
               }
           });
           $("textarea").val("");
+          $tex="";
     });
 // Ajax que envía la informacion propia de un comentario para guardarla en la base de datos
         function sending(idtexto)
           {
             if(comentarionum==idtexto&&comentariocon!="")
             {
-              alert("se envio el comentario del id= "+idtexto);
               var idcomentario="#"+idtexto;
               var numerocomentario="#numerocomentario"+idtexto;
               var textocomen=$(idcomentario).val();
@@ -204,17 +226,17 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
                 {
                   id_publi:idtexto,
                   tex_com:comentariocon,
-                  id_usu:usuario
+                  id_usu:perfil
                 },
                 success:function(quer)
                 {
-                  alert("se guardo el comentario");
                   console.log(quer);
                 }
               });
               $(idcomentario).val("");
               $(numerocomentario).attr("class","");
               $(".collapsible").collapsible();
+              comentariocon="";
             }
           } 
 // Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
@@ -225,7 +247,8 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
              type:"POST",
              data:
              {
-               usu:aj
+               usu:aj,
+               perfext:perfil
              },
              success:function(dato)
              {
@@ -275,8 +298,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               // {
                 if(estado=="on")
                 {
-                  
-                  // alert(info);
+
                   $("#mostrar").html(info);
                 }
                 if(estado=="off")
@@ -292,17 +314,9 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
                 $(this).addClass("loilo")
                 //activar evento desactivado removeClass(),addClass();
                 $(this).off();
-                alert(info);
-              }
-            }
-          // var nombre="";
-          // var correo="";
-          // var nacimiento="";
-          
-          // var datos=["nacimiento","correo","nombre","nombre"];
-          
 
-           
+              }
+            }      
      </script>
      </body>
    </html> 

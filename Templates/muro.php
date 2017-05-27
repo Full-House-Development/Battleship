@@ -1,131 +1,275 @@
 <?php
-	include("conection.php");
-	//Inicio de sesión
-	session_start();
-	
-	//Declaración de variables
-	$usuario = $_SESSION['id'];
-	$conexion = mysqli_connect("localhost","root","","final");
-	mysqli_set_charset($conexion,"utf8");
-	
-	//Inicio del maquetado
-	if(isset($_SESSION['id']))
-	{
-		echo "<!DOCTYPE html>
-			  <html>
-				<head>
-				  <link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
-				  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css'>
-				  <link rel='stylesheet' src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js'>
-				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
-				  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
-				  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-				  <style>
-					  #pub
-					  {
-						position:relative;
-						top:40px;
-						$
-					  }
-					  #foot
-					  {
-						position:relative;
-						top:100px;
-					  }
-					  span p
-					  {
-						position:absolute;
-						left:350px;
-						font-size:15px;
-						display:inline;
-					  }
-				 </style>
-				</head>
-				<body>
-					<nav class='cyan darken-1' role='navigation'>
-						<div class='nav-wrapper container'>
-							<ul class='left hide-on-med-and-down'>
-										<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
-										<li><a href='muro.php'><i class='material-icons'>web</i></a></li>
-										<li><a href='../Programs/perf.php'><i class='material-icons'>person_pin</i></a></li>
-							</ul>
-							<a href='#!' class='brand-logo center'>".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
-							<div class='right nav-wrapper'>
-									<form>
-										<div class='input-field'>
-											<input id='search' type='search'/>
-											<label class='label-icon' for='search'><i class='material-icons'>search</i></label>
-											<i class='material-icons'>close</i>
-										</div>
-									</form>
-							</div>
-						</div>
-					</nav>
-				<div id='todo'>";
-					$query = "SELECT * FROM publicaciones;";
-					$import = mysqli_query($conexion,$query);
-					$fila = mysqli_fetch_assoc($import);
-					$rell = "";
-					while($fila)
-						{
-							$rell=$rell."
-							<div class='row'>
-								<div class='col s12 l6 offset-l3 ' id='pub'>
-									<div class='card blue darken-1 z-depth-5'>
-										<div class='card-content white-text'>
-											<span class='card-title'>".$fila['id_usuario']."<p>".$fila['tiempo_publicacion']."</p></span>
-											<p>".$fila['texto_publicacion']."</p>
-										</div>
-					 <ul class='collapsible' data-collapsible='accordion' >
-						<li>
-						  <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>textsms</i>Comentarios</div>";
-								$pub=$fila['id_publicaciones'];
-								$quecom="SELECT comentario.texto_comentario,comentario.tiempo_comentario,comentario.id_usuario FROM comentario JOIN publicaciones ON publicaciones.id_publicaciones=comentario.id_publicacion WHERE comentario.id_publicacion='".$pub."'"; 
-								$imporcom=mysqli_query($conexion,$quecom);
-								$filacom=mysqli_fetch_assoc($imporcom);
-								$rellcom="";
-								while($filacom)
-								{
-									$idus=$filacom['id_usuario'];
-									$quecomu="SELECT usuario.nombre_usuario FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario='".$idus."'";
-									$imporcomu=mysqli_query($conexion,$quecomu);
-									$filacomu=mysqli_fetch_assoc($imporcomu);
-									$rellcom=$rellcom."<div class='collapsible-body'><h1>".$filacomu['nombre_usuario'].":"."</h1><span>".$filacom['texto_comentario']."<p>".$filacom['tiempo_comentario']."</p></span></div>";
-									$filacom=mysqli_fetch_assoc($imporcom);
-								}
-								$rell=$rell.$rellcom."
-						</li>
-					  </ul>
-									<div class='row'>
-							<div class='row'>
-							  <div class='input-field col s6'>
-								<input id='input_text' type='text' data-length='30' onblur='sendi(".$fila['id_publicaciones'].")'>
-								<label for='input_text'>Comentar</label>
-							  </div>
-							</div>
-							</div>
-								</div>
-							</div>";
-						  
-							$fila=mysqli_fetch_assoc($import);
-						}
-					echo $rell;
-		echo"	</div>
-				<!--FOOTER--> 
-					<footer class='white page-footer' id='foot'>
-					  <div class='footer-copyright teal'>
-						<div class='container white-text'>
-						© 2017 Copyright Text
-						<a class='white-text right' href='http://www.prepa6.unam.mx'>Preparatoria 6 Antonio Caso</a>
-						</div>
-					  </div>
-			 </footer>
-				</body>
-		</html>";
-	}
-	else
-	{
-		header("Location: index.html");
-		exit;
-	}
+//este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
+session_start();
+  $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
+  if($idusu!="")
+  {
+?>
+<!DOCTYPE html>
+   <html lang="es">
+     <head>
+      <meta http-equiv="Content-type" content="text/html"; charset="UTF-8">
+       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <link type="text/css" rel="stylesheet" href="../Documents/css/materialize.min.css"  media="screen,projection"/>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+       <script type="text/javascript" src="../Documents/js/materialize.min.js"></script>
+       <style>
+      .comentarios
+      {
+        position:relative;
+        bottom:2px;
+      }
+      div h1
+      {
+        font-size:20px;
+        display:inline;
+        color:red;
+      }
+      div span
+      {
+        display:inline;
+      }
+      #foot
+      {
+        position:relative;
+        top:100px;
+      }
+      span p
+      {
+        position:absolute;
+        left:350px;
+        font-size:15px;
+        display:inline;
+      }
+      .usuder
+      {
+        position:relative;
+        bottom:300px;
+        left:400px;
+        font-size:40px;
+      }
+      </style>
+       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     </head>
+     <body>
+     <nav class='cyan darken-1' role='navigation'>
+            <div class='nav-wrapper container'>
+              <ul class='left hide-on-med-and-down'>
+                    <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
+                    <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
+                    <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
+                    <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
+                    <li><a href='ranking.html'><i class='material-icons'>assessment</i></a></li>
+              </ul>
+              <a href='#!' class='brand-logo center'>B A T T L E S H I P</a>
+              <div class='right nav-wrapper'>
+                  <form method='POST' action='../Templates/otroperfil.php'>
+                    <div class='input-field'>
+                      <input type='search' name='perfext'/>
+                    </div>
+                  </form>
+              </div>
+            </div>
+        </nav>
+     
+    <div id="publicacion"class='row'>
+          <section>
+            <div class='container'>
+              <div class='card-content right-align col l3'>
+                <font style='font-family:'Courier New''><h3>¿Publicar?</h3></font>
+              </div>
+              <div class='card-content center-align col l6'>
+                <textarea cols='50' rows='5' placeholder='¿Qué hay de nuevo?' class='materialize-textarea'></textarea>
+              </div>
+              <div class='card-content left-align col l3'>
+                <button id='publicar' class='btn-large waves-effect waves-light'>Publicar</button>
+              </div>
+            </div>
+          </section>
+      </div>
+<!-- Aqui se incluye todo lo sacado de ajaxperfil.php -->
+      <div id="publics">
+
+      </div>
+<!-- Implementacion del footer de la página -->
+      <footer class="page-footer #e65100 orange darken-4" id="foot">
+       <div class="container">
+         <div class="row">
+           <div class="col l6 s12">
+             <h5 class="white-text">BattleShip</h5>
+           </div>
+         </div>
+       </div>
+       <div class="footer-copyright #bf360c deep-orange darken-4">
+         <div class="container">
+           © 2017 Copyright Text
+         </div>
+       </div>
+     </footer>
+     <script>
+     // var nombrem="";
+     // var correom="";
+     // var fecnam="";
+//enviar lo que esta en el cuadro de busqueda y buscarlo     
+     $('#enviar').click(function (){
+        var bus=$('#buscar').val();
+         $.ajax(
+           {
+             url:'../Programs/conbuscar.php',
+             type:'POST',
+             data:
+             {
+             busca:bus
+             },
+             success:function(busqueda)
+             {
+             if(busqueda!='no se encontraron resultados')
+             {
+              $('#perfext').attr('value',busqueda);
+              $( '#rel').trigger('click');
+             }
+             }    
+           });
+      });
+// Ajax que guarda las publicaciones y las genera instantáneamente
+//var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
+var n=0;
+var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
+     var usuario='<?php echo $idusu; ?>';
+     var perfil='<?php echo $nomusu; ?>';
+      $("#publicar").click(function(){
+          var tex=$("textarea").val();
+            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+perfil+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
+          $.ajax({
+            url:"ajaxmuro.php",
+            type:"post",
+            data:{
+              texto:tex,
+              perfex:perfil
+            },
+            success:function(resul){
+             
+              }
+          });
+          $("textarea").val("");
+          $tex="";
+    });
+// Ajax que envía la informacion propia de un comentario para guardarla en la base de datos
+        function sending(idtexto)
+          {
+            if(comentarionum==idtexto&&comentariocon!="")
+            {
+              var idcomentario="#"+idtexto;
+              var numerocomentario="#numerocomentario"+idtexto;
+              var textocomen=$(idcomentario).val();
+              var ubicarcollapsible=$(numerocomentario);
+              ubicarcollapsible.append("<div class='collapsible-body'><h1>"+nombre+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
+              $.ajax(
+              {
+                url:"ajaxmuro.php",
+                type:"POST",
+                data:
+                {
+                  id_publi:idtexto,
+                  tex_com:comentariocon,
+                  id_usu:perfil
+                },
+                success:function(quer)
+                {
+                  console.log(quer);
+                }
+              });
+              $(idcomentario).val("");
+              $(numerocomentario).attr("class","");
+              $(".collapsible").collapsible();
+              comentariocon="";
+            }
+          } 
+// Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
+        var aj="id";
+        $.ajax(
+         {
+             url:"ajaxmuro.php",
+             type:"POST",
+             data:
+             {
+               usu:aj,
+               perfext:perfil
+             },
+             success:function(dato)
+             {
+               $("#publics").append(dato);
+             }
+         });
+
+// Declaracion del efecto collapsible necesaria para que se pueda ejecutar
+    function collapsible()
+             {
+                 $(".collapsible").collapsible();
+             }
+    function buffer(idpub)
+            {
+              comentarionum=idpub;
+              console.log(comentarionum);
+              var ids="#"+idpub;
+              comentariocon=$(ids).val();
+              console.log(comentariocon);
+            }
+    
+// Comienza la animacion de los ícones de nombre, correo y fecha de nacimiento por eventos js
+     $("#mostrarusu").html(usuario);
+     var comentarionum="";
+     var comentariocon="";
+            
+          var den=$("#mostrar").html();
+          console.log(den);
+            // var muestri=nombrem;
+            // console.log(muestri);
+           $(".lol").on("mouseover", {
+            est:"on"
+           },mostrar);
+           $(".lol").on("mouseout", {
+            est:"off"
+           },mostrar);
+           $(".lol").on("click", {
+            est:"pri"
+           },mostrar);
+    // Cambia el contenido en div #mostrar segun el ícono activado por el evento
+           function mostrar( event ) 
+            {
+              // var tipo=event.data.tipo;
+              var estado=event.data.est;
+              var info=$(this).attr("id");
+              // if(info=="nombre")
+              // {
+                if(estado=="on")
+                {
+
+                  $("#mostrar").html(info);
+                }
+                if(estado=="off")
+                {
+                  $("#mostrar").html(muestri);
+                }
+              // }
+              if(estado=="pri")
+              {
+                muestri=$(this).attr("id");
+                // $(this).attr("class","medium material-icons loilol");
+                $(this).removeClass("lol")
+                $(this).addClass("loilo")
+                //activar evento desactivado removeClass(),addClass();
+                $(this).off();
+
+              }
+            }      
+     </script>
+     </body>
+   </html> 
+<?php
+  }
+  else
+    echo "No se ha accedido mediante un registro";
 ?>
