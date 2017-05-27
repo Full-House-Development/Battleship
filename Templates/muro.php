@@ -24,7 +24,6 @@ session_start();
             <div class='nav-wrapper container'>
               <ul class='left hide-on-med-and-down'>
                     <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
-                    <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
                     <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
                     <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
                     <li><a href='ranking.html'><i class='material-icons'>assessment</i></a></li>
