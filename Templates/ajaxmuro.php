@@ -41,7 +41,6 @@
 		$qcomi="INSERT INTO comentario(id_usuario,id_publicacion,texto_comentario) VALUES ('".$_POST['id_usu']."','".$_POST['id_publi']."','".$_POST['tex_com']."')";
 		$impo=mysqli_query(conection(),$qcomi);
 		echo $qcomi;
-
 	}
 //---sacar todas las publicaciones---
 	$usu=(isset($_POST['usu']))?$_POST['usu']:"";

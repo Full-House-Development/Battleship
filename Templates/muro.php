@@ -263,7 +263,6 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
                 $(this).addClass("loilo")
                 //activar evento desactivado removeClass(),addClass();
                 $(this).off();
-
               }
             }      
      </script>

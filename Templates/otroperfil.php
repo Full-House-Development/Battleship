@@ -188,7 +188,7 @@ session_start();
 // Ajax que guarda las publicaciones y las genera instantáneamente
 //var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
 var n=0;
-var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
+var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
      var usuario='<?php echo $idusu; ?>';
      var nombre='<?php echo $nomusu; ?>';
       $("#publicar").click(function(){
