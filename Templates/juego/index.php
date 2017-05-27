@@ -1,3 +1,10 @@
+<?php
+$id_retador= $_POST["id_jugador"]);
+$id_retado= $_POST["retador"]);
+$id_juego= $_POST["id_juego"]);
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -57,7 +64,7 @@
     <script type="text/javascript">
     //!--------esta variable debe ser cambiada
     var quien ="retado";//creo que seria mejor con un post o sessions
-    var id_juego= 7;
+    var id_juego=<?php echo $id_juego; ?>;
     var puntaje=100;
     var barcos=0;
     var tablero,valor;
@@ -378,6 +385,30 @@
                 }
                 else{
                   swal("Has ganado");
+                  if(quien=="retador")
+                      $.ajax({
+                        url:"../../Programs/autoPublicacion.php",
+                        type:"post",
+                        data:{
+                          unoODos: "uno"
+                        },
+                        success:function(resul){
+                          console.log("publicacion hecha");
+                          console.log(resul);
+                          }
+                      });
+                    else
+                      $.ajax({
+                        url:"../../Programs/autoPublicacion.php",
+                        type:"post",
+                        data:{
+                          unoODos: "dos"
+                        },
+                        success:function(resul){
+                          console.log("publicacion hecha");
+                          console.log(resul);
+                          }
+                      });
                 }
             });
         }
@@ -387,8 +418,19 @@
         if((typeof tuya!== "undefined")&&tuya!="")
           clearInterval(sacala);
       }, 3000);
-    revisaDisparo();
+    $.ajax({
+              url:"../Programs/revisaQuien.php",
+              type:"post",
+              data:{
+                id_juego: id_juego,
+                retador: <?php echo $id_retador; ?>
+              },
+              success:function(resul){
+                    quien=resul;
 
+                }
+            });
+      revisaDisparo();
     </script>
 </body>
 </html>
