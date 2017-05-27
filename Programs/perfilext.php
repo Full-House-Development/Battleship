@@ -1,4 +1,6 @@
 <?php
+  SESSION_START()
+  $retador=$_SESSION['id'];
 	$perfil=$_POST['perfext'];
 	$numid = strpos($perfil,'+');
 	$id=substr($perfil,0,$numid);
@@ -19,11 +21,11 @@
 	$apellido=substr($perfil,($numnom+1));
 	//apellido
 
-	
+
 	//Inicio de sesión
 	//$nomb= $_SESSION['nombre'];
 	//$usu= $_SESSION['id'];
-	
+
 	echo "<!DOCTYPE html>
 		   <html lang='es'>
 			 <head>
@@ -49,7 +51,7 @@
 				  {
 					position:relative;
 					top:40px;
-					
+
 				  }
 				  #foot
 				  {
@@ -89,25 +91,25 @@
 							<a href='#!' class='brand-logo center'>B A T T L E S H I P</a>
 						</div>
 				</nav>
-				
+
 			  <div class='container'>
 				  <div class='card light-blue darken-1'>
 					<div class='card-content white-text'>
 					  <div class='center container'>
 						  <div class='center container'>
-							   
+
 							  <div class='right-align icon'>
 								<i class='small material-icons'>announcement</i>
 							  </div>
-							
+
 							  <div class='center-align'>
 								<img class='circle responsive-img' src='../Resources/Avatar/'.$foto.'>
 							  </div>
-							  
+
 							  <div class='right-align icon'>
 								<i class='small material-icons'>report_problem</i>
 							  </div>
-							  
+
 							  <div class='center card-action container'>
 								  <div class='row'>
 									<div class='col s4 icon'>
@@ -121,7 +123,7 @@
 									</div>
 								  </div>
 							  </div>
-							  
+
 						  </div>
 					  </div>
 					  <div class='container'>
@@ -138,7 +140,7 @@
 					</div>
 				  </div>
 			  </div>
-			 
+
 			<div class='row'>
 					<section>
 						<div class='container'>
@@ -155,10 +157,10 @@
 				  </section>
 			</div>
 			<button id='ayuda'/>
-			
+
 			  <div id='todo'>
 			  </div>
-			 
+
 			  <footer class='white page-footer' id='foot'>
 					  <div class='footer-copyright teal'>
 						<div class='container white-text'>
@@ -183,10 +185,10 @@
 						  alert(res);
 						}
 					});
-					
-				});					
-					
-					
+
+				});
+
+
 					var muestri='".$nombre.' '.$apellido."';
 					   $('.lol').on('mouseover', {
 						est:'on'
@@ -198,7 +200,7 @@
 						est:'pri'
 					   },mostrar);
 					<!--Funcion muestra el ID de cada uno de los iconos dentro de la card del usuario-->
-					function mostrar( event ) 
+					function mostrar( event )
 					{
 						var estado = event.data.est;
 						var info = $(this).attr('id');
@@ -258,12 +260,12 @@
 				$('#publicar').click(function(){
 							$('#publicaciones').empty();
 							tex=$('textarea').val();
-							if(n==0)	
+							if(n==0)
 								$('#publicaciones').add('<h2>Publicaciones</h2>').appendTo(document.body);
-							console.log(tex);    
+							console.log(tex);
 							//$('#foot').before('<div class='row'><div class='card orange darken-1 z-depth-5 col s12 l6 offset-l3'><div class='card-content white-text'><span class='card-title'>Usuario<p>+hr+>/p></span><p>+tex+</p></div><div class='material-icons'>thumb_up</div><span id='p'>like</span><br/><br/><font color='white'><div class='row'><label for='input_text'>Comentar</label><div class='input-field col s6'><input id='input_text' type='text'/><button class='comentar btn waves-effect waves-light' type='submit' name='action'/>Comentar<i class='material-icons right'>send</i></button></font></div></div></div></div>');
-							
-							
+
+
 							$.ajax({
 								url:'../Programs/publicaciones.php',
 								type:'post',
@@ -275,7 +277,7 @@
 									}
 							});
 						});
-					
+
 							n=1;
 							i++;
 							$('.comentar').click(function(){
@@ -300,15 +302,26 @@
 						{
 							$.ajax(
 						   {
-							   url:'../Programs/conreta.php',
+							   url:'../Programs/creaPartida.php',
 							   type:'POST',
 							   data:
 							   {
 								 retado:reta
 							   },
 							   success:function(res)
-							   {
-								 alert(res);
+							   {";
+									 $form="<form action='../Templates/juego/index.php' method='post'></form>";
+									 $input_jugador="<input type='text' name='id_jugador' value=".$id."/>";
+									 $input_retador="<input type='text' name='retador' value=".$retador."/>";
+									 $input_sumbit="<input type='submit' id='botonIniciaPartida'>";
+									echo "form=$(".$form.");
+									id=$('res');
+									form.append($(".$input_jugador."));
+									form.append($(".$input_retador."));
+									form.append($(".$input_sumbit."));
+									form.append($(id));
+									$('body').append(form);
+									$('#botonIniciaPartida').trigger('click');
 							   }
 						   });
 						  });
