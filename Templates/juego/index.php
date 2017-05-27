@@ -1,7 +1,7 @@
 <?php
-$id_retador= $_POST["id_jugador"]);
-$id_retado= $_POST["retador"]);
-$id_juego= $_POST["id_juego"]);
+$id_retador= (isset($_POST["id_jugador"]))? $_POST["id_jugador"]: "raul";
+$id_retado=(isset($_POST["retador"]))? $_POST["retador"]: "ximena";
+$id_juego= (isset($_POST["id_juego"]))? $_POST["id_juego"]: 2;
 ?>
 
 
@@ -10,7 +10,7 @@ $id_juego= $_POST["id_juego"]);
   <head>
    <!--Etiquetas del tipo de alfabeto-->
     <meta charset="utf-8"/>
-<<<<<<< HEAD
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!--Links de materialize y el css/less-->
@@ -172,13 +172,7 @@ $id_juego= $_POST["id_juego"]);
           }
           }
       });
-<<<<<<< HEAD
       return tuya;
-=======
-
-      return tuya;
-
->>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
   }
     //pone los círculos verdes de los barcos
     function barco(id){
@@ -234,62 +228,17 @@ $id_juego= $_POST["id_juego"]);
                                       contador++;
                                 }
                             console.log("resul de revisaDisparo: "+resul);
-<<<<<<< HEAD
-=======
-
->>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
                             }
                         });
           //      $("#ptj").html("Puntaje:"+puntaje--);
               }, 1000);
           }
-=======
-    <script type="text/javascript" src="../../Documents/js/jquery-3.2.1.js"></script>
-
-    <title>BattleShip</title>
-  </head>
-  <body>
-      <table id="suMesa" style="position: absolute; top: 8px; padding-left: 40em;">
-
-      </table>
-            <table id="miMesa" style="position: absolute; top: 8px; padding-left: 2em;">
-
-      </table>
-    <script type="text/javascript">
-    var puntaje=100;
-    var barcos=0;
-    var aviso=true;
-    var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
-    //funcion para disparar a tu oponente 
-    function dispara(donde,  x, y) {
-      var id='#'+donde+y+x;
-      if (donde =='m'){ //mio
-        alert("no puedes dispararte a ti mismo");
-      }
-      else if (donde=='s'){//su
-        if(barcos>4){
-         id='#'+donde+x+y;
-          $(id).empty();
-         $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
-       }
-       else
-           alert("Antes de disparar termina de acomodar tus barcos");
-      }
-      return 0;
-    }
-    //pone los círculos verdes de los barcos
-    function barco(id){
-       $(id).empty();
-        $(id).append($('<img srcset="../../Resources/Images/barco.svg"/>'));
-    }
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
     function acomoda(donde, x, y,orientacion){
        var id='#'+donde+y+x;
        var eq=[2,3,3,4,5];
        var n=0;
        eq["extra"]=5;
       if (donde =='m'){ //mio
-<<<<<<< HEAD
               //verifica que el barco no salga del tablero de juego
               if(orientacion=="vertical" && y-eq[barcos]>=-1 || orientacion=="horizontal" && x-eq[barcos]>=-1){
                 //verifica que las casillas no esten ocupadas por otro barco
@@ -308,22 +257,6 @@ $id_juego= $_POST["id_juego"]);
                 if(n==0){
                   barco(id);
                   tabla[y][x]=2;
-=======
-          //verifica que el usuario escriba vertical y horizantal 
-            if(orientacion=="vertical" || orientacion=="horizontal"){
-              //verifica que el barco no salga del tablero d ejuego 
-              if(orientacion=="vertical" && y-eq[barcos]>=-1 || orientacion=="horizontal" && x-eq[barcos]>=-1){
-                //verifica que las casillas no esten ocupadas por otro barco aun no funicona bien 
-                for(var m=0;m<eq[barcos];m++){
-                    if($("#"+donde+(y-1)+x).html().indexOf("barco.svg")!=-1 && orientacion=="vertical")
-                        n++;
-                    if($("#"+donde+y+(x-1)).html().indexOf("barco.svg")!=-1 && orientacion=="horizontal")
-                        n++;
-                }
-                console.log(n);
-                if(n==0){
-                  barco(id);
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
                   //aparecen los barcos
                   for(var i=1;i<eq[barcos];i++){
                       if(orientacion=="vertical"){
@@ -333,7 +266,6 @@ $id_juego= $_POST["id_juego"]);
                         x=x-1;
                       }
                       barco('#'+donde+y+x);
-<<<<<<< HEAD
                       tabla[y][x]=2;
                   }
                   barcos++;
@@ -375,36 +307,15 @@ $id_juego= $_POST["id_juego"]);
        }
       else if (donde=='s'){//su
         swal("Antes de tirar tienes que acomodar tus barcos");
-=======
-                  }
-                  barcos++;
-                }
-                else
-                  alert("Algunas casillas ya estan ocupadas por otro barco");
-              }
-              else
-                alert("El barco no cabe ahí");
-            }
-            else 
-              alert("datos invalidos");
-       }
-      else if (donde=='s'){//su
-        alert("Antes de tirar tienes que acomodar tus barcos");
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
       }
       return 0;
     }
     //se generan las casillas azules
     for (var alfa = 0; alfa < 10; alfa++){
-<<<<<<< HEAD
-        if(alfa==0)
-          swal("Para empezar","acomoda tus barcos","success");
-=======
         if(alfa==0){
           alert("acomoda tus barcos");
           aviso=confirm("El orden para acomodar los barcos es pequeño,mediano,mediano,grande,extra)");
         }
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
         renglon =$('<tr></tr>');
         renglon.attr('id', 'm'+alfa);
         $('#miMesa').append(renglon);
@@ -415,17 +326,12 @@ $id_juego= $_POST["id_juego"]);
             columna =$('<td></td>');
             columna.append($('<img srcset="../../Resources/Images/normal.svg"/>'));
             columna.attr('id', 'm'+alfa+beta);
-<<<<<<< HEAD
-             tabla[alfa][beta]=1;
-=======
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
             columna.attr('class', 'miMesa');
             $('#m'+alfa).append(columna);
             $('#m'+alfa+beta).on('click', function(e){
               id=this.id;
               if(barcos<5){
                 //parte donde se acomodan los barcos
-<<<<<<< HEAD
                   swal("El tamaño del barco a acomodar es:"+medida[barcos]);
                   swal({
                     title: "¿Cómo lo quieres?",
@@ -453,19 +359,6 @@ $id_juego= $_POST["id_juego"]);
                 //hace la accion de disparar
                 alert("ya acomodaste tus basrcos");
               }
-=======
-                if(aviso==true){
-                    alert("El tamaño del barco a acomodar es:"+medida[barcos]);
-                    orientacion=prompt("horizontal o vertical");
-                    acomoda(id[0],id[2],id[1],orientacion);
-                }
-                else{
-                   aviso=confirm("Tienes que aceptar, para jugar, te divertirás, acepta por favor. El orden para acomodar los barcos es pequeño,mediano,mediano,grande,extra)");
-                }
-              }
-              else
-                dispara(id[0],id[2],id[1]);
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d
             });
             columna =$('<td></td>');
             columna.append($('<img srcset="../../Resources/Images/normal.svg"/>'));
@@ -474,7 +367,6 @@ $id_juego= $_POST["id_juego"]);
             $('#s'+alfa).append(columna);
             $('#s'+alfa+beta).on('click', function(e){
               id=this.id;
-<<<<<<< HEAD
                 if(morados<17){
                   dispara(id[0],id[1],id[2]);
                 }
@@ -528,12 +420,3 @@ $id_juego= $_POST["id_juego"]);
     </script>
 </body>
 </html>
-=======
-              dispara(id[0],id[1],id[2] );
-            });
-        }
-    }
-    </script>
-</body>
-</html>
->>>>>>> 8e74678b402f00e15dd9df5bdfe3e72e709c0a7d

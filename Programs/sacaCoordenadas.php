@@ -17,8 +17,4 @@
       echo "Falta info";
 
       mysqli_close($conexion);
-<<<<<<< Updated upstream
 ?>
-=======
-?>
->>>>>>> Stashed changes
