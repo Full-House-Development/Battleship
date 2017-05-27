@@ -1,8 +1,9 @@
 <?php
-session_start();
+	//Inicio de sesión
+	session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";
   $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";
-  if($idusu!="")
+  if($_SESSION['id'])
   {
 ?>
 <!DOCTYPE html>
@@ -59,17 +60,13 @@ session_start();
               <ul class='left hide-on-med-and-down'>
                     <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
                     <li><a href='../Templates/muro.php'><i class='material-icons'>web</i></a></li>
-                    <li><a href='perf.php'><i class='material-icons'>person_pin</i></a></li>
+                    <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
               </ul>
               <a href='#!' class='brand-logo center'>B A T T L E S H I P</a>
               <div class='right nav-wrapper'>
-                  <form>
-                    <div class='input-field'>
-                      <input id='search' type='search'/>
-                      <label class='label-icon' for='search'><i class='material-icons'>search</i></label>
-                      <i class='material-icons'>close</i>
-                    </div>
-                  </form>
+                    <ul class='left hide-on-med-and-down'>
+						<li><a href='../Programs/buscar.php'><i class='material-icons'>search</i></a></li>
+					</ul>
               </div>
             </div>
         </nav>
@@ -82,11 +79,11 @@ session_start();
               <div class="row">
 
                   <div class="col  icon">
-                    <i class="small material-icons">announcement</i>
+                    <i class="small material-icons" id="ayuda">announcement</i>
                   </div>
                 <?php
                   echo "<div class='col offset-l2'>
-                <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
+							<img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
                   ?>
                   </div>
                   <div class="col offset-l2 icon">
@@ -98,13 +95,19 @@ session_start();
 <!-- Botones para mostrar los datos solicitados de nombre, correo y fecha de nacimiento -->
               <div class='center-align'>
                 <div class="col offset-l1 offset-s1 icon">
-                  <i id="nacimiento" class="medium material-icons lol">today</i>
+					<?php
+						echo"<i id='".$_SESSION['nacimiento']."' class='medium material-icons lol'>today</i>"
+					?>
                 </div>
                 <div class="col offset-l2 offset-s1 icon">
-                  <i id="nombre" class="medium material-icons lol">contacts</i>
+					<?php
+						echo"<i id='".$_SESSION['nombre']." ".$_SESSION['apellido']."' class='medium material-icons lol'>contacts</i>"
+					?>
                 </div>
                 <div class="col offset-l2 offset-s1 icon">
-                  <i id="correo" class="medium material-icons lol">email</i>
+					<?php
+						echo"<i id='".$_SESSION['correo']."' class='medium material-icons lol'>email</i>"
+					?>
                 </div>
               </div>
               </div>
@@ -112,7 +115,9 @@ session_start();
               <div class="row container">
 <!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
                 <div class="center-align">
-                  <h4 id="mostrar">mostrado</h4>
+				<?php
+					echo "<h4 id='mostrar'>".$_SESSION['nombre']." ".$_SESSION['apellido']."</h4>";
+                  ?>
                 </div>
                 <div class="usuder">
                 <!-- Aqui se inserta el id_usuario -->
@@ -299,14 +304,52 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
           // var nacimiento="";
           
           // var datos=["nacimiento","correo","nombre","nombre"];
-          
-
-           
+          $('#ayuda').click(function (){
+					var ayuda=prompt('Escribe en el siguiente recuadro tus preguntas y trataremos de responderte a la brevedad');
+					$.ajax(
+					{
+						url:'../Programs/conayuda.php',
+						type:'POST',
+						data:
+						{
+						  aiuda:ayuda
+						},
+						success:function(res)
+						{
+						  alert(res);
+						}
+					});
+				});	
+		//	Variable que busca
+		   $('#enviar').click(function (){
+ +				var bus=$('#buscar').val();
+ +				 $.ajax(
+ +				   {
+ +					   url:'../Programs/conbuscar.php',
+ +					   type:'POST',
+ +					   data:
+ +					   {
+ +						 busca:bus
+ +					   },
+ +					   success:function(busqueda)
+ +					   {
+ +						 alert(busqueda);
+ +						 if(busqueda!='no se encontraron resultados')
+ +						 {
+ +							$('#perfext').attr('value',busqueda);
+ +							$( '#rel').trigger('click');
+ +						 }
+ +					   }    
+ +				   });
+ +			});
      </script>
      </body>
    </html> 
 <?php
   }
-  else
-    echo "No se ha accedido mediante un registro";
+	else
+	{
+		header("Location: index.html");
+		exit;
+	}
 ?>

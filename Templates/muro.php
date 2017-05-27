@@ -50,13 +50,13 @@
 							<ul class='left hide-on-med-and-down'>
 										<li><a href='close.php'><i class='material-icons'>power_settings_new</i></a></li>
 										<li><a href='muro.php'><i class='material-icons'>web</i></a></li>
-										<li><a href='../Programs/perf.php'><i class='material-icons'>person_pin</i></a></li>
+										<li><a href='../Templates/perfil.php'><i class='material-icons'>person_pin</i></a></li>
 							</ul>
 							<a href='#!' class='brand-logo center'>".$_SESSION['nombre']." ".$_SESSION['apellido']."</a>
 							<div class='right nav-wrapper'>
-									<form>
+									<form method='POST' action='perfilext.php'>
 										<div class='input-field'>
-											<input id='search' type='search'/>
+											<input id='perfext' type='search' name='perfext'/>
 											<label class='label-icon' for='search'><i class='material-icons'>search</i></label>
 											<i class='material-icons'>close</i>
 										</div>
