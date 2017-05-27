@@ -171,7 +171,13 @@ $id_juego= $_POST["id_juego"]);
           }
           }
       });
+<<<<<<< HEAD
       return tuya;
+=======
+
+      return tuya;
+
+>>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
   }
     //pone los círculos verdes de los barcos
     function barco(id){
@@ -208,7 +214,9 @@ $id_juego= $_POST["id_juego"]);
                             id_juego: id_juego
                           },
                           success:function(resul){
+
                             if(resul[0]=='*' && morados<17){
+
                               swal("Has perdido");
                             }
                                 if(resul[0]%2!=0&&quien=="retador"){
@@ -225,6 +233,10 @@ $id_juego= $_POST["id_juego"]);
                                       contador++;
                                 }
                             console.log("resul de revisaDisparo: "+resul);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
                             }
                         });
           //      $("#ptj").html("Puntaje:"+puntaje--);
@@ -410,6 +422,10 @@ $id_juego= $_POST["id_juego"]);
               },
               success:function(resul){
                     quien=resul;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48e3fe5c787447cba387ff85042e6fb2e51f3ecd
                 }
             });
       revisaDisparo();
