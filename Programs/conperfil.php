@@ -4,7 +4,7 @@
 	include('conection.php'):
 	//Coneccion para publicaciones de perfil de usuario
 	$usu = $_SESSION['id'];
-	$cone = coneccion();
+	$cone = conection();
 	mysqli_set_charset($cone,"utf8");
 	$que="SELECT usuario.id_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario";
 	$impor= mysqli_query($cone,$que);
