@@ -2,6 +2,7 @@
 //Inicio de sesion
 session_start();
 
+
 //Coneccion
 include('conection.php');
 

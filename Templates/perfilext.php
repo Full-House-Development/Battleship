@@ -1,4 +1,5 @@
 <?php
+
   SESSION_START()
   $retador=$_SESSION['id'];
 	$form="<form action='../Templates/juego/index.php' method='post'></form>";

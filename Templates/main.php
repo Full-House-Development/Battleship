@@ -1,4 +1,5 @@
 <?php
+
 	include("conection.php");
 	/*En este php, se accede a los datos de la base de datos, se comprueba el usuario, asi como la contraseña y redirecciona segun el caso a los diferentes mensajes 
 	de error*/	
