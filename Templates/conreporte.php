@@ -1,6 +1,7 @@
 <?php
 	//SESSION_START()
 	//$reportador=$_SESSION['id'];
+
 	$reportador='davidalencia';
 	$reportado=$_POST['reportar'];
 	$conn = mysqli_connect("132.248.96.53","battleship","sugardadies","final");

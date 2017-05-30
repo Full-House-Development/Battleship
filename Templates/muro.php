@@ -233,7 +233,9 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
      </body>
    </html> 
 <?php
+
   }
+  
   else
     echo "No se ha accedido mediante un registro";
 ?>

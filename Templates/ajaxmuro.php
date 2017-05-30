@@ -15,6 +15,7 @@
 		echo $tex;
 	}
 
+
 //---sacar datos del usuario:nombre,correo y fecha de nacimiento---
 	$conj="";
 	$nom=(isset($_POST['nombre']))?$_POST['nombre']:"";

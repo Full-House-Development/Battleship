@@ -1,4 +1,5 @@
 <?php
+
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";
   $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";
