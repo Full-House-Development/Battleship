@@ -1,0 +1,116 @@
+<?php
+echo "<!DOCTYPE html>
+		  <html>
+			<head>
+			  <link href='http://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+			  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css'>
+			  <link rel='stylesheet' src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js'>
+			  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+			  <script type='text/javascript' src='https://code.jquery.com/jquery-2.1.1.min.js'></script>
+			  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+			  <style>
+				  #pub
+				  {
+					position:relative;
+					top:40px;
+					$
+				  }
+				  #foot
+				  {
+					position:relative;
+					top:100px;
+				  }
+				  span p
+				  {
+					position:absolute;
+					left:350px;
+					font-size:15px;
+					display:inline;
+				  }
+			 </style>
+			</head>
+			<body>
+				<nav>
+					<div class='nav-wrapper #e65100 orange darken-4'>
+					  <a href='#' class='brand-logo center'>BATTLESHIP</a>
+					  <ul id='nav-mobile' class='left hide-on-med-and-down'></ul>
+					</div>
+				</nav>
+			<div id='todo'>
+			 
+			</div>
+			<!--FOOTER--> 
+				<footer class='page-footer #e65100 orange darken-4' id='foot'>
+				  <div class='container'>
+					<div class='row'>
+					  <div class='col l6 s12'>
+						<h5 class='white-text'>Just To Friends®</h5>
+					  </div>
+					</div>
+				  </div>
+				  <div class='footer-copyright #bf360c deep-orange darken-4'>
+					<div class='container'>
+					  © 2017 Copyright Text
+					</div>	
+				  </div>
+				</footer>
+			<script>
+				  var aj='id';
+					$.ajax(
+					  {
+						  url:'../Programs/pubinicio.php',
+						  type:'POST',
+						  data:
+						  {
+							usu:aj
+						  },
+						  success:function(dato)
+						  {
+							$('#todo').append(dato);
+						  }
+					  });
+					//var com=$('#resol').attr();
+					//alert(com);
+					function collapsible()
+					{
+						$('.collapsible').collapsible();
+					}
+				$(document).on('mouseup',$('.dormir'),function()
+							{
+								console.log('hola');
+								var hoy = new Date();
+								var dd = hoy.getDate();
+								var mm = hoy.getMonth()+1;
+								var yyyy = hoy.getFullYear();
+								var hh=hoy.getHours();
+								var min=hoy.getMinutes();
+								var ss=hoy.getSeconds();
+								if(dd<10) {
+									dd='0'+dd
+								} 
+								if(mm<10) {
+									mm='0'+mm
+								} 
+								if(ss<10) {
+									ss='0'+ss
+								} 
+								hoy = mm+'-'+dd+'-'+yyyy+' '+hh+':'+min+':'+ss;
+								
+								var con=$(this).attr('id');
+								//var cont=con.substr(con.length-1);
+								var textc=$(con).val();
+								if(textc==='')
+									{
+										window.alert('CAMPO VACIO');
+									}
+								else
+								{	$.post('pubinicio.html',{textc:textc}, function(){
+									$('#con').append(''.$usp.''+'('+hoy+')'+'<br/>');
+									$('#con').append(textc+'<br/>');
+									});
+								}	
+							});
+			</script>
+			</body>
+	</html>";
+?>
