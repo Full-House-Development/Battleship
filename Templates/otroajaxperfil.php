@@ -2,7 +2,8 @@
 
 	include("conection.php");
 	session_start();
-	$usuario = $_POST['perfext'];
+	// $usuario = $_POST['perfext'];
+	
 	// $usuper=$_POST['usuper'];//se manda el id del usuario que se desee conocer
 //guardar la publicacion hecha por el usuario
 	$tex=(isset($_POST['texto']))?$_POST['texto']:"";
@@ -33,7 +34,12 @@
 		$impo=mysqli_query(conection(),$qnom);
 		$naci=mysqli_fetch_assoc($impo);
 
-		$conj=$nomi['nombre_usuario'].",".$corri['correo_usuario'].",".$naci['nacimiento_usuario'];
+		$qnom="SELECT foto FROM usuario WHERE id_usuario='".$nom."'";
+		$impo=mysqli_query(conection(),$qnom);
+		$foto=mysqli_fetch_assoc($impo);
+
+
+		$conj=$nomi['nombre_usuario'].",".$corri['correo_usuario'].",".$naci['nacimiento_usuario'].",".$foto['foto'];
 		echo $conj;
 	}
 	$idpubli=(isset($_POST['id_publi']))?$_POST['id_publi']:"";
@@ -48,6 +54,8 @@
 	$usu=(isset($_POST['usu']))?$_POST['usu']:"";
 	if($usu!="")
 	{
+		$perfil = $_POST['perfil'];
+		$usuario=$perfil;
 		$que="SELECT usuario.nombre_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario='".$usuario."' ORDER BY publicaciones.tiempo_publicacion DESC";
 		$impor=mysqli_query(conection(),$que);
 		$fila=mysqli_fetch_assoc($impor);
