@@ -24,7 +24,7 @@
     <li>
       <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>textsms</i>Comentarios</div>";
       	$pub=$fila['id_publicaciones'];
-      			$quecom="SELECT comentario.texto_comentario,comentario.tiempo_comentario,comentario.id_usuario FROM comentario JOIN publicaciones ON publicaciones.id_publicaciones=comentario.id_publicacion WHERE comentario.id_publicacion='".$pub."'"; 
+      			$quecom="SELECT comentario.texto_comentario,comentario.tiempo_comentario,comentario.id_usuario FROM comentario JOIN publicaciones ON publicaciones.id_publicaciones=comentario.id_publicacion WHERE comentario.id_publicacion='".$pub."'";
 			$imporcom=mysqli_query($cone,$quecom);
 			$filacom=mysqli_fetch_assoc($imporcom);
 			$rellcom="";
@@ -32,7 +32,7 @@
 			{
 				$idus=$filacom['id_usuario'];
 				$quecomu="SELECT usuario.nombre_usuario FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario='".$idus."'";
-				
+
 				$imporcomu=mysqli_query($cone,$quecomu);
 				$filacomu=mysqli_fetch_assoc($imporcomu);
 				$rellcom=$rellcom."<div class='collapsible-body'><h1>".$filacomu['nombre_usuario'].":"."</h1><span>".$filacom['texto_comentario']."<p>".$filacom['tiempo_comentario']."</p></span></div>";
@@ -51,7 +51,7 @@
         </div>
             </div>
         </div>";
-      
+
 		$fila=mysqli_fetch_assoc($impor);
 	}
 	echo $rell;

@@ -11,7 +11,12 @@
       if (!mysqli_connect_errno($conexion)){
         $resp = mysqli_query($conexion, "UPDATE partida_en_curso SET tiro='".$contador.$tiro."' WHERE partida_en_curso.id_partida=".$id_juego.";");
       }
+      if($contador==2)
+        $contador=1;
+      else
+        $contador=2;
 
+      echo $contador;
       mysqli_close($conexion);
     }
     else

@@ -25,7 +25,7 @@ session_start();
               <ul class='left hide-on-med-and-down'>
                     <li><a href='../Templates/close.php'><i class='material-icons'>power_settings_new</i></a></li>
                     <li><a href='perfil.php'><i class='material-icons'>person_pin</i></a></li>
-                    <li><a href='juego/index.php'><i class='material-icons'>games</i></a></li>
+                    <li><a href='juego/index.php?retado=estonoesunaid'><i class='material-icons'>games</i></a></li>
                     <li><a href='ranking.html'><i class='material-icons'>assessment</i></a></li>
               </ul>
               <a href='#!' class='brand-logo center'>B A T T L E S H I P</a>
@@ -38,7 +38,7 @@ session_start();
               </div>
             </div>
         </nav>
-     
+
     <div id="publicacion"class='row'>
           <section>
             <div class='container'>
@@ -77,7 +77,7 @@ session_start();
      // var nombrem="";
      // var correom="";
      // var fecnam="";
-//enviar lo que esta en el cuadro de busqueda y buscarlo     
+//enviar lo que esta en el cuadro de busqueda y buscarlo
      $('#enviar').click(function (){
         var bus=$('#buscar').val();
          $.ajax(
@@ -95,7 +95,7 @@ session_start();
               $('#perfext').attr('value',busqueda);
               $( '#rel').trigger('click');
              }
-             }    
+             }
            });
       });
 // Ajax que guarda las publicaciones y las genera instantáneamente
@@ -115,7 +115,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               perfex:nombre
             },
             success:function(resul){
-             
+
               }
           });
           $("textarea").val("");
@@ -151,7 +151,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               $(".collapsible").collapsible();
               comentariocon="";
             }
-          } 
+          }
 // Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
         var aj="id";
         $.ajax(
@@ -182,12 +182,12 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
               comentariocon=$(ids).val();
               console.log(comentariocon);
             }
-    
+
 // Comienza la animacion de los ícones de nombre, correo y fecha de nacimiento por eventos js
      $("#mostrarusu").html(usuario);
      var comentarionum="";
      var comentariocon="";
-            
+
           var den=$("#mostrar").html();
           console.log(den);
             // var muestri=nombrem;
@@ -202,7 +202,7 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
             est:"pri"
            },mostrar);
     // Cambia el contenido en div #mostrar segun el ícono activado por el evento
-           function mostrar( event ) 
+           function mostrar( event )
             {
               // var tipo=event.data.tipo;
               var estado=event.data.est;
@@ -228,10 +228,10 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
                 //activar evento desactivado removeClass(),addClass();
                 $(this).off();
               }
-            }      
+            }
      </script>
      </body>
-   </html> 
+   </html>
 <?php
   }
   else
