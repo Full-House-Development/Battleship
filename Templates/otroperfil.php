@@ -52,12 +52,12 @@ session_start();
                     <i class="small material-icons">announcement</i>
                   </div>
                 <?php
-                  echo "<div class='col offset-l2'>
+                  echo "<div id='pic' class='col offset-l2'>
                 <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
                   ?>
                   </div>
                   <div class="col offset-l3 icon">
-                    <i class="small material-icons sending">info_outline</i>
+                    <a class="btn-floating btn-large waves-effect waves-light red" id='reportar'><i class="material-icons">report_problem</i></a>
                   </div>
               </div>
               <div class="container">
@@ -127,9 +127,65 @@ session_start();
        </div>
      </footer>
      <script>
-     // var nombrem="";
-     // var correom="";
-     // var fecnam="";
+     
+     var usuario='<?php echo $idusu; ?>';
+     var perfil='<?php echo $nomusu; ?>';
+// Ajax que saca la informacion del usuario:de nombre, correo y fecha de nacimiento
+     var usuario='<?php echo $idusu; ?>';
+     var nombrem="";
+     var correom="";
+     var fecnam="";
+     var fotom="";
+     var img="";
+     // var divnom=[];
+        $.ajax(
+          {
+            url:"otroajaxperfil.php",
+            type:"POST",
+            data:
+            {
+              nombre:perfil
+            },
+            success:function(nombre)
+            {
+              alert(nombre);
+              divnom=nombre.split(",");
+              // var longnom=divnom.length;
+              $("#mostrar").html(divnom[0]);
+              nombrem=divnom[0];
+              correom=divnom[1];
+              fecnam=divnom[2];
+              fotom=divnom[3]; 
+              $('#pic').html("<img class='circle responsive-img' src='../Resources/"+fotom+".jpg'>");
+              // img="<img class='circle responsive-img' src='../Resources/Avatar/"+fotom+".jpg'>";
+            }
+          });
+              // console.log(divnom);
+              // var nombrem=divnom[0];
+              // alert(nombrem);
+              // var correom=divnom[1];
+              // var fecnam=divnom[2]; 
+//reportar una publicacion
+     $('#reportar').click(function()
+            {
+              var hola=confirm('¿Estás seguro de que quieres reportar a esta persona?');
+              if(hola==true)
+              {
+                $.ajax(
+                 {
+                   url:'conreporte.php',
+                   type:'POST',
+                   data:
+                   {
+                   reportar:reta
+                   },
+                   success:function(res)
+                   {
+                   alert(res);
+                   }
+                 });
+              }
+              });
 //enviar lo que esta en el cuadro de busqueda y buscarlo     
      $('#enviar').click(function (){
         var bus=$('#buscar').val();
@@ -154,19 +210,16 @@ session_start();
 // Ajax que guarda las publicaciones y las genera instantáneamente
 //var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
 var n=0;
-var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
-     var usuario='<?php echo $idusu; ?>';
-     var nombre='<?php echo $nomusu; ?>';
-     $("#mostrar").html(nombre);
+var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
       $("#publicar").click(function(){
           var tex=$("textarea").val();
-            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
+            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+perfil+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+perfil+"</h5>              </div>          </div>        </div>");
           $.ajax({
             url:"otroajaxperfil.php",
             type:"post",
             data:{
               texto:tex,
-              perfext:nombre
+              perfex:usuario
             },
             success:function(resul){
              
@@ -184,7 +237,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
               var numerocomentario="#numerocomentario"+idtexto;
               var textocomen=$(idcomentario).val();
               var ubicarcollapsible=$(numerocomentario);
-              ubicarcollapsible.append("<div class='collapsible-body'><h1>"+nombre+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
+              ubicarcollapsible.append("<div class='collapsible-body'><h1>"+perfil+":"+"</h1><span>"+comentariocon+"<p>"+d+"</p></span></div>");
               $.ajax(
               {
                 url:"otroajaxperfil.php",
@@ -193,7 +246,7 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
                 {
                   id_publi:idtexto,
                   tex_com:comentariocon,
-                  id_usu:nombre
+                  id_usu:usuario
                 },
                 success:function(quer)
                 {
@@ -215,7 +268,8 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
              data:
              {
                usu:aj,
-               perfext:nombre
+               perfext:usuario,
+               perfil:perfil
              },
              success:function(dato)
              {
@@ -238,43 +292,46 @@ var d="2017-05-27 10:30";//^ATENCION!!!!! Favor de sustituir este string por la 
             }
     
 // Comienza la animacion de los ícones de nombre, correo y fecha de nacimiento por eventos js
-     $("#mostrarusu").html(nombre);
+
+     $("#mostrarusu").html(perfil);
+
      var comentarionum="";
      var comentariocon="";
-            
-          var den=$("#mostrar").html();
-          console.log(den);
-            // var muestri=nombrem;
-            // console.log(muestri);
+            // alert(nombrem);
+          // $("#mostrar").html(nombrem);
            $(".lol").on("mouseover", {
             est:"on"
            },mostrar);
            $(".lol").on("mouseout", {
             est:"off"
            },mostrar);
-           $(".lol").on("click", {
-            est:"pri"
-           },mostrar);
     // Cambia el contenido en div #mostrar segun el ícono activado por el evento
+           var muestri=nombrem;
+           console.log(nombrem);
+           console.log(muestri);
+
            function mostrar( event ) 
             {
-              // var tipo=event.data.tipo;
+              
               var estado=event.data.est;
               var info=$(this).attr("id");
-              // if(info=="nombre")
-              // {
                 if(estado=="on")
                 {
-
-                  $("#mostrar").html(info);
+                  if(info=="nacimiento")
+                    $("#mostrar").html(fecnam);
+                  if(info=="correo")
+                    $("#mostrar").html(correom);
+                  if(info=="nombre")
+                    $("#mostrar").html(nombrem);
                 }
                 if(estado=="off")
                 {
-                  $("#mostrar").html(nombre);
+
+                  $("#mostrar").html(nombrem);
                 }
-              // }
-            }      
-     </script>
+            }
+        </script>
+
      </body>
    </html> 
 <?php
