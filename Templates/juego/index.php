@@ -260,10 +260,10 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                                     dispara("m",resul[4],resul[3]);
                                     if(resul[0]%2==0&&quien=="retador"){
                                         console.log("antes: "+contador);
-                                        contador=resul[0];
+                                        contador=parseInt(resul[0]);
                                         console.log("despues: "+contador);
                                       }
-                                      else if(resul[0]%2==0&&quien=="retado"){
+                                      else if(resul[0]%2!=0&&quien=="retado"){
                                             if(resul[0]==null)
                                               contador=2;
                                             else
@@ -410,35 +410,38 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                     $('#s'+alfa).append(columna);
                     $('#s'+alfa+beta).on('click', function(e){
                       id=this.id;
-                        if(morados<17){
+                        if(morados!=17){
                           dispara(id[0],id[1],id[2]);
                         }
                         else{
                           swal("Has ganado");
                           if(quien=="retador")
-                              $.ajax({
-                                url:"../../Programs/autoPublicacion.php",
-                                type:"post",
-                                data:{
-                                  unoODos: "uno"
-                                },
-                                success:function(resul){
-                                  console.log("publicacion hecha");
-                                  console.log(resul);
-                                  }
-                              });
-                            else
-                              $.ajax({
-                                url:"../../Programs/autoPublicacion.php",
-                                type:"post",
-                                data:{
-                                  unoODos: "dos"
-                                },
-                                success:function(resul){
-                                  console.log("publicacion hecha");
-                                  console.log(resul);
-                                  }
-                              });
+                                                $.ajax({
+                                                  url:"../../Programs/autoPublicacion.php",
+                                                  type:"post",
+                                                  data:{
+                                                    id_juego:id_juego,
+                                                    unoODos: "uno"
+                                                  },
+                                                  success:function(resul){
+                                                    console.log("publicacion hecha");
+                                                    console.log(resul);
+                                                    }
+                                                });
+                                              else
+                                                $.ajax({
+                                                  url:"../../Programs/autoPublicacion.php",
+                                                  type:"post",
+                                                  data:{
+                                                    id_juego:id_juego,
+                                                    unoODos: "dos"
+                                                  },
+                                                  success:function(resul){
+                                                    console.log("publicacion hecha");
+                                                    console.log(resul);
+                                                    }
+                                                });
+                        morados++;
                         }
                     });
                 }

@@ -10,7 +10,7 @@
 
       if($contador==2)
         $contador=1;
-      else
+      elseif($contador==1)
         $contador=2;
 
       if (!mysqli_connect_errno($conexion)){
