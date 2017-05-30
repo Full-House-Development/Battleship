@@ -65,6 +65,7 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
     <script type="text/javascript">
     //revisa si hay una partida creada
     var id_juego;
+    var contador=1;
     if ("<?php echo $_GET["retado"];  ?>"=="estonoesunaid") {
       $.ajax({
                 url:"../../Programs/revisaPartida.php",
@@ -113,7 +114,6 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
             var barcos=0;
             var tablero,valor;
             var orientacion;
-            var contador=1;
             var tiro=1;
             var medida=["pequeño","mediano","mediano 2","grande","extragrande"];
             var tuya= "";
@@ -169,10 +169,12 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                                 tiro:id,
                                 contador:contador
                               },
-                              success:function(resul){  }
+                              success:function(resul){
+                                contador=parseInt(resul);
+                              }
                             });
                }
-              }
+             }
                else
                   swal("Antes de disparar termina de acomodar tus barcos");
               }
@@ -252,24 +254,22 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                                     id_juego: id_juego
                                   },
                                   success:function(resul){
-
                                     if(resul[0]=='*' && morados<17){
-
                                       swal("Has perdido");
                                     }
-                                        if(resul[0]%2!=0&&quien=="retador"){
-                                        dispara("m",resul[4],resul[3]);
+                                    dispara("m",resul[4],resul[3]);
+                                    if(resul[0]%2==0&&quien=="retador"){
+                                        console.log("antes: "+contador);
                                         contador=resul[0];
-                                        contador++;
+                                        console.log("despues: "+contador);
                                       }
                                       else if(resul[0]%2==0&&quien=="retado"){
-                                              dispara("m",resul[4],resul[3]);
                                             if(resul[0]==null)
                                               contador=2;
                                             else
                                               contador=resul[0];
-                                              contador++;
                                         }
+
                                     console.log("resul de revisaDisparo: "+resul);
                                     }
                                 });
