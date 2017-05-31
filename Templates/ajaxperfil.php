@@ -1,5 +1,5 @@
-<?php
 
+<?php
 	include("conection.php");
 	session_start();
 	$usuario = $_SESSION['id'];

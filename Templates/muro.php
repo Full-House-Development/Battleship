@@ -1,12 +1,14 @@
+
 <?php
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
   $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";//del perfil a consultar
+  //$cont=0;
   if($idusu!="")
   {
 ?>
-<!DOCTYPE html>
+
    <html lang="es">
      <head>
       <meta http-equiv="Content-type" content="text/html"; charset="UTF-8">
@@ -37,8 +39,17 @@ session_start();
                   </form>
               </div>
             </div>
-        </nav>
-     
+       </nav>
+	 <!--Notificaciones-->  
+	 <div id='notiti'>
+	</div>
+	 <!--AMIGOS-->
+	<ul id="slide-out" class="side-nav">
+		<div id='amigos'/>
+		</div>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+     <!---->
     <div id="publicacion"class='row'>
           <section>
             <div class='container'>
@@ -58,6 +69,12 @@ session_start();
       <div id="publics">
 
       </div>
+<!--MAS publicaciones-->
+	<div id='masp'>
+	</div>
+	<div class='card-content center-align col l3'>
+        <button id='mas' class='btn-large waves-effect waves-light'>Más publicaciones</button>
+    </div>
 <!-- Implementacion del footer de la página -->
       <footer class="page-footer #e65100 orange darken-4" id="foot">
        <div class="container">
@@ -74,6 +91,15 @@ session_start();
        </div>
      </footer>
      <script>
+	 
+	 //sidenav
+	  $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 300
+      edge: 'right', 
+      closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+      draggable: true // Choose whether you can drag to open on touch screens
+    }
+  );
      // var nombrem="";
      // var correom="";
      // var fecnam="";
@@ -101,12 +127,16 @@ session_start();
 // Ajax que guarda las publicaciones y las genera instantáneamente
 //var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
 var n=0;
-var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
+var hr;
+//var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
      var usuario='<?php echo $idusu; ?>';
      var nombre='<?php echo $nomusu; ?>';
       $("#publicar").click(function(){
+		$("#publicaciones").empty();
+		  var d=new Date();
+		  hr=d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes();
           tex=$("textarea").val();
-            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
+            $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+hr+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
           $.ajax({
             url:"ajaxmuro.php",
             type:"post",
@@ -153,22 +183,69 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
             }
           } 
 // Ajax que saca toda las publicaciones de la base de datos y las inserta en div #publics
+		var c=0;
         var aj="id";
-        $.ajax(
+		$.ajax(
          {
              url:"ajaxmuro.php",
              type:"POST",
              data:
              {
                usu:aj,
-               perfext:usuario
+               perfext:usuario,
+			   con:c
              },
              success:function(dato)
              {
                $("#publics").append(dato);
-             }
-         });
-
+				/*$(document).on('click',$('.avi'),function(){
+				var ide=$(this).attr('value');
+				console.log(ide+'hola');
+				});*/
+			}
+        });
+//mas publicaciones
+	$('#mas').click(function(){
+		c=c+10;
+		$.ajax(
+			 {
+				 url:"ajaxmuro.php",
+				 type:"POST",
+				 data:
+				 {
+				   usu:aj,
+				   perfext:usuario,
+				   con:c
+				 },
+				 success:function(dato)
+				 {
+				   $("#masp").append(dato);
+				 }
+			 });
+	});
+//notificaciones
+	$.ajax({
+		url:"notificaciones.php",
+		 type:"POST",
+		 success:function(dato)
+		 {
+		   $("#notiti").append(dato);
+		   console.log(dato);
+		 }
+	});
+//jalar amigos
+	//$('#mas').click(function(){
+			$.ajax(
+				 {
+					 url:"amigos.php",
+					 type:"POST",
+					 success:function(dato)
+					 {
+					   $("#amigos").append(dato);
+					   console.log(dato);
+					 }
+				 });
+		//});
 // Declaracion del efecto collapsible necesaria para que se pueda ejecutar
     function collapsible()
              {
@@ -228,14 +305,13 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
                 //activar evento desactivado removeClass(),addClass();
                 $(this).off();
               }
-            }      
+            } 
+		
      </script>
      </body>
    </html> 
 <?php
-
   }
-  
   else
     echo "No se ha accedido mediante un registro";
 ?>

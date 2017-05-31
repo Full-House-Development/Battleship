@@ -1,3 +1,4 @@
+
 <?php
 
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
@@ -6,7 +7,7 @@ session_start();
   $nomusu=(isset($_POST['perfext']))?$_POST['perfext']:"";//del perfil a consultar
   if($idusu!="")
   {
-?>
+?>  
 <!DOCTYPE html>
    <html lang="es">
      <head>
@@ -339,3 +340,4 @@ var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la
   else
     echo "No se ha accedido mediante un registro";
 ?>
+

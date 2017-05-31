@@ -1,5 +1,5 @@
-<?php
 
+<?php
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";
   $nomusu=(isset($_SESSION['nombre']))?$_SESSION['nombre']:"";
@@ -54,21 +54,21 @@ session_start();
                     <a class="btn-floating btn-large waves-effect waves-light red" id='reportar'><i class="material-icons">report_problem</i></a>
                   </div>
               </div>
-              <div class="row">
-                <div class="container">
+              <div class="container">
+                <div class="row">
 <!-- Botones para mostrar los datos solicitados de nombre, correo y fecha de nacimiento -->
-                  <!-- <div class='center'> -->
+                  <div class='center-align'>
                     <div class="col offset-l1 offset-s1 icon">
                       <i id="nacimiento" class="medium material-icons lol">today</i>
                     </div>
-                    <div class="col offset-l2 offset-s1 icon">
-                      <i id="nombre" class="medium material-icons lol">contacts</i>
-                    </div>
-                    <div class="col offset-l2 offset-s1 icon">
-                      <i id="correo" class="medium material-icons lol">email</i>
-                    </div>
+                  <div class="col offset-l2 offset-s1 icon">
+                    <i id="nombre" class="medium material-icons lol">contacts</i>
+                  </div>
+                  <div class="col offset-l2 offset-s1 icon">
+                    <i id="correo" class="medium material-icons lol">email</i>
+                  </div>
                 </div>
-              <!-- </div> -->
+              </div>
             </div>
             <div class="row container">
 <!-- Renglón donde aparece el nombre del usuario, así como su id del lado derecho -->
@@ -120,10 +120,9 @@ session_start();
        </div>
      </footer>
      <script>
-     var usuario='<?php echo $idusu; ?>';
-     var nombre='<?php echo $nomusu; ?>';
-     var naci="<?php echo $_SESSION['nacimiento']; ?>";
-     var correo="<?php echo $_SESSION['correo']; ?>";
+     // var nombrem="";
+     // var correom="";
+     // var fecnam="";
 //reportar una publicacion
      $('#reportar').click(function()
             {
@@ -171,7 +170,10 @@ session_start();
 //var d=new Date();^//Karla ya habia aislado esto para mostrar la fecha y hora actual
 var n=0;
 var d="2017-05-27 10:30";//^^ATENCION!!!!! Favor de sustituir este string por la fecha y hora actual de la publicacion como la arriba
-     
+     var usuario='<?php echo $idusu; ?>';
+     var nombre='<?php echo $nomusu; ?>';
+     var naci="<?php echo $_SESSION['nacimiento']; ?>";
+     var correo="<?php echo $_SESSION['correo']; ?>";
       $("#publicar").click(function(){
           var tex=$("textarea").val();
             $("#publicacion").after("<div class='row'>          <div class='col s12 l6 offset-l3 ' id='pub'>              <div class='card blue darken-1 z-depth-5'>                  <div class='card-content white-text'>                    <span class='card-title'>"+nombre+"<p>"+d+"</p></span>                    <p>"+tex+"</p>                  </div>                  <ul class='collapsible' data-collapsible='accordion' >    <li>      <div onclick='collapsible()' class='collapsible-header'><i class='material-icons'>comment</i>Comentarios</div>      <div class='collapsible-body'><h5 style='color:yellow; font-size:20px;'>Espere a que alguien más comente su reciente publicacion marinero "+nombre+"</h5>              </div>          </div>        </div>");
