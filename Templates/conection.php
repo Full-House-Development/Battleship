@@ -1,3 +1,4 @@
+
 <?php
 	function conection()
 	{
@@ -5,4 +6,5 @@
 		mysqli_set_charset($cone,"utf8");
 		return $cone;
 	}
+
 ?>

@@ -1,3 +1,4 @@
+
 <?php
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();

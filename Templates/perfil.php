@@ -1,3 +1,4 @@
+
 <?php
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";

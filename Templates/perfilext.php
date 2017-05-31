@@ -1,3 +1,4 @@
+
 <?php
   SESSION_START()
   $retador=$_SESSION['id'];
@@ -352,3 +353,4 @@
 				</body>
 		</html>";
 ?>
+
