@@ -111,6 +111,8 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                 });
         window.setTimeout(function() {
        //creo que seria mejor con un post o sessions
+            alert("IMPORTANTE!!\n recuerda que el oponente tambien tiene que estar  conectado desde su cuenta y que el debe entrar desde el boton de juego en el menu de arriba");
+            alert("si no puedes tirar no te asustes es porque tu oponente todavia no tira si te sale rojo debes dejar de jugar si te sale morado puedes seguir jugando");
             var barcos=0;
             var tablero,valor;
             var orientacion;
@@ -470,6 +472,9 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
               revisaDisparo();
         }, 1500);
       },1500);
+    }
+    else{
+      alert("reccuerda que  tienes que tener una partida pendiente para poder entrar desde aqui. \nReta a alguien desde el muro :)")
     }
     </script>
 </body>
