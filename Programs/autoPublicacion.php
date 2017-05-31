@@ -13,12 +13,12 @@
         $fila=mysqli_fetch_assoc($todo);
         //genera la publicacion automática
         if($unoODos=='uno'){
-            $resp = mysqli_query($conexion, 'INSERT INTO publicaciones (id_usuario,texto_publicacion) VALUES ("'.$fila["id_usuario_uno"].'","He ganado")');
+            $resp = mysqli_query($conexion, 'INSERT INTO publicaciones (id_usuario,texto_publicacion) VALUES ("'.$fila["id_usuario_uno"].'","He ganado con:'.$puntaje1.' puntos (PUBLICACION AUTOMATICA)")');
              //guarda los datos en la tabla juego_terminado
             $registro= mysqli_query($conexion, 'INSERT INTO juego_terminado (id_usuario_ganador,id_usuario_perdedor,puntos_ganador,puntos_perdedor) VALUES ("'.$fila["id_usuario_uno"].'","'.$fila["id_usuario_dos"].'","'.$puntaje1.'","'.$puntaje2.'")');
         }
         else{
-           $resp = mysqli_query($conexion, 'INSERT INTO publicaciones (id_usuario,texto_publicacion) VALUES ("'.$fila["id_usuario_dos"].'","He ganado")');
+           $resp = mysqli_query($conexion, 'INSERT INTO publicaciones (id_usuario,texto_publicacion) VALUES ("'.$fila["id_usuario_dos"].'","He ganado con:'.$puntaje2.' puntos (PUBLICACION AUTOMATICA)")');
             //guarda los datos en la tabla juego_terminado
             $registro= mysqli_query($conexion, 'INSERT INTO juego_terminado (id_usuario_ganador,id_usuario_perdedor,puntos_ganador,puntos_perdedor) VALUES ("'.$fila["id_usuario_dos"].'","'.$fila["id_usuario_uno"].'","'.$puntaje2.'","'.$puntaje1.'")');
         }

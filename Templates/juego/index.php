@@ -4,7 +4,6 @@ $id_retador= (isset($_SESSION['id']))?$_SESSION['id']: "raul";
 $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
 ?>
 
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -66,6 +65,9 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
     //revisa si hay una partida creada
     var id_juego;
     var contador=1;
+    var puntaje1=100;
+    var puntaje2=100;
+    var soloUnaVez=0;
     if ("<?php echo $_GET["retado"];  ?>"=="estonoesunaid") {
       $.ajax({
                 url:"../../Programs/revisaPartida.php",
@@ -109,8 +111,6 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                 });
         window.setTimeout(function() {
        //creo que seria mejor con un post o sessions
-
-            var puntaje=100;
             var barcos=0;
             var tablero,valor;
             var orientacion;
@@ -139,28 +139,29 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                             });
               }
               else if (donde =='m'){ //mio
-                  id='#'+donde+y+x;
-                  if(tabla[y][x]==2){
-                        $(id).empty();
-                        $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
-                  }
-                  else{
-                    $(id).empty();
-                    $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
-                  }
-              }
-              else if (donde=='s'&&((contador%2!=0&&quien=="retado")||(contador%2==0&&quien=="retador"))){//su
-                //colorea la casilla en rojo
-                if(barcos>4){
-                  id='#'+donde+x+y;
-                  if(tuya[x][y]==2){
-                        $(id).empty();
-                        $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
-                        morados++;
-                  }
-                  else{
-                    $(id).empty();
-                    $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+                        id='#'+donde+y+x;
+                        if(tabla[y][x]==2){
+                              $(id).empty();
+                              $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
+                        }
+                        else{
+                          $(id).empty();
+                          $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+                        }
+                    }
+                    else if (donde=='s'&&((contador%2!=0&&quien=="retado")||(contador%2==0&&quien=="retador"))){//su
+                      //colorea la casilla en rojo
+                      if(barcos>4){
+                        id='#'+donde+x+y;
+                        if(tuya[x][y]==2){
+                              $(id).empty();
+                              $(id).append($('<img srcset="../../Resources/Images/byd.svg"/>'));
+                              morados++;
+                        }
+                        else{
+                          $(id).empty();
+                          $(id).append($('<img srcset="../../Resources/Images/pulsado.svg"/>'));
+                          puntaje1--;
                  $.ajax({
                               url:"../../Programs/tiro.php",
                               type:"post",
@@ -247,6 +248,7 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
             }
             function revisaDisparo(){
                  window.setInterval(function () {
+                      $("#ptj").html("Puntaje:"+puntaje1);
                         $.ajax({
                                   url:"../../Programs/meDisparan.php",
                                   type:"post",
@@ -255,25 +257,33 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                                   },
                                   success:function(resul){
                                     if(resul[0]=='*' && morados<17){
-                                      swal("Has perdido");
+                                      alert("has perdido")
+                                      location.href='../perfil.php';
                                     }
-                                    dispara("m",resul[4],resul[3]);
+                                    if(parseInt(resul[0])!=contador&&(typeof resul!=="undefined")){
+                                        if(parseInt(resul[0])%2==0)
+                                          puntaje1--;
+                                        else
+                                          puntaje2--;
+                                    }
                                     if(resul[0]%2==0&&quien=="retador"){
+                                      dispara("m",resul[4],resul[3]);
                                         console.log("antes: "+contador);
                                         contador=parseInt(resul[0]);
                                         console.log("despues: "+contador);
                                       }
                                       else if(resul[0]%2!=0&&quien=="retado"){
+                                        dispara("m",resul[4],resul[3]);
                                             if(resul[0]==null)
                                               contador=2;
                                             else
-                                              contador=resul[0];
+                                              contador=parseInt(resul[0]);
                                         }
 
                                     console.log("resul de revisaDisparo: "+resul);
                                     }
                                 });
-                  //      $("#ptj").html("Puntaje:"+puntaje--);
+
                       }, 1000);
                   }
             function acomoda(donde, x, y,orientacion){
@@ -414,35 +424,40 @@ $id_retado=(isset($_GET["retado"]))? $_GET["retado"]: "ximena";
                           dispara(id[0],id[1],id[2]);
                         }
                         else{
-                          swal("Has ganado");
-                          if(quien=="retador")
-                                                $.ajax({
-                                                  url:"../../Programs/autoPublicacion.php",
-                                                  type:"post",
-                                                  data:{
-                                                    id_juego:id_juego,
-                                                    unoODos: "uno"
-                                                  },
-                                                  success:function(resul){
-                                                    console.log("publicacion hecha");
-                                                    console.log(resul);
-                                                    }
-                                                });
-                                              else
-                                                $.ajax({
-                                                  url:"../../Programs/autoPublicacion.php",
-                                                  type:"post",
-                                                  data:{
-                                                    id_juego:id_juego,
-                                                    unoODos: "dos"
-                                                  },
-                                                  success:function(resul){
-                                                    console.log("publicacion hecha");
-                                                    console.log(resul);
-                                                    }
-                                                });
-                        morados++;
+                              if(quien=="retador")
+                                  $.ajax({
+                                    url:"../../Programs/autoPublicacion.php",
+                                    type:"post",
+                                    data:{
+                                      id_juego:id_juego,
+                                      puntaje1:puntaje1,
+                                      puntaje2:puntaje2,
+                                      unoODos: "uno"
+                                    },
+                                    success:function(resul){
+                                      console.log("publicacion hecha");
+                                      console.log(resul);
+                                      }
+                                  });
+                                else
+                                  $.ajax({
+                                    url:"../../Programs/autoPublicacion.php",
+                                    type:"post",
+                                    data:{
+                                      id_juego:id_juego,
+                                      puntaje1:puntaje1,
+                                      puntaje2:puntaje2,
+                                      unoODos: "dos"
+                                    },
+                                    success:function(resul){
+                                      console.log("publicacion hecha");
+                                      console.log(resul);
+                                      }
+                                  });
+                                alert("has ganado")
+                                location.href='../perfil.php';
                         }
+
                     });
                 }
             }
