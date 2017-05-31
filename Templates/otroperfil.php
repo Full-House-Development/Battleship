@@ -49,9 +49,7 @@ session_start();
 <!-- Parte de arriba del card perfil donde aparece la foto y los botones de reportar y pedir ayuda -->
               <div class="row">
 
-                  <div class="col  icon">
-                    <i class="small material-icons">announcement</i>
-                  </div>
+                 
                 <?php
                   echo "<div id='pic' class='col offset-l2'>
                 <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
@@ -138,7 +136,6 @@ session_start();
      var fecnam="";
      var fotom="";
      var img="";
-     alert(perfil);
      // var divnom=[];
         $.ajax(
           {
@@ -150,7 +147,6 @@ session_start();
             },
             success:function(nombre)
             {
-              alert(nombre);
               divnom=nombre.split(",");
               // var longnom=divnom.length;
               $("#mostrar").html(divnom[0]);

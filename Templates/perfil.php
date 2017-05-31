@@ -47,12 +47,9 @@ session_start();
               <div class="row">
                 <?php
                   echo "<div class='col offset-l2'>
-                  <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>
+                  <img class='circle responsive-img' src='../Resources/".$_SESSION['foto'].".jpg'>
                   </div>";
                 ?>
-                  <div class="col offset-l3 icon">
-                    <a class="btn-floating btn-large waves-effect waves-light red" id='reportar'><i class="material-icons">report_problem</i></a>
-                  </div>
               </div>
               <div class="container">
                 <div class="row">
