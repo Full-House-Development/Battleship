@@ -8,16 +8,10 @@
       $tiro=mysqli_real_escape_string ($conexion, $_POST["tiro"]);
       $contador=mysqli_real_escape_string ($conexion, $_POST["contador"]);
 
-      if($contador==2)
-        $contador=1;
-      elseif($contador==1)
-        $contador=2;
-
       if (!mysqli_connect_errno($conexion)){
         $resp = mysqli_query($conexion, "UPDATE partida_en_curso SET tiro='".$contador.$tiro."' WHERE partida_en_curso.id_partida=".$id_juego.";");
       }
 
-      echo $contador;
       mysqli_close($conexion);
     }
     else
