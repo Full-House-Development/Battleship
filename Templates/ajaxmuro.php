@@ -13,7 +13,7 @@
 		$tex = mysqli_real_escape_string(conection(),$tex);
 		if(conection())
 		{
-			$query=mysqli_query(conection(),'INSERT INTO publicaciones(id_usuario,texto_publicacion) VALUES("'.$usuario.'","'.$tex.'");');		
+			$query=mysqli_query(conection(),'INSERT INTO publicaciones(id_usuario,texto_publicacion) VALUES("'.$usuario.'","'.$tex.'");');
 		}
 		echo $tex;
 	}
@@ -49,7 +49,7 @@
 	$usu=(isset($_POST['usu']))?$_POST['usu']:"";
 	if($usu!="")
 	{
-		$que="SELECT usuario.nombre_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario!='".$usuario."' ORDER BY publicaciones.tiempo_publicacion DESC LIMIT ".$cont.",".$conta."";
+		$que="SELECT usuario.id_usuario, usuario.nombre_usuario,publicaciones.texto_publicacion,publicaciones.id_publicaciones,publicaciones.tiempo_publicacion FROM publicaciones JOIN usuario ON usuario.id_usuario=publicaciones.id_usuario WHERE usuario.id_usuario!='".$usuario."' ORDER BY publicaciones.tiempo_publicacion DESC LIMIT ".$cont.",".$conta."";
 		$impor=mysqli_query(conection(),$que);
 		$fila=mysqli_fetch_assoc($impor);
 		$rell="";
@@ -65,10 +65,10 @@
 	              		</div>
 
 		              			<a class='col l6 waves-effect waves-light red darken-1 btn' onclick='like(".$fila['id_publicaciones'].")'><i class='material-icons left'>thumb_down</i>ME DISGUSTA</a>
-		              	
-		              		
+
+
 		              			<a class='col l6 waves-effect waves-light green darken-1 btn' onclick='dislike(".$fila['id_publicaciones'].")'><i class='material-icons right'>thumb_up</i>ME GUSTA</a>
-		              	
+
 
 	                 	<ul class='collapsible' data-collapsible='accordion' >
 	    					<li id='numerocomentario".$fila['id_publicaciones']."'>
@@ -77,7 +77,7 @@
 	      	$pub=$fila['id_publicaciones'];
       		// if($pub>0)
       		// {
-      			$quecom="SELECT comentario.texto_comentario,comentario.tiempo_comentario,comentario.id_usuario FROM comentario JOIN publicaciones ON publicaciones.id_publicaciones=comentario.id_publicacion WHERE comentario.id_publicacion='".$pub."'"; 
+      			$quecom="SELECT comentario.texto_comentario,comentario.tiempo_comentario,comentario.id_usuario FROM comentario JOIN publicaciones ON publicaciones.id_publicaciones=comentario.id_publicacion WHERE comentario.id_publicacion='".$pub."'";
       		// }
 			$imporcom=mysqli_query(conection(),$quecom);
 			$filacom=mysqli_fetch_assoc($imporcom);
@@ -90,7 +90,7 @@
 			{
 				$idus=$filacom['id_usuario'];
 				$quecomu="SELECT nombre_usuario FROM usuario WHERE id_usuario='".$idus."'";
-				
+
 				$imporcomu=mysqli_query(conection(),$quecomu);
 				$filacomu=mysqli_fetch_assoc($imporcomu);
 
@@ -104,15 +104,15 @@
         				<div class='row' >
           					<div class='input-field col s6 comentarios'>
             					<input placeholder='Comentar ...' onchange='buffer(".$fila['id_publicaciones'].")'class='comen' id='".$fila['id_publicaciones']."' type='text' data-length='30'/>
-            					
+
           					</div>
           					<div class='col offset-l1 comentarios white-text'>
           						<i onclick=sending('".$fila['id_publicaciones']."') class='material-icons small'>textsms</i>
           					</div>
-          					<div class=col offset-l3'> 
-          						<a class='waves-effect waves-light red btn' href='juego/index.php'><i class='material-icons right'>games</i>¤¤¤¤¤¤¤RETAR¤¤¤¤¤¤¤</a> 
+          					<div class=col offset-l3'>
+          						<a class='waves-effect waves-light red btn' href='juego/index.php?retado=".$fila["id_usuario"]."'><i class='material-icons right'>games</i>¤¤¤¤¤¤¤RETAR¤¤¤¤¤¤¤</a>
           					</div>
-          					
+
         				</div>
        				</div>
             	</div>
@@ -120,7 +120,7 @@
         </div>";
 		$fila=mysqli_fetch_assoc($impor);
 		// onblur='sendi(".$fila['id_publicaciones'].")'
-		
+
 	}
 	echo $rell;
 }
