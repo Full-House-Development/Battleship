@@ -12,29 +12,9 @@
 			$fila=mysqli_fetch_assoc($res);
 		else
 		{	
-		$rell=$rell."".$fila['nombre_usuario']."<img class='circle' width='50px' height='50px' src='../Resources/Avatar/".$fila['foto'].".jpg'/><input type='submit' class='avi' id='".$fila['id_usuario']."' value='".$fila['id_usuario']."'/></br>";
+		$rell=$rell.""."<a class='waves-effect waves-light blue btn' href='otroperfil.php?perfext=".$fila['id_usuario']."'><i class='material-icons right'>person_pin</i>".$fila['id_usuario']."</a><img class='circle' width='50px' height='50px' src='../Resources/".$fila['foto'].".jpg'/>";
 		$fila=mysqli_fetch_assoc($res);
 		}
 	}
-	$rell=$rell."
-	<script>
-	$('.avi').click(function(){
-		var id=$(this).attr('id');
-		console.log(id);
-		$.ajax(
-			 {
-				 url:'otroajaxperfil.php',
-				 type:'POST',
-				 data:
-				 {
-				   perfext:id
-				 },
-				 success:function(dato)
-				 {
-				   location.href = 'otroperfil.php';
-				 }
-			 });
-	});
-	</script>";
 	echo $rell;
 ?>

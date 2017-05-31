@@ -4,7 +4,7 @@
 //este archivo se manda desplegar cuando se desea conocer el perfil de otra persona
 session_start();
   $idusu=(isset($_SESSION['id']))?$_SESSION['id']:"";//del perfil a consultar
-  $nomusu=(isset($_POST['perfext']))?$_POST['perfext']:"";//del perfil a consultar
+  $nomusu=(isset($_GET['perfext']))?$_GET['perfext']:"";//del perfil a consultar
   if($idusu!="")
   {
 ?>  
@@ -57,7 +57,7 @@ session_start();
                 <img class='circle responsive-img' src='../Resources/Avatar/".$_SESSION['foto'].".jpg'>";
                   ?>
                   </div>
-                  <div class="col offset-l3 icon">
+                  <div class="col offset-l2 icon">
                     <a class="btn-floating btn-large waves-effect waves-light red" id='reportar'><i class="material-icons">report_problem</i></a>
                   </div>
               </div>
@@ -138,6 +138,7 @@ session_start();
      var fecnam="";
      var fotom="";
      var img="";
+     alert(perfil);
      // var divnom=[];
         $.ajax(
           {
